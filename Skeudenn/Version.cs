@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Skeudenn
 {
+#if NET5_0_OR_GREATER
    public sealed record Version
-   {
-      public string Text
+#else
+   public sealed class Version
+#endif
+    {
+        public string Text
       {
          get
          {

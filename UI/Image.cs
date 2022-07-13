@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace Skeudenn.UI
 {
-   public sealed record Image
+#if NET5_0_OR_GREATER
+      public sealed record Image
+#else
+   public sealed class Image
+#endif
    {
       private Controller.Image image;
 

@@ -1,11 +1,15 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using Skeudenn.UI;
 using Spectre.Console;
 using System;
+#if NET5_0_OR_GREATER
 using System.Collections.Immutable;
+#endif
 using System.IO;
 
+#if NET5_0_OR_GREATER
 namespace Skeudenn.Console
 {
    class Program
@@ -69,9 +73,22 @@ namespace Skeudenn.Console
 
                   canvasImage.MaxWidth = 25;
 
+                  AnsiConsole.Live(canvasImage).Start(ctx =>
+                     {
+                        float angle = 0.0f;
+
+                        while (true)
+                        {
+                           canvasImage.Mutate(image => image.Rotate(angle));
+
+                           ctx.Refresh();
+                           angle += 1.0f;
+                        }
+                     });
+
                   AnsiConsole.Render(canvasImage);
                }
-               catch (FileNotFoundException e)
+               catch (FileNotFoundException)
                {
                   AnsiConsole.WriteLine("Cannot find or open this image file.");
                   AnsiConsole.WriteLine(filePath);
@@ -93,6 +110,8 @@ namespace Skeudenn.Console
 
             menu = main;
          });
+
+         ConsoleKeyInfo? consoleKeyInfo = AnsiConsole.Console.Input.ReadKey(true);
 
          while (!exitMenu)
          {
@@ -140,3 +159,4 @@ namespace Skeudenn.Console
       }
    }
 }
+#endif

@@ -10,7 +10,11 @@ using SixLabors.ImageSharp.Advanced;
 
 namespace Skeudenn
 {
+#if NET5_0_OR_GREATER
    public sealed record Image
+#else
+   public sealed class Image
+#endif
    {
       private Image<L8> image;
 

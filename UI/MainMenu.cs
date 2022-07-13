@@ -8,7 +8,11 @@ using Skeudenn.Controller;
 
 namespace Skeudenn.UI
 {
+#if NET5_0_OR_GREATER
    public sealed record MainMenu
+#else
+   public sealed class MainMenu
+#endif
    {
       private FileOpen fileOpen = new FileOpen();
       private FileExit fileExit = new FileExit();
