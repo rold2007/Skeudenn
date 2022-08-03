@@ -8,12 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Godot\**" />
+    <Compile Remove="Skeudenn.Godot\**" />
     <Compile Remove="_NCrunch_Skeudenn\**" />
+    <EmbeddedResource Remove="Godot\**" />
+    <EmbeddedResource Remove="Skeudenn.Godot\**" />
     <EmbeddedResource Remove="_NCrunch_Skeudenn\**" />
+    <None Remove="Godot\**" />
+    <None Remove="Skeudenn.Godot\**" />
     <None Remove="_NCrunch_Skeudenn\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="FileMenu.cs" />
+    <Compile Remove="HelpMenu.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="default_env.tres" />
+    <None Remove="export_presets.cfg" />
+    <None Remove="FileMenu.gd" />
+    <None Remove="icon.png" />
+    <None Remove="icon.png.import" />
+    <None Remove="Image.tscn" />
+    <None Remove="MainMenu.tscn" />
+    <None Remove="project.godot" />
     <None Remove="Skeudenn.v3.ncrunchsolution" />
   </ItemGroup>
 

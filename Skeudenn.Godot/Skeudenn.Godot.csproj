@@ -1,0 +1,17 @@
+<Project Sdk="Godot.NET.Sdk/3.3.0">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Skeudenn.Godot</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Skeudenn">
+      <HintPath>..\bin\$(Configuration)\net472\Skeudenn.dll</HintPath>
+    </Reference>
+    <Reference Include="GodotSharp">
+      <HintPath>.mono\assemblies\$(Configuration)\GodotSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GodotSharpEditor">
+      <HintPath>.mono\assemblies\$(Configuration)\GodotSharpEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

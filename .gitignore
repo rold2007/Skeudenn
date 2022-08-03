@@ -1,5 +1,7 @@
 /.vs
 /bin
 /obj
-/*.user
+*.user
 /_NCrunch_Skeudenn/*.cache
+.mono
+/Skeudenn.Godot/.import
