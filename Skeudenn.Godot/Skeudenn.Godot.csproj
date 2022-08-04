@@ -4,9 +4,9 @@
     <RootNamespace>Skeudenn.Godot</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Skeudenn">
-      <HintPath>..\bin\$(Configuration)\net472\Skeudenn.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Skeudenn.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="GodotSharp">
       <HintPath>.mono\assemblies\$(Configuration)\GodotSharp.dll</HintPath>
     </Reference>

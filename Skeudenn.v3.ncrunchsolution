@@ -3,6 +3,9 @@
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
     <MetricsExclusionList>
       <Value>Program.cs:Skeudenn.csproj</Value>
+      <Value>Program.cs:Skeudenn.csproj:net472</Value>
+      <Value>Program.cs:Skeudenn.csproj:net6.0</Value>
+      <Value>Skeudenn.Godot\Skeudenn.Godot.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>

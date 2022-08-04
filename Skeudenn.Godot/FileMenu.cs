@@ -2,19 +2,26 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+// UNDONE: Activate/configure NCrunch.
+// TODO: Configure a Continuous Integration (AppVeyor?) for the solution
 // TODO: Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 // TODO: Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
 // TODO: The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
-// TODO: Activate/configure NCrunch.
-// TODO: Configure a Continuous Integration (AppVeyor?) for the solution
 public class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
+   private TextureRect textureRect;
+   private Godot.ImageTexture imageTexture;
+   private Godot.Image image;
 
    public override void _Ready()
    {
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
+      textureRect = GetParent().GetParent().GetNode("ScrollContainer/TextureRect") as TextureRect;
+      imageTexture = new ImageTexture();
+      textureRect.Texture = imageTexture;
+      image = new Image();
    }
 
    private void _on_OpenImageFileDialog_file_selected(String path)
@@ -24,26 +31,16 @@ public class FileMenu : MenuButton
 
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
-      // TODO: Load and display the image properly after opening image file
-      Godot.Image image = new Godot.Image();
-
+      // UNDONE: Load and display the image properly after opening image file
       byte[] imageData = new byte[500 * 500];
 
       for (int i = 0; i < 500 * 400; i++)
       {
          imageData[i] = 128;
-
       }
 
       image.CreateFromData(500, 500, false, Godot.Image.Format.L8, imageData);
-
-      TextureRect textureRect = GetParent().GetParent().GetNode("ScrollContainer/TextureRect") as TextureRect;
-
-      Godot.ImageTexture imageTex = new ImageTexture();
-
-      imageTex.CreateFromImage(image);
-
-      textureRect.Texture = imageTex;
+      imageTexture.CreateFromImage(image);
    }
 
    public void SubMenuClicked(int id)
