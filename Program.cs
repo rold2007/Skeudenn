@@ -86,7 +86,7 @@ namespace Skeudenn.Console
                         }
                      });
 
-                  AnsiConsole.Render(canvasImage);
+                  AnsiConsole.Write(canvasImage);
                }
                catch (FileNotFoundException)
                {
