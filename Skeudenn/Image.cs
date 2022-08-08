@@ -37,6 +37,7 @@ namespace Skeudenn
 
       public Image OpenFile(Stream imageStream)
       {
+         // TODO: Handle UnknownImageFormatException and any other potential exception from Load()
          return new Image(SixLabors.ImageSharp.Image.Load<L8>(imageStream));
       }
    }

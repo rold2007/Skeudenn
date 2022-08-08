@@ -38,8 +38,6 @@ window_title = "Open File(s)"
 resizable = true
 mode = 1
 access = 2
-current_dir = "/Users/rold2/source/repos/Skeudenn.Godot"
-current_path = "/Users/rold2/source/repos/Skeudenn.Godot/"
 
 [node name="HelpMenu" type="MenuButton" parent="VBoxContainer/HBoxContainer"]
 margin_left = 39.0
