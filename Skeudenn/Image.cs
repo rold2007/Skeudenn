@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Advanced;
 
 namespace Skeudenn
 {
@@ -37,7 +31,7 @@ namespace Skeudenn
 
       public Image OpenFile(Stream imageStream)
       {
-         // TODO: Handle UnknownImageFormatException and any other potential exception from Load()
+         // TODO Handle UnknownImageFormatException and any other potential exception from Load()
          return new Image(SixLabors.ImageSharp.Image.Load<L8>(imageStream));
       }
    }

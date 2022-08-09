@@ -27,7 +27,7 @@ public class HelpMenu : MenuButton
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += "https://godotengine.org/license";
 
-            // TODO: Apply a centered position to the about box
+            // TODO Apply a centered position to the about box
             aboutBoxDialog.SetPosition(new Vector2(50, 200));
 
             aboutBoxDialog.ShowModal(true);

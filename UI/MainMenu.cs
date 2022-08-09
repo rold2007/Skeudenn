@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Skeudenn.Controller;
 
 namespace Skeudenn.UI
@@ -30,19 +25,12 @@ namespace Skeudenn.UI
 
       public Image OpenFile(string path)
       {
-         using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-         {
-            Controller.Image image = fileOpen.OpenFile(fileStream);
-
-            return new Image(image);
-         }
+         return new Image(fileOpen.OpenFile(path));
       }
 
       public Image OpenFile(Stream imageStream)
       {
-         Controller.Image image = fileOpen.OpenFile(imageStream);
-
-         return new Image(image);
+         return new Image(fileOpen.OpenFile(imageStream));
       }
 
       public string AboutText()

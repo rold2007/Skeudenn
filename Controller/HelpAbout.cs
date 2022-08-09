@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Skeudenn;
-
-namespace Skeudenn.Controller
+﻿namespace Skeudenn.Controller
 {
 #if NET5_0_OR_GREATER
    public sealed record HelpAbout
