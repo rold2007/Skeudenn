@@ -9,7 +9,6 @@ using System.Collections.Immutable;
 #endif
 using System.IO;
 
-// TODO Move this to a Console project
 #if NET5_0_OR_GREATER
 namespace Skeudenn.Console
 {

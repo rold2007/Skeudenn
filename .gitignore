@@ -1,6 +1,6 @@
 .vs
-/bin
-/obj
+bin
+obj
 *.user
 /_NCrunch_Skeudenn/*.cache
 .mono

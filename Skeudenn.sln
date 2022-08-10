@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Godot", "Skeudenn.
 		{3D209436-6854-4975-B0F2-406ADCB42D1A} = {3D209436-6854-4975-B0F2-406ADCB42D1A}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Console", "Skeudenn.Console\Skeudenn.Console.csproj", "{9031F585-441C-497F-A594-E4D333682A7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,14 @@ Global
 		{44279427-ABCC-4B67-9194-5B23724B9540}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 		{44279427-ABCC-4B67-9194-5B23724B9540}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{44279427-ABCC-4B67-9194-5B23724B9540}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9031F585-441C-497F-A594-E4D333682A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
