@@ -6,13 +6,13 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-// TODO Add basic options to the image: Zoom, pixel position in status bar, etc.
+// UNDONE Add basic options to the image: Zoom, pixel position in status bar, etc.
 // TODO Make the image MDI-like with tabs, etc.
 // TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now avilable in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
-// TODO Configure a Continuous Integration (AppVeyor?) for the solution
-// TODO Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
-// TODO Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
-// TODO The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
+// HACK Configure a Continuous Integration (AppVeyor?) for the solution
+// HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
+// HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
+// HACK The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
 public class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
@@ -26,7 +26,7 @@ public class FileMenu : MenuButton
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
 
-      // TODO Use the new feature "Access nodes by unique names" now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
+      // HACK Use the new feature "Access nodes by unique names" now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
       textureRect = GetParent().GetParent().GetNode("ScrollContainer/TextureRect") as TextureRect;
       imageTexture = new ImageTexture();
       textureRect.Texture = imageTexture;
@@ -40,10 +40,10 @@ public class FileMenu : MenuButton
 
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
-      // TODO Support more than one path
-      Skeudenn.Controller.Image skeudennImage = fileOpen.OpenFile(paths[0]); ;
+      // UNDONE Support more than one path
+      Skeudenn.Controller.Image skeudennImage = fileOpen.OpenFile(paths[0]);
 
-      // TODO Move the logic to extract the Span/imageData to Skeudenn.Controller.Image
+      // UNDONE Move the logic to extract the Span/imageData to Skeudenn.Controller.Image
       Image<L8> imageClone = skeudennImage.ImageClone;
       byte[] imageData = new byte[imageClone.Width * imageClone.Height];
       Span<byte> theSpan = new Span<byte>(imageData);
