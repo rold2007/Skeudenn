@@ -17,6 +17,7 @@ run/low_processor_mode=true
 [global]
 
 icon=false
+image=false
 
 [physics]
 

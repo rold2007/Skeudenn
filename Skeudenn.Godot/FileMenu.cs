@@ -4,9 +4,9 @@ using SixLabors.ImageSharp.PixelFormats;
 using Skeudenn.Controller;
 using System;
 using System.Diagnostics;
-using System.IO;
 
-// UNDONE Add basic options to the image: Zoom, pixel position in status bar, etc.
+// UNDONE Add basic options to the image: Zoom
+// UNDONE Add basic options to the image: Pixel position in status bar, etc.
 // TODO Make the image MDI-like with tabs, etc.
 // TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now avilable in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
@@ -31,6 +31,8 @@ public class FileMenu : MenuButton
       imageTexture = new ImageTexture();
       textureRect.Texture = imageTexture;
       image = new Godot.Image();
+
+      imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
    }
 
    private void _on_OpenImageFileDialog_file_selected(String path)
@@ -52,18 +54,21 @@ public class FileMenu : MenuButton
 
       image.CreateFromData(imageClone.Width, imageClone.Height, false, Godot.Image.Format.L8, imageData);
       imageTexture.CreateFromImage(image);
+      textureRect.RectSize = new Vector2(imageClone.Width, imageClone.Height);
    }
 
-   public void SubMenuClicked(int id)
+   private void SubMenuClicked(int id)
    {
       switch (id)
       {
          case 0:
             // TODO Set a proper position, size and starting directory when opening openImageFileDialog
             // TODO Add file extension filter for images with openImageFileDialog
-            openImageFileDialog.SetPosition(new Vector2(50, 200));
+            openImageFileDialog.SetPosition(new Vector2(50, 100));
             openImageFileDialog.RectMinSize = new Vector2(0, 0);
+            openImageFileDialog.SetSize(new Vector2(640, 480));
             openImageFileDialog.ShowModal(true);
+            openImageFileDialog.Invalidate();
             break;
 
          case 1:
@@ -75,4 +80,26 @@ public class FileMenu : MenuButton
             break;
       }
    }
+
+   private void _on_ZoomIn_Button_pressed()
+   {
+      // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
+      // TODO Apply zoom in/out steps like in Paint.Net
+      // TODO Limit the zoom in/out min/max ratios
+      textureRect.RectSize *= 1.5f;
+   }
+
+   private void _on_ZoomReset_Button_pressed()
+   {
+      Vector2 imageSize = image.GetSize();
+
+      // TODO Fix the image which disappear when chaning the window size. USing the reset zoom works a workaround so it is probably related to the RectSize
+      textureRect.RectSize = imageSize;
+   }
+
+   private void _on_ZoomOut_Button_pressed()
+   {
+      textureRect.RectSize /= 1.5f;
+   }
 }
+

@@ -48,7 +48,7 @@ namespace Skeudenn.Console
          menuAction = menuAction.Add(fileUp, () => menu = main);
          menuAction = menuAction.Add(fileOpen, () =>
          {
-            string filePath = AnsiConsole.Ask<string>("Enter file path", null);
+            string filePath = AnsiConsole.Ask<string>("Enter file path", string.Empty);
 
             AnsiConsole.Clear();
 
@@ -118,6 +118,7 @@ namespace Skeudenn.Console
             string menuTitle;
             Action action;
 
+            // HACK Fix all warning CS8600
             if (menuPrompts.TryGetValue(menu, out menuTitle))
             {
                ImmutableList<string> choices;

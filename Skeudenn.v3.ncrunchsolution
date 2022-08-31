@@ -6,6 +6,7 @@
       <Value>Program.cs:Skeudenn.csproj:net472</Value>
       <Value>Program.cs:Skeudenn.csproj:net6.0</Value>
       <Value>Skeudenn.Godot\Skeudenn.Godot.csproj</Value>
+      <Value>Skeudenn.Console\Skeudenn.Console.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
