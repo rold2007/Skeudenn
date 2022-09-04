@@ -5,10 +5,8 @@ using Skeudenn.Controller;
 using System;
 using System.Diagnostics;
 
-// UNDONE Add basic options to the image: Zoom
-// UNDONE Add basic options to the image: Pixel position in status bar, etc.
 // TODO Make the image MDI-like with tabs, etc.
-// TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now avilable in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
+// TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 // HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
@@ -17,17 +15,20 @@ public class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
    private TextureRect textureRect;
-   private Godot.ImageTexture imageTexture;
+   private ImageTexture imageTexture;
    private Godot.Image image;
+   private Label pixelPosition;
    private FileOpen fileOpen = new FileOpen();
 
    public override void _Ready()
    {
+      OS.WindowMaximized = true;
+
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
 
-      // HACK Use the new feature "Access nodes by unique names" now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
-      textureRect = GetParent().GetParent().GetNode("ScrollContainer/TextureRect") as TextureRect;
+      textureRect = GetNode("%TextureRect") as TextureRect;
+      pixelPosition = GetNode("%PixelPosition") as Label;
       imageTexture = new ImageTexture();
       textureRect.Texture = imageTexture;
       image = new Godot.Image();
@@ -81,8 +82,10 @@ public class FileMenu : MenuButton
       }
    }
 
+   // TODO The code to manage the zoom should not be in filemenu.cs... And it should call the controller as soon as possible
    private void _on_ZoomIn_Button_pressed()
    {
+      // TODO Make the scroll bars appear when the image is too big to fit the ScrollContainer
       // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
       // TODO Apply zoom in/out steps like in Paint.Net
       // TODO Limit the zoom in/out min/max ratios
@@ -101,5 +104,13 @@ public class FileMenu : MenuButton
    {
       textureRect.RectSize /= 1.5f;
    }
+
+   private void _on_TextureRect_gui_input(object inputEvent)
+   {
+      if (inputEvent is InputEventMouseMotion eventMouseMotion)
+         // TODO Take the zoom into account to remap to the image pixel position
+         pixelPosition.Text = eventMouseMotion.Position.ToString();
+   }
 }
+
 

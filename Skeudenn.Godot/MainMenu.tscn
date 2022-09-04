@@ -56,7 +56,7 @@ margin_bottom = 58.0
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 1010.0
-margin_bottom = 514.0
+margin_bottom = 496.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -64,31 +64,42 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 expand = true
 stretch_mode = 1
 
 [node name="ZoomOut" type="Button" parent="VBoxContainer"]
-margin_top = 518.0
+margin_top = 500.0
 margin_right = 1010.0
-margin_bottom = 538.0
+margin_bottom = 520.0
 rect_pivot_offset = Vector2( 620, 10 )
 text = "Zoom-"
 
 [node name="ZoomReset" type="Button" parent="VBoxContainer"]
-margin_top = 542.0
+margin_top = 524.0
 margin_right = 1010.0
-margin_bottom = 562.0
+margin_bottom = 544.0
 rect_pivot_offset = Vector2( 620, 10 )
 text = "Reset Zoom"
 
 [node name="ZoomIn" type="Button" parent="VBoxContainer"]
-margin_top = 566.0
+margin_top = 548.0
+margin_right = 1010.0
+margin_bottom = 568.0
+text = "Zoom+"
+
+[node name="StatusBar" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 572.0
 margin_right = 1010.0
 margin_bottom = 586.0
-text = "Zoom+"
+
+[node name="PixelPosition" type="Label" parent="VBoxContainer/StatusBar"]
+unique_name_in_owner = true
+margin_bottom = 14.0
 
 [connection signal="file_selected" from="VBoxContainer/HBoxContainer/FileMenu/OpenImageFileDialog" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_OpenImageFileDialog_file_selected"]
 [connection signal="files_selected" from="VBoxContainer/HBoxContainer/FileMenu/OpenImageFileDialog" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_OpenImageFileDialog_files_selected"]
+[connection signal="gui_input" from="VBoxContainer/ScrollContainer/TextureRect" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_TextureRect_gui_input"]
 [connection signal="pressed" from="VBoxContainer/ZoomOut" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_ZoomOut_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ZoomReset" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_ZoomReset_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ZoomIn" to="VBoxContainer/HBoxContainer/FileMenu" method="_on_ZoomIn_Button_pressed"]
