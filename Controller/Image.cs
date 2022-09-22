@@ -19,9 +19,22 @@ namespace Skeudenn.Controller
          }
       }
 
+      public Size Size
+      {
+         get
+         {
+            return image.Size;
+         }
+      }
+
       public Image(Skeudenn.Image image)
       {
          this.image = image;
+      }
+
+      public byte[] ImageData()
+      {
+         return image.ImageData();
       }
    }
 }

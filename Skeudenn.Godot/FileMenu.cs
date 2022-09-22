@@ -1,10 +1,9 @@
 using Godot;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using Skeudenn.Controller;
 using System;
 using System.Diagnostics;
 
+// UNDONE Should be using Skeudenn.UI and not Skeudenn.Controller
 // TODO Make the image MDI-like with tabs, etc.
 // TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
@@ -45,17 +44,11 @@ public class FileMenu : MenuButton
    {
       // UNDONE Support more than one path
       Skeudenn.Controller.Image skeudennImage = fileOpen.OpenFile(paths[0]);
+      byte[] imageData = skeudennImage.ImageData();
 
-      // UNDONE Move the logic to extract the Span/imageData to Skeudenn.Controller.Image
-      Image<L8> imageClone = skeudennImage.ImageClone;
-      byte[] imageData = new byte[imageClone.Width * imageClone.Height];
-      Span<byte> theSpan = new Span<byte>(imageData);
-
-      imageClone.CopyPixelDataTo(theSpan);
-
-      image.CreateFromData(imageClone.Width, imageClone.Height, false, Godot.Image.Format.L8, imageData);
+      image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
       imageTexture.CreateFromImage(image);
-      textureRect.RectSize = new Vector2(imageClone.Width, imageClone.Height);
+      textureRect.RectSize = new Vector2(skeudennImage.Size.Width, skeudennImage.Size.Height);
    }
 
    private void SubMenuClicked(int id)
@@ -108,8 +101,10 @@ public class FileMenu : MenuButton
    private void _on_TextureRect_gui_input(object inputEvent)
    {
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
+      {
          // TODO Take the zoom into account to remap to the image pixel position
          pixelPosition.Text = eventMouseMotion.Position.ToString();
+      }
    }
 }
 
