@@ -1,9 +1,8 @@
 using Godot;
-using Skeudenn.Controller;
+using Skeudenn.UI;
 using System;
 using System.Diagnostics;
 
-// UNDONE Should be using Skeudenn.UI and not Skeudenn.Controller
 // TODO Make the image MDI-like with tabs, etc.
 // TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
@@ -17,7 +16,7 @@ public class FileMenu : MenuButton
    private ImageTexture imageTexture;
    private Godot.Image image;
    private Label pixelPosition;
-   private FileOpen fileOpen = new FileOpen();
+   private MainMenu mainMenu = new MainMenu();
 
    public override void _Ready()
    {
@@ -43,7 +42,7 @@ public class FileMenu : MenuButton
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
       // UNDONE Support more than one path
-      Skeudenn.Controller.Image skeudennImage = fileOpen.OpenFile(paths[0]);
+      Skeudenn.UI.Image skeudennImage = mainMenu.OpenFile(paths[0]);
       byte[] imageData = skeudennImage.ImageData();
 
       image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);

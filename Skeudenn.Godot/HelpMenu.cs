@@ -1,8 +1,7 @@
 using Godot;
 using System.Diagnostics;
-using Skeudenn.Controller;
+using Skeudenn.UI;
 
-// UNDONE Should be using Skeudenn.UI and not Skeudenn.Controller
 public class HelpMenu : MenuButton
 {
    private AcceptDialog aboutBoxDialog;
@@ -18,10 +17,10 @@ public class HelpMenu : MenuButton
       switch (id)
       {
          case 0:
-            HelpAbout helpAbout = new HelpAbout();
+            MainMenu mainMenu = new MainMenu();
 
             aboutBoxDialog.WindowTitle = "About";
-            aboutBoxDialog.DialogText = helpAbout.Text();
+            aboutBoxDialog.DialogText = mainMenu.AboutText();
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += "Made with Godot";

@@ -2,7 +2,6 @@
 using Shouldly;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using Skeudenn.Controller;
 using Xunit;
 
 namespace Skeudenn.Tests
@@ -22,9 +21,9 @@ namespace Skeudenn.Tests
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
 
-               FileOpen fileOpen = new FileOpen();
+               UI.MainMenu mainMenu = new UI.MainMenu();
 
-               Controller.Image image = fileOpen.OpenFile(memoryStream);
+               UI.Image image = mainMenu.OpenFile(memoryStream);
 
                image.Size.Width.ShouldBe(3);
                image.Size.Height.ShouldBe(5);
