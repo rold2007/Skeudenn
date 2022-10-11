@@ -17,7 +17,7 @@ public class HelpMenu : MenuButton
       switch (id)
       {
          case 0:
-            MainMenu mainMenu = new MainMenu();
+            Skeudenn.UI.MainMenu mainMenu = new Skeudenn.UI.MainMenu();
 
             aboutBoxDialog.WindowTitle = "About";
             aboutBoxDialog.DialogText = mainMenu.AboutText();

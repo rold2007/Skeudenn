@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 
 namespace Skeudenn.UI
 {
@@ -35,6 +36,11 @@ namespace Skeudenn.UI
       public byte[] ImageData()
       {
          return image.ImageData();
+      }
+
+      public System.Drawing.PointF PixelPosition(System.Drawing.PointF windowPosition)
+      {
+         return windowPosition;
       }
    }
 }

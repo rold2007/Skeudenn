@@ -1,5 +1,4 @@
 using Godot;
-using Skeudenn.UI;
 using System;
 using System.Diagnostics;
 
@@ -12,11 +11,12 @@ using System.Diagnostics;
 public class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
-   private TextureRect textureRect;
-   private ImageTexture imageTexture;
-   private Godot.Image image;
+
    private Label pixelPosition;
-   private MainMenu mainMenu = new MainMenu();
+   private Skeudenn.UI.MainMenu mainMenu = new Skeudenn.UI.MainMenu();
+
+   // UNDONE imageNode should not be in FileMenu...
+   private Image imageNode;
 
    public override void _Ready()
    {
@@ -24,14 +24,10 @@ public class FileMenu : MenuButton
 
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
-
-      textureRect = GetNode("%TextureRect") as TextureRect;
+      imageNode = GetNode<Image>("%Image");
       pixelPosition = GetNode("%PixelPosition") as Label;
-      imageTexture = new ImageTexture();
-      textureRect.Texture = imageTexture;
-      image = new Godot.Image();
 
-      imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
+      imageNode.MouseMove += ImageNode_MakeMeDoWork;
    }
 
    private void _on_OpenImageFileDialog_file_selected(String path)
@@ -41,13 +37,10 @@ public class FileMenu : MenuButton
 
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
-      // UNDONE Support more than one path
+      // TODO Support more than one path
       Skeudenn.UI.Image skeudennImage = mainMenu.OpenFile(paths[0]);
-      byte[] imageData = skeudennImage.ImageData();
 
-      image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
-      imageTexture.CreateFromImage(image);
-      textureRect.RectSize = new Vector2(skeudennImage.Size.Width, skeudennImage.Size.Height);
+      imageNode.ImageUI = skeudennImage;
    }
 
    private void SubMenuClicked(int id)
@@ -74,37 +67,8 @@ public class FileMenu : MenuButton
       }
    }
 
-   // TODO The code to manage the zoom should not be in filemenu.cs... And it should call the controller as soon as possible
-   private void _on_ZoomIn_Button_pressed()
+   private void ImageNode_MakeMeDoWork(object sender, Image.TextureMouseMoveEventArgs e)
    {
-      // TODO Make the scroll bars appear when the image is too big to fit the ScrollContainer
-      // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
-      // TODO Apply zoom in/out steps like in Paint.Net
-      // TODO Limit the zoom in/out min/max ratios
-      textureRect.RectSize *= 1.5f;
-   }
-
-   private void _on_ZoomReset_Button_pressed()
-   {
-      Vector2 imageSize = image.GetSize();
-
-      // TODO Fix the image which disappear when chaning the window size. USing the reset zoom works a workaround so it is probably related to the RectSize
-      textureRect.RectSize = imageSize;
-   }
-
-   private void _on_ZoomOut_Button_pressed()
-   {
-      textureRect.RectSize /= 1.5f;
-   }
-
-   private void _on_TextureRect_gui_input(object inputEvent)
-   {
-      if (inputEvent is InputEventMouseMotion eventMouseMotion)
-      {
-         // TODO Take the zoom into account to remap to the image pixel position
-         pixelPosition.Text = eventMouseMotion.Position.ToString();
-      }
+      pixelPosition.Text = e.PixelPosition.ToString();
    }
 }
-
-
