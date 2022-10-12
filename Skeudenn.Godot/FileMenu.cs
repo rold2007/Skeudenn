@@ -12,11 +12,17 @@ public class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
 
-   private Label pixelPosition;
-   private Skeudenn.UI.MainMenu mainMenu = new Skeudenn.UI.MainMenu();
+   public class OpenFilesEventArgs : EventArgs
+   {
+      public OpenFilesEventArgs(String[] paths)
+      {
+         Paths = paths;
+      }
 
-   // UNDONE imageNode should not be in FileMenu...
-   private Image imageNode;
+      public String[] Paths { get; private set; }
+   }
+
+   public event EventHandler<OpenFilesEventArgs> OpenFiles;
 
    public override void _Ready()
    {
@@ -24,10 +30,6 @@ public class FileMenu : MenuButton
 
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
-      imageNode = GetNode<Image>("%Image");
-      pixelPosition = GetNode("%PixelPosition") as Label;
-
-      imageNode.MouseMove += ImageNode_MakeMeDoWork;
    }
 
    private void _on_OpenImageFileDialog_file_selected(String path)
@@ -37,10 +39,12 @@ public class FileMenu : MenuButton
 
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
-      // TODO Support more than one path
-      Skeudenn.UI.Image skeudennImage = mainMenu.OpenFile(paths[0]);
+      EventHandler<OpenFilesEventArgs> handler = OpenFiles;
 
-      imageNode.ImageUI = skeudennImage;
+      if (handler != null)
+      {
+         handler(this, new OpenFilesEventArgs(paths));
+      }
    }
 
    private void SubMenuClicked(int id)
@@ -65,10 +69,5 @@ public class FileMenu : MenuButton
             Debug.Fail("Unknown menu id.");
             break;
       }
-   }
-
-   private void ImageNode_MakeMeDoWork(object sender, Image.TextureMouseMoveEventArgs e)
-   {
-      pixelPosition.Text = e.PixelPosition.ToString();
    }
 }

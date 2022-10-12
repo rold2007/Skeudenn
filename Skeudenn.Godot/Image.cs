@@ -9,8 +9,6 @@ public class Image : VBoxContainer
    private Godot.Image image;
    private Skeudenn.UI.Image skeudennImage;
 
-   public delegate void CollectEventHandler(object source, TextureMouseMoveEventArgs args);
-
    public class TextureMouseMoveEventArgs : EventArgs
    {
       public TextureMouseMoveEventArgs(PointF pixelPosition)
@@ -82,7 +80,7 @@ public class Image : VBoxContainer
          {
             PointF pixelPosition = skeudennImage.PixelPosition(new PointF(eventMouseMotion.Position.x, eventMouseMotion.Position.y));
 
-            MouseMove(this, new TextureMouseMoveEventArgs(pixelPosition));
+            handler(this, new TextureMouseMoveEventArgs(pixelPosition));
          }
       }
    }
