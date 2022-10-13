@@ -21,8 +21,8 @@ namespace Skeudenn.Tests
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
 
-               UI.MainMenu mainMenu = new UI.MainMenu();
-               UI.Image image = mainMenu.OpenFile(memoryStream);
+               UI.MainView mainView = new UI.MainView();
+               UI.Image image = mainView.OpenFile(memoryStream);
 
                image.Size.Width.ShouldBe(3);
                image.Size.Height.ShouldBe(5);
@@ -49,8 +49,8 @@ namespace Skeudenn.Tests
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
 
-               UI.MainMenu mainMenu = new UI.MainMenu();
-               UI.Image image = mainMenu.OpenFile(memoryStream);
+               UI.MainView mainView = new UI.MainView();
+               UI.Image image = mainView.OpenFile(memoryStream);
 
                System.Drawing.PointF windowPosition = new System.Drawing.PointF(42, 54);
                System.Drawing.PointF pixelPosition = image.PixelPosition(windowPosition);

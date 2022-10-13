@@ -17,10 +17,10 @@ public class HelpMenu : MenuButton
       switch (id)
       {
          case 0:
-            Skeudenn.UI.MainMenu mainMenu = new Skeudenn.UI.MainMenu();
+            Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
 
             aboutBoxDialog.WindowTitle = "About";
-            aboutBoxDialog.DialogText = mainMenu.AboutText();
+            aboutBoxDialog.DialogText = mainView.AboutText();
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += "Made with Godot";

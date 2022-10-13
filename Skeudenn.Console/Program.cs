@@ -34,7 +34,7 @@ namespace Skeudenn.Console
          ImmutableDictionary<string, ImmutableList<string>> menuChoices = ImmutableDictionary<string, ImmutableList<string>>.Empty;
          ImmutableDictionary<string, string> menuConversion = ImmutableDictionary<string, string>.Empty;
          ImmutableDictionary<string, Action> menuAction = ImmutableDictionary<string, Action>.Empty;
-         MainMenu mainMenu = new MainMenu();
+         MainView mainView = new MainView();
 
          menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(help, "HelpMenu");
 
@@ -58,7 +58,7 @@ namespace Skeudenn.Console
 
                try
                {
-                  UI.Image imageUI = mainMenu.OpenFile(filePath);
+                  UI.Image imageUI = mainView.OpenFile(filePath);
 
                   Image<L8> image = imageUI.ImageClone;
                   CanvasImage canvasImage;
@@ -106,7 +106,7 @@ namespace Skeudenn.Console
          menuAction = menuAction.Add(helpUp, () => menu = main);
          menuAction = menuAction.Add(helpAbout, () =>
          {
-            AnsiConsole.WriteLine(mainMenu.AboutText());
+            AnsiConsole.WriteLine(mainView.AboutText());
 
             menu = main;
          });

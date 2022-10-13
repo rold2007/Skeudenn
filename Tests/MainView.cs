@@ -6,18 +6,18 @@ using Xunit;
 
 namespace Skeudenn.Tests
 {
-   public sealed class MainMenu
+   public sealed class MainView
    {
       [Fact]
       public void Constructor()
       {
-         Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+         Skeudenn.UI.MainView fileMenu = new UI.MainView();
       }
 
       [Fact]
       public void CanExit()
       {
-         Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+         Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
          fileMenu.CanExit().ShouldBeTrue();
       }
@@ -25,7 +25,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void Exit()
       {
-         Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+         Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
          fileMenu.Exit();
       }
@@ -37,7 +37,7 @@ namespace Skeudenn.Tests
 
          using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
          {
-            Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+            Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
             string tempFilename = null;
 
@@ -65,7 +65,7 @@ namespace Skeudenn.Tests
          {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-               Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+               Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
@@ -78,7 +78,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void AboutText()
       {
-         Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+         Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
          string aboutText = fileMenu.AboutText();
 
@@ -94,7 +94,7 @@ namespace Skeudenn.Tests
          {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-               Skeudenn.UI.MainMenu fileMenu = new UI.MainMenu();
+               Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);

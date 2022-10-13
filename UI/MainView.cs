@@ -4,9 +4,9 @@ using Skeudenn.Controller;
 namespace Skeudenn.UI
 {
 #if NET5_0_OR_GREATER
-   public sealed record MainMenu
+   public sealed record MainView
 #else
-   public sealed class MainMenu
+   public sealed class MainView
 #endif
    {
       private FileOpen fileOpen = new FileOpen();
