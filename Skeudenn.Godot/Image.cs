@@ -73,7 +73,6 @@ public class Image : VBoxContainer
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
       {
          // TODO Take the zoom/scrollbar into account to remap to the image pixel position
-         // UNDONE There should be only one status bar, not in filemenu and not in image...
          EventHandler<TextureMouseMoveEventArgs> handler = MouseMove;
 
          if (handler != null)

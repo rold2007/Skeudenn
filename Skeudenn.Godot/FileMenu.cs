@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 
 // TODO Make the image MDI-like with tabs, etc.
-// TODO Try the new "New flow containers" (HFlowContainer and VFlowContainer) now available in Godot 3.5: https://godotengine.org/article/godot-3-5-cant-stop-wont-stop
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 // HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
