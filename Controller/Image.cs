@@ -9,7 +9,8 @@ namespace Skeudenn.Controller
    public sealed class Image
 #endif
    {
-      private Skeudenn.Image image;
+      private readonly Skeudenn.Image image;
+      private readonly Zoom zoom = new Zoom();
 
       public Image<L8> ImageClone
       {
@@ -27,6 +28,14 @@ namespace Skeudenn.Controller
          }
       }
 
+      public float ZoomLevel
+      {
+         get
+         {
+            return zoom.ZoomLevel;
+         }
+      }
+
       public Image(Skeudenn.Image image)
       {
          this.image = image;
@@ -35,6 +44,21 @@ namespace Skeudenn.Controller
       public byte[] ImageData()
       {
          return image.ImageData();
+      }
+
+      public void ZoomIn()
+      {
+         zoom.ZoomIn();
+      }
+
+      public void ZoomOut()
+      {
+         zoom.ZoomOut();
+      }
+
+      public void ZoomReset()
+      {
+         zoom.ZoomReset();
       }
    }
 }

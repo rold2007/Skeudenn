@@ -31,7 +31,7 @@ public class Image : VBoxContainer
 
          image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
          imageTexture.CreateFromImage(image);
-         textureRect.RectMinSize = new Vector2(skeudennImage.Size.Width, skeudennImage.Size.Height);
+         textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
          textureRect.Visible = true;
       }
    }
@@ -48,31 +48,29 @@ public class Image : VBoxContainer
 
    private void _on_ZoomIn_pressed()
    {
-      // TODO Make the scroll bars appear when the image is too big to fit the ScrollContainer
       // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
-      // TODO Apply zoom in/out steps like in Paint.Net
-      // TODO Limit the zoom in/out min/max ratios
-      textureRect.RectMinSize *= 1.5f;
+      // TODO Display the zoom level in the UI
+      skeudennImage.ZoomIn();
+      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
    }
 
    private void _on_ZoomReset_pressed()
    {
-      Vector2 imageSize = image.GetSize();
-
-      // TODO Fix the image which disappear when changing the window size. Using the reset zoom works a workaround so it is probably related to the RectSize
-      textureRect.RectMinSize = imageSize;
+      skeudennImage.ZoomReset();
+      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
    }
 
    private void _on_ZoomOut_pressed()
    {
-      textureRect.RectMinSize /= 1.5f;
+      skeudennImage.ZoomOut();
+      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
    }
 
    private void _on_TextureRect_gui_input(object inputEvent)
    {
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
       {
-         // TODO Take the zoom/scrollbar into account to remap to the image pixel position
+         // UNDONE Take the zoom/scrollbar into account to remap to the image pixel position
          EventHandler<TextureMouseMoveEventArgs> handler = MouseMove;
 
          if (handler != null)

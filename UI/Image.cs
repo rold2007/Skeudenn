@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp;
+﻿// UNDONE The UI namespace should not depend on ImageSharp. The real UI should use ImageData() to get the data.
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 
@@ -28,6 +29,14 @@ namespace Skeudenn.UI
          }
       }
 
+      public Size ZoomedSize
+      {
+         get
+         {
+            return new Size(Convert.ToInt32(Size.Width * image.ZoomLevel / 100.0), Convert.ToInt32(Size.Height * image.ZoomLevel / 100.0));
+         }
+      }
+
       public Image(Controller.Image image)
       {
          this.image = image;
@@ -41,6 +50,21 @@ namespace Skeudenn.UI
       public System.Drawing.PointF PixelPosition(System.Drawing.PointF windowPosition)
       {
          return windowPosition;
+      }
+
+      public void ZoomIn()
+      {
+         image.ZoomIn();
+      }
+
+      public void ZoomOut()
+      {
+         image.ZoomOut();
+      }
+
+      public void ZoomReset()
+      {
+         image.ZoomReset();
       }
    }
 }

@@ -8,8 +8,6 @@ namespace Skeudenn.Controller
    public sealed class FileOpen
 #endif
    {
-      private Skeudenn.Image image = new Skeudenn.Image();
-
       public Image OpenFile(string path)
       {
          using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -20,7 +18,7 @@ namespace Skeudenn.Controller
 
       public Image OpenFile(Stream imageStream)
       {
-         return new Image(image.OpenFile(imageStream));
+         return new Image(Skeudenn.Image.OpenFile(imageStream));
       }
    }
 }
