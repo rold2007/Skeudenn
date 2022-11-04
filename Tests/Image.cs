@@ -9,73 +9,89 @@ namespace Skeudenn.Tests
 {
    public sealed class Image
    {
+      static byte[] GenerateImageData(Size imageSize)
+      {
+         byte[] imagePixels = new byte[imageSize.Width * imageSize.Height];
+         Random random = new Random();
+
+         random.NextBytes(imagePixels);
+
+         return imagePixels;
+      }
+
+      static MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
+      {
+         MemoryStream memoryStream = null;
+
+         try
+         {
+            memoryStream = new MemoryStream();
+
+            using (SixLabors.ImageSharp.Image<L8> tempImage = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
+            {
+               // UNDONE Save randomly in different formats
+               tempImage.SaveAsBmp(memoryStream);
+            }
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+         }
+         catch
+         {
+            if (memoryStream != null)
+            {
+               memoryStream.Dispose();
+               memoryStream = null;
+            }
+         }
+
+         return memoryStream;
+      }
+
       [Fact]
       public void ImageData()
       {
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 5))
+         Size imageSize = new Size(3, 5);
+         byte[] imagePixels = GenerateImageData(imageSize);
+
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            Random random = new Random();
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
 
-            for (int y = 0; y < 5; y++)
-            {
-               for (int x = 0; x < 3; x++)
-               {
-                  tempImage[x, y] = new L8((byte)random.Next(0, 256));
-               }
-            }
-
-            tempImage[0, 0] = new L8(254);
-            tempImage[2, 4] = new L8(253);
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-               tempImage.SaveAsBmp(memoryStream);
-               memoryStream.Seek(0, SeekOrigin.Begin);
-
-               UI.MainView mainView = new UI.MainView();
-               UI.Image image = mainView.OpenFile(memoryStream);
-
-               image.Size.Width.ShouldBe(3);
-               image.Size.Height.ShouldBe(5);
-
-               byte[] imageData = image.ImageData();
-
-               imageData[0].ShouldBe((byte)254);
-               imageData[imageData.Length - 1].ShouldBe((byte)253);
-
-               for (int y = 0; y < 5; y++)
-               {
-                  for (int x = 0; x < 3; x++)
-                  {
-                     imageData[y * 3 + x].ShouldBe(tempImage[x, y].PackedValue);
-                  }
-               }
-            }
+            image.Size.ShouldBe(imageSize);
+            image.ImageData().ShouldBe(imagePixels);
          }
       }
 
       [Fact]
       public void PixelPosition()
       {
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 5))
+         Size imageSize = new Size(3, 5);
+         byte[] imagePixels = GenerateImageData(imageSize);
+
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            tempImage[0, 0] = new L8(254);
-            tempImage[2, 4] = new L8(253);
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
 
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-               tempImage.SaveAsBmp(memoryStream);
-               memoryStream.Seek(0, SeekOrigin.Begin);
+            System.Drawing.PointF windowPosition = new System.Drawing.PointF(42, 54);
+            System.Drawing.PointF pixelPosition = image.PixelPosition(windowPosition);
 
-               UI.MainView mainView = new UI.MainView();
-               UI.Image image = mainView.OpenFile(memoryStream);
+            windowPosition.X.ShouldBe(42);
+            windowPosition.Y.ShouldBe(54);
+         }
+      }
 
-               System.Drawing.PointF windowPosition = new System.Drawing.PointF(42, 54);
-               System.Drawing.PointF pixelPosition = image.PixelPosition(windowPosition);
+      [Fact]
+      public void ZoomedSize()
+      {
+         Size imageSize = new Size(5, 7);
+         byte[] imagePixels = GenerateImageData(imageSize);
 
-               windowPosition.X.ShouldBe(42);
-               windowPosition.Y.ShouldBe(54);
-            }
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
+         {
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
          }
       }
    }
