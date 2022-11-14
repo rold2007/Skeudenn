@@ -1,7 +1,5 @@
-﻿// UNDONE The UI namespace should not depend on ImageSharp. The real UI should use ImageData() to get the data.
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using System;
+﻿using System;
+using System.Drawing;
 
 namespace Skeudenn.UI
 {
@@ -13,14 +11,6 @@ namespace Skeudenn.UI
    {
       private Controller.Image image;
 
-      public Image<L8> ImageClone
-      {
-         get
-         {
-            return image.ImageClone;
-         }
-      }
-
       public Size Size
       {
          get
@@ -29,6 +19,7 @@ namespace Skeudenn.UI
          }
       }
 
+      // UNDONE Restore 100% code coverage
       public Size ZoomedSize
       {
          get

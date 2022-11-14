@@ -60,7 +60,7 @@ namespace Skeudenn.Console
                {
                   UI.Image imageUI = mainView.OpenFile(filePath);
 
-                  Image<L8> image = imageUI.ImageClone;
+                  Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
                   CanvasImage canvasImage;
 
                   using (MemoryStream memoryStream = new MemoryStream())

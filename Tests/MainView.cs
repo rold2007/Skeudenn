@@ -84,33 +84,5 @@ namespace Skeudenn.Tests
 
          aboutText.ShouldBe("v1.0");
       }
-
-      [Fact]
-      public void ImageClone()
-      {
-         Skeudenn.UI.Image imageUI;
-
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
-         {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-               Skeudenn.UI.MainView fileMenu = new UI.MainView();
-
-               tempImage.SaveAsBmp(memoryStream);
-               memoryStream.Seek(0, SeekOrigin.Begin);
-
-               imageUI = fileMenu.OpenFile(memoryStream);
-
-               using (MemoryStream imageClonerMemoryStream = new MemoryStream())
-               {
-                  Image<L8> image = imageUI.ImageClone;
-
-                  image.SaveAsBmp(imageClonerMemoryStream);
-
-                  imageClonerMemoryStream.ToArray().ShouldBe(memoryStream.ToArray());
-               }
-            }
-         }
-      }
    }
 }

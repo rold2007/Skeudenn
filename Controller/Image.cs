@@ -1,5 +1,4 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+﻿using System.Drawing;
 
 namespace Skeudenn.Controller
 {
@@ -11,14 +10,6 @@ namespace Skeudenn.Controller
    {
       private readonly Skeudenn.Image image;
       private readonly Zoom zoom = new Zoom();
-
-      public Image<L8> ImageClone
-      {
-         get
-         {
-            return image.ImageClone;
-         }
-      }
 
       public Size Size
       {

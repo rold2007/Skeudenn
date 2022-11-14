@@ -13,19 +13,11 @@ namespace Skeudenn
    {
       private Image<L8> image;
 
-      public Image<L8> ImageClone
+      public System.Drawing.Size Size
       {
          get
          {
-            return image.Clone();
-         }
-      }
-
-      public Size Size
-      {
-         get
-         {
-            return new Size(image.Width, image.Height);
+            return new System.Drawing.Size(image.Width, image.Height);
          }
       }
 

@@ -9,7 +9,7 @@ namespace Skeudenn.Tests
 {
    public sealed class Image
    {
-      static byte[] GenerateImageData(Size imageSize)
+      static byte[] GenerateImageData(System.Drawing.Size imageSize)
       {
          byte[] imagePixels = new byte[imageSize.Width * imageSize.Height];
          Random random = new Random();
@@ -19,7 +19,7 @@ namespace Skeudenn.Tests
          return imagePixels;
       }
 
-      static MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
+      static MemoryStream GenerateImage(byte[] imagePixels, System.Drawing.Size imageSize)
       {
          MemoryStream memoryStream = null;
 
@@ -50,7 +50,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void ImageData()
       {
-         Size imageSize = new Size(3, 5);
+         System.Drawing.Size imageSize = new System.Drawing.Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -66,7 +66,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void PixelPosition()
       {
-         Size imageSize = new Size(3, 5);
+         System.Drawing.Size imageSize = new System.Drawing.Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -85,7 +85,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void ZoomedSize()
       {
-         Size imageSize = new Size(5, 7);
+         System.Drawing.Size imageSize = new System.Drawing.Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
