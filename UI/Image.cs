@@ -19,7 +19,6 @@ namespace Skeudenn.UI
          }
       }
 
-      // UNDONE Restore 100% code coverage
       public Size ZoomedSize
       {
          get
