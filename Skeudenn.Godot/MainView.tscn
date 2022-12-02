@@ -59,11 +59,22 @@ script = ExtResource( 3 )
 margin_right = 83.0
 margin_bottom = 58.0
 
-[node name="Image" parent="VBoxContainer" instance=ExtResource( 1 )]
+[node name="Tabs" type="Tabs" parent="VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 24.0
 margin_right = 1010.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+tab_align = 0
+tab_close_display_policy = 2
+drag_to_rearrange_enabled = true
+
+[node name="Image" parent="VBoxContainer" instance=ExtResource( 1 )]
+unique_name_in_owner = true
+margin_top = 52.0
+margin_right = 1010.0
 margin_bottom = 568.0
+rect_min_size = Vector2( 300, 300 )
 
 [node name="StatusBar" type="HBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -73,7 +84,12 @@ margin_bottom = 586.0
 
 [node name="PixelPosition" type="Label" parent="VBoxContainer/StatusBar"]
 unique_name_in_owner = true
+margin_right = 28.0
 margin_bottom = 14.0
+text = "(0,0)"
 
 [connection signal="file_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_file_selected"]
 [connection signal="files_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_files_selected"]
+[connection signal="resized" from="VBoxContainer/Tabs" to="." method="_on_Tabs_resized"]
+[connection signal="tab_changed" from="VBoxContainer/Tabs" to="." method="_on_Tabs_tab_changed"]
+[connection signal="tab_close" from="VBoxContainer/Tabs" to="." method="_on_Tabs_tab_close"]

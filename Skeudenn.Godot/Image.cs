@@ -27,12 +27,26 @@ public class Image : VBoxContainer
       {
          skeudennImage = value;
 
-         byte[] imageData = skeudennImage.ImageData();
+         if (skeudennImage == null)
+         {
+            textureRect.Visible = false;
 
-         image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
-         imageTexture.CreateFromImage(image);
-         textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
-         textureRect.Visible = true;
+            // UNDONE Share code with _Ready
+            imageTexture = new ImageTexture();
+            textureRect.Texture = imageTexture;
+            image = new Godot.Image();
+            imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
+         }
+         else
+         {
+            byte[] imageData = skeudennImage.ImageData();
+
+            // TODO Allow to save/restore this data to swap faster from one image to another
+            image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
+            imageTexture.CreateFromImage(image);
+            textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+            textureRect.Visible = true;
+         }
       }
    }
 
