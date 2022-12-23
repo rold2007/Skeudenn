@@ -31,11 +31,7 @@ public class Image : VBoxContainer
          {
             textureRect.Visible = false;
 
-            // UNDONE Share code with _Ready
-            imageTexture = new ImageTexture();
-            textureRect.Texture = imageTexture;
-            image = new Godot.Image();
-            imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
+            Initialize();
          }
          else
          {
@@ -54,10 +50,17 @@ public class Image : VBoxContainer
    public override void _Ready()
     {
       textureRect = GetNode("%TextureRect") as TextureRect;
+
+      Initialize();
+   }
+
+   private void Initialize()
+   {
       imageTexture = new ImageTexture();
       textureRect.Texture = imageTexture;
       image = new Godot.Image();
       imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
+
    }
 
    private void _on_ZoomIn_pressed()
