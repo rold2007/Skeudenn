@@ -1,7 +1,13 @@
 ﻿using System;
 using System.IO;
 using Shouldly;
-using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.Formats.Pbm;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Tga;
+using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.PixelFormats;
 using Xunit;
 
@@ -29,8 +35,13 @@ namespace Skeudenn.Tests
 
             using (SixLabors.ImageSharp.Image<L8> tempImage = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
             {
-               // UNDONE Save randomly in different formats
-               tempImage.SaveAsBmp(memoryStream);
+               IImageFormat[] lossLessImageFormat = { BmpFormat.Instance, PbmFormat.Instance, PngFormat.Instance, TgaFormat.Instance, TiffFormat.Instance };
+
+#if NET5_0_OR_GREATER
+               tempImage.Save(memoryStream, tempImage.GetConfiguration().ImageFormatsManager.FindEncoder(lossLessImageFormat[Random.Shared.Next(lossLessImageFormat.Length)]));
+#else
+               tempImage.Save(memoryStream, tempImage.GetConfiguration().ImageFormatsManager.FindEncoder(lossLessImageFormat[new Random().Next(lossLessImageFormat.Length)]));
+#endif
             }
 
             memoryStream.Seek(0, SeekOrigin.Begin);

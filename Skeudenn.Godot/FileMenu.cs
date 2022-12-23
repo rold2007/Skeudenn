@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-// UNDONE Fix the scrollbars showing over the image texture
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 // HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
