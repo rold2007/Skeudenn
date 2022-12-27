@@ -28,6 +28,8 @@ public class FileMenu : MenuButton
 
       GetPopup().Connect("id_pressed", this, "SubMenuClicked");
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
+
+      openImageFileDialog.Filters = new string[] { "*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images" };
    }
 
    private void _on_OpenImageFileDialog_file_selected(String path)
@@ -50,8 +52,7 @@ public class FileMenu : MenuButton
       switch (id)
       {
          case 0:
-            // TODO Set a proper position, size and starting directory when opening openImageFileDialog
-            // TODO Add file extension filter for images with openImageFileDialog
+            // HACK Set a proper position, size and starting directory when opening openImageFileDialog
             openImageFileDialog.SetPosition(new Vector2(50, 100));
             openImageFileDialog.RectMinSize = new Vector2(0, 0);
             openImageFileDialog.SetSize(new Vector2(640, 480));
