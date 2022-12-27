@@ -30,16 +30,18 @@ public class MainView : PanelContainer
 
    private void FileMenu_OpenFiles(object sender, FileMenu.OpenFilesEventArgs e)
    {
-      // TODO Support more than one path
-      Skeudenn.UI.Image skeudennImage = mainView.OpenFile(e.Paths[0]);
-      // TODO Maybe the UI shouldn't be responsible to decide the tabs name
-      string filename = System.IO.Path.GetFileName(e.Paths[0]);
+      foreach (string path in e.Paths)
+      {
+         Skeudenn.UI.Image skeudennImage = mainView.OpenFile(path);
+         // TODO Maybe the UI shouldn't be responsible to decide the tabs name
+         string filename = System.IO.Path.GetFileName(path);
 
-      allImages.Add(skeudennImage);
-      tabs.AddTab(filename);
-      tabs.CurrentTab = tabs.GetTabCount() - 1;
+         allImages.Add(skeudennImage);
+         tabs.AddTab(filename);
+         tabs.CurrentTab = tabs.GetTabCount() - 1;
 
-      imageNode.ImageUI = skeudennImage;
+         imageNode.ImageUI = skeudennImage;
+      }
    }
 
    private void ImageNode_MouseMove(object sender, Image.TextureMouseMoveEventArgs e)
