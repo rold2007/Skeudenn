@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Drawing;
 using Shouldly;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Formats;
@@ -15,7 +16,7 @@ namespace Skeudenn.Tests
 {
    public sealed class Image
    {
-      static byte[] GenerateImageData(System.Drawing.Size imageSize)
+      static byte[] GenerateImageData(Size imageSize)
       {
          byte[] imagePixels = new byte[imageSize.Width * imageSize.Height];
          Random random = new Random();
@@ -25,7 +26,7 @@ namespace Skeudenn.Tests
          return imagePixels;
       }
 
-      static MemoryStream GenerateImage(byte[] imagePixels, System.Drawing.Size imageSize)
+      static MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
       {
          MemoryStream memoryStream = null;
 
@@ -63,7 +64,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void ImageData()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(3, 5);
+         Size imageSize = new Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -79,7 +80,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void PixelPosition()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(3, 5);
+         Size imageSize = new Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -87,18 +88,40 @@ namespace Skeudenn.Tests
             UI.MainView mainView = new UI.MainView();
             UI.Image image = mainView.OpenFile(memoryStream);
 
-            System.Drawing.PointF windowPosition = new System.Drawing.PointF(42, 54);
-            System.Drawing.PointF pixelPosition = image.PixelPosition(windowPosition);
+            PointF windowPosition = new PointF(42, 54);
+            PointF pixelPosition = image.PixelPosition(windowPosition);
 
-            windowPosition.X.ShouldBe(42);
-            windowPosition.Y.ShouldBe(54);
+            pixelPosition.X.ShouldBe(42);
+            pixelPosition.Y.ShouldBe(54);
+         }
+      }
+
+      [Fact]
+      public void PixelPositionZoomed()
+      {
+         Size imageSize = new Size(3, 5);
+         byte[] imagePixels = GenerateImageData(imageSize);
+
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
+         {
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
+
+            image.ZoomIn();
+            image.ZoomIn();
+
+            PointF windowPosition = new PointF(42, 54);
+            PointF pixelPosition = image.PixelPosition(windowPosition);
+
+            pixelPosition.X.ShouldBe(21);
+            pixelPosition.Y.ShouldBe(27);
          }
       }
 
       [Fact]
       public void ZoomedSize()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(5, 7);
+         Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -110,7 +133,7 @@ namespace Skeudenn.Tests
 
             image.ZoomIn();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(8, 10));
+            image.ZoomedSize.ShouldBe(new Size(8, 10));
 
             image.ZoomOut();
 
@@ -118,7 +141,7 @@ namespace Skeudenn.Tests
 
             image.ZoomOut();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(3, 5));
+            image.ZoomedSize.ShouldBe(new Size(3, 5));
          }
       }
 
@@ -126,7 +149,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void ZoomIn()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(5, 7);
+         Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -138,25 +161,25 @@ namespace Skeudenn.Tests
 
             image.ZoomIn();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(8, 10));
+            image.ZoomedSize.ShouldBe(new Size(8, 10));
 
             for (int i = 0; i < 20; i++)
             {
                image.ZoomIn();
             }
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(320, 448));
+            image.ZoomedSize.ShouldBe(new Size(320, 448));
 
             image.ZoomIn();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(320, 448));
+            image.ZoomedSize.ShouldBe(new Size(320, 448));
          }
       }
 
       [Fact]
       public void ZoomOut()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(500, 700);
+         Size imageSize = new Size(500, 700);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -168,25 +191,25 @@ namespace Skeudenn.Tests
 
             image.ZoomOut();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(335, 469));
+            image.ZoomedSize.ShouldBe(new Size(335, 469));
 
             for (int i = 0; i < 20; i++)
             {
                image.ZoomOut();
             }
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(10, 14));
+            image.ZoomedSize.ShouldBe(new Size(10, 14));
 
             image.ZoomOut();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(10, 14));
+            image.ZoomedSize.ShouldBe(new Size(10, 14));
          }
       }
 
       [Fact]
       public void ZoomReset()
       {
-         System.Drawing.Size imageSize = new System.Drawing.Size(5, 7);
+         Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
          using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
@@ -198,7 +221,7 @@ namespace Skeudenn.Tests
 
             image.ZoomIn();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(8, 10));
+            image.ZoomedSize.ShouldBe(new Size(8, 10));
 
             image.ZoomReset();
 
@@ -206,7 +229,7 @@ namespace Skeudenn.Tests
 
             image.ZoomOut();
 
-            image.ZoomedSize.ShouldBe(new System.Drawing.Size(3, 5));
+            image.ZoomedSize.ShouldBe(new Size(3, 5));
 
             image.ZoomReset();
 

@@ -37,9 +37,9 @@ namespace Skeudenn.UI
          return image.ImageData();
       }
 
-      public System.Drawing.PointF PixelPosition(System.Drawing.PointF windowPosition)
+      public PointF PixelPosition(PointF windowPosition)
       {
-         return windowPosition;
+         return new PointF((float)Math.Floor(windowPosition.X / (image.ZoomLevel / 100.0f)), (float)Math.Floor(windowPosition.Y / (image.ZoomLevel / 100.0f)));
       }
 
       public void ZoomIn()
