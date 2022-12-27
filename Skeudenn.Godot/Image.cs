@@ -60,7 +60,6 @@ public class Image : VBoxContainer
       textureRect.Texture = imageTexture;
       image = new Godot.Image();
       imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
-
    }
 
    private void _on_ZoomIn_pressed()
@@ -87,7 +86,6 @@ public class Image : VBoxContainer
    {
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
       {
-         // UNDONE Take the zoom/scrollbar into account to remap to the image pixel position
          EventHandler<TextureMouseMoveEventArgs> handler = MouseMove;
 
          if (handler != null)
