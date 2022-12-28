@@ -14,12 +14,10 @@ public class MainView : PanelContainer
    {
       fileMenu = GetNode<FileMenu>("%FileMenu");
 
-      // TODO Remove the event handler on Tree_Exiting signal. Do this for all events in all classes.
       fileMenu.OpenFiles += FileMenu_OpenFiles;
 
       imageNode = GetNode<Image>("%Image");
 
-      // TODO Remove the event handler on Tree_Exiting signal. Do this for all events in all classes.
       imageNode.MouseMove += ImageNode_MouseMove;
       pixelPosition = GetNode("%PixelPosition") as Label;
 
@@ -83,4 +81,11 @@ public class MainView : PanelContainer
          imageNode.ImageUI = null;
       }
    }
+
+   private void _on_MainMenu_tree_exiting()
+   {
+      fileMenu.OpenFiles -= FileMenu_OpenFiles;
+      imageNode.MouseMove -= ImageNode_MouseMove;
+   }
 }
+
