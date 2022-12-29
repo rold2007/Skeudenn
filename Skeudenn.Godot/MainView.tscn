@@ -88,6 +88,12 @@ margin_right = 28.0
 margin_bottom = 14.0
 text = "(0,0)"
 
+[node name="ZoomLevel" type="Label" parent="VBoxContainer/StatusBar"]
+unique_name_in_owner = true
+margin_left = 32.0
+margin_right = 32.0
+margin_bottom = 14.0
+
 [connection signal="tree_exiting" from="VBoxContainer/MainMenu" to="." method="_on_MainMenu_tree_exiting"]
 [connection signal="file_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_file_selected"]
 [connection signal="files_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_files_selected"]

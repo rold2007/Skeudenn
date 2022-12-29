@@ -27,6 +27,14 @@ namespace Skeudenn.UI
          }
       }
 
+      public float ZoomLevel
+      {
+         get
+         {
+            return image.ZoomLevel;
+         }
+      }
+
       public Image(Controller.Image image)
       {
          this.image = image;

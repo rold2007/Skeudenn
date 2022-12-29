@@ -20,6 +20,7 @@ public class Image : VBoxContainer
    }
 
    public event EventHandler<TextureMouseMoveEventArgs> MouseMove;
+   public event EventHandler ZoomLevelChanged;
 
    public Skeudenn.UI.Image ImageUI
    {
@@ -46,6 +47,14 @@ public class Image : VBoxContainer
       }
    }
 
+   public float ZoomLevel
+   {
+      get
+      {
+         return skeudennImage.ZoomLevel;
+      }
+   }
+
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
     {
@@ -65,21 +74,36 @@ public class Image : VBoxContainer
    private void _on_ZoomIn_pressed()
    {
       // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
-      // TODO Display the zoom level in the UI
       skeudennImage.ZoomIn();
       textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+
+      TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomReset_pressed()
    {
       skeudennImage.ZoomReset();
       textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+
+      TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomOut_pressed()
    {
       skeudennImage.ZoomOut();
       textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+
+      TriggerZoomChangedEvent();
+   }
+
+   private void TriggerZoomChangedEvent()
+   {
+      EventHandler handler = ZoomLevelChanged;
+
+      if (handler != null)
+      {
+         handler(this, EventArgs.Empty);
+      }
    }
 
    private void _on_TextureRect_gui_input(object inputEvent)

@@ -1,11 +1,13 @@
 using Godot;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class MainView : PanelContainer
 {
    private FileMenu fileMenu;
    private Image imageNode;
    private Label pixelPosition;
+   private Label zoomLevel;
    private Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
    private Tabs tabs;
    private List<Skeudenn.UI.Image> allImages;
@@ -19,7 +21,9 @@ public class MainView : PanelContainer
       imageNode = GetNode<Image>("%Image");
 
       imageNode.MouseMove += ImageNode_MouseMove;
+      imageNode.ZoomLevelChanged += ImageNode_ZoomLevelChanged;
       pixelPosition = GetNode("%PixelPosition") as Label;
+      zoomLevel = GetNode("%ZoomLevel") as Label;
 
       tabs = GetNode<Tabs>("%Tabs");
 
@@ -31,20 +35,33 @@ public class MainView : PanelContainer
       foreach (string path in e.Paths)
       {
          Skeudenn.UI.Image skeudennImage = mainView.OpenFile(path);
-         // TODO Maybe the UI shouldn't be responsible to decide the tabs name
+         // HACK The UI shouldn't be responsible to decide the tabs name
          string filename = System.IO.Path.GetFileName(path);
 
          allImages.Add(skeudennImage);
          tabs.AddTab(filename);
          tabs.CurrentTab = tabs.GetTabCount() - 1;
 
+         // UNDONE No need to assign this in the loop. Only assign the first or last image.
          imageNode.ImageUI = skeudennImage;
       }
+
+      PrintZoomLevel();
    }
 
    private void ImageNode_MouseMove(object sender, Image.TextureMouseMoveEventArgs e)
    {
       pixelPosition.Text = e.PixelPosition.ToString();
+   }
+
+   private void ImageNode_ZoomLevelChanged(object sender, System.EventArgs e)
+   {
+      PrintZoomLevel();
+   }
+
+   private void PrintZoomLevel()
+   {
+      zoomLevel.Text = "Zoom Level: " + imageNode.ZoomLevel.ToString() + "%";
    }
 
    private void _on_Tabs_resized()
