@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public class MainView : PanelContainer
@@ -41,10 +42,9 @@ public class MainView : PanelContainer
          allImages.Add(skeudennImage);
          tabs.AddTab(filename);
          tabs.CurrentTab = tabs.GetTabCount() - 1;
-
-         // UNDONE No need to assign this in the loop. Only assign the first or last image.
-         imageNode.ImageUI = skeudennImage;
       }
+
+      imageNode.ImageUI = allImages.Last();
 
       PrintZoomLevel();
    }

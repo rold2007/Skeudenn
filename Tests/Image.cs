@@ -236,5 +236,36 @@ namespace Skeudenn.Tests
             image.ZoomedSize.ShouldBe(imageSize);
          }
       }
+
+      [Fact]
+      public void ZoomLevel()
+      {
+         Size imageSize = new Size(5, 7);
+         byte[] imagePixels = GenerateImageData(imageSize);
+
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
+         {
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
+
+            image.ZoomLevel.ShouldBe(100);
+
+            image.ZoomIn();
+
+            image.ZoomLevel.ShouldBe(150);
+
+            image.ZoomReset();
+
+            image.ZoomLevel.ShouldBe(100);
+
+            image.ZoomOut();
+
+            image.ZoomLevel.ShouldBe(67);
+
+            image.ZoomReset();
+
+            image.ZoomLevel.ShouldBe(100);
+         }
+      }
    }
 }

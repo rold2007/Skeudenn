@@ -39,11 +39,14 @@ public class FileMenu : MenuButton
 
    private void _on_OpenImageFileDialog_files_selected(String[] paths)
    {
-      EventHandler<OpenFilesEventArgs> handler = OpenFiles;
-
-      if (handler != null)
+      if (paths.Length > 0)
       {
-         handler(this, new OpenFilesEventArgs(paths));
+         EventHandler<OpenFilesEventArgs> handler = OpenFiles;
+
+         if (handler != null)
+         {
+            handler(this, new OpenFilesEventArgs(paths));
+         }
       }
    }
 
