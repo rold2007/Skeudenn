@@ -25,17 +25,27 @@ namespace Skeudenn.UI
 
       public Image OpenFile(string path)
       {
-         return new Image(fileOpen.OpenFile(path));
+         return OpenImage(fileOpen.OpenFile(path));
       }
 
       public Image OpenFile(Stream imageStream)
       {
-         return new Image(fileOpen.OpenFile(imageStream));
+         return OpenImage(fileOpen.OpenFile(imageStream));
       }
 
       public string AboutText()
       {
          return helpAbout.Text();
+      }
+
+      private Image OpenImage(Controller.Image image)
+      {
+         if (image != null)
+         {
+            return new Image(image);
+         }
+
+         return null;
       }
    }
 }

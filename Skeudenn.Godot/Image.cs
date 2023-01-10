@@ -38,7 +38,6 @@ public class Image : VBoxContainer
          {
             byte[] imageData = skeudennImage.ImageData();
 
-            // TODO Allow to save/restore this data to swap faster from one image to another
             image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
             imageTexture.CreateFromImage(image);
             textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);

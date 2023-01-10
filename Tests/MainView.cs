@@ -76,6 +76,36 @@ namespace Skeudenn.Tests
       }
 
       [Fact]
+      public void OpenFilePathFail()
+      {
+         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+
+         string tempFilename = null;
+
+         try
+         {
+            tempFilename = Path.GetTempFileName();
+
+            fileMenu.OpenFile(tempFilename).ShouldBeNull();
+         }
+         finally
+         {
+            File.Delete(tempFilename);
+         }
+      }
+
+      [Fact]
+      public void OpenFileFail()
+      {
+         using (MemoryStream memoryStream = new MemoryStream())
+         {
+            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+
+            fileMenu.OpenFile(memoryStream).ShouldBeNull();
+         }
+      }
+
+      [Fact]
       public void AboutText()
       {
          Skeudenn.UI.MainView fileMenu = new UI.MainView();

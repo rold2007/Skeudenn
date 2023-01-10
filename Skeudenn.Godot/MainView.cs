@@ -12,6 +12,7 @@ public class MainView : PanelContainer
    private Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
    private Tabs tabs;
    private List<Skeudenn.UI.Image> allImages;
+   private AcceptDialog acceptDialog;
 
    public override void _Ready()
    {
@@ -28,25 +29,53 @@ public class MainView : PanelContainer
 
       tabs = GetNode<Tabs>("%Tabs");
 
+      acceptDialog = GetNode<AcceptDialog>("%AcceptDialog");
+
       allImages = new List<Skeudenn.UI.Image>();
    }
 
    private void FileMenu_OpenFiles(object sender, FileMenu.OpenFilesEventArgs e)
    {
+      bool error = false;
+
+      // UNDONE Move the error/exception validation logic to Skeudenn.UI.MainView so that it can be tested and reused
       foreach (string path in e.Paths)
       {
          Skeudenn.UI.Image skeudennImage = mainView.OpenFile(path);
-         // HACK The UI shouldn't be responsible to decide the tabs name
-         string filename = System.IO.Path.GetFileName(path);
 
-         allImages.Add(skeudennImage);
-         tabs.AddTab(filename);
-         tabs.CurrentTab = tabs.GetTabCount() - 1;
+         if (skeudennImage == null)
+         {
+            error = true;
+         }
+         else
+         {
+            // HACK The UI shouldn't be responsible to decide the tabs name
+            string filename = System.IO.Path.GetFileName(path);
+
+            allImages.Add(skeudennImage);
+            tabs.AddTab(filename);
+            tabs.CurrentTab = tabs.GetTabCount() - 1;
+         }
       }
 
-      imageNode.ImageUI = allImages.Last();
+      if (error)
+      {
+         // HACK Set a proper position, size and starting directory when opening acceptDialog
+         // HACK Most properties could be initialized only once inside _Ready()
+         acceptDialog.SetPosition(new Vector2(50, 100));
+         acceptDialog.RectMinSize = new Vector2(0, 0);
+         acceptDialog.SetSize(new Vector2(640, 480));
+         acceptDialog.WindowTitle = "Image file load error";
+         acceptDialog.DialogText = "One or more file could not be loaded.";
+         acceptDialog.ShowModal(true);
+      }
 
-      PrintZoomLevel();
+      if (allImages.Count() > 0)
+      {
+         imageNode.ImageUI = allImages.Last();
+
+         PrintZoomLevel();
+      }
    }
 
    private void ImageNode_MouseMove(object sender, Image.TextureMouseMoveEventArgs e)

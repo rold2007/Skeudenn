@@ -58,6 +58,7 @@ namespace Skeudenn.Console
 
                try
                {
+                  // TODO OpenFile() can return a null image in case the image file is invalid. Add logic for it.
                   UI.Image imageUI = mainView.OpenFile(filePath);
 
                   Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
@@ -113,6 +114,7 @@ namespace Skeudenn.Console
 
          ConsoleKeyInfo? consoleKeyInfo = AnsiConsole.Console.Input.ReadKey(true);
 
+         // HACK Add all the same UI functionalities as with the Godot UI
          while (!exitMenu)
          {
             string menuTitle;

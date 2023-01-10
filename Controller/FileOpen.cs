@@ -18,7 +18,14 @@ namespace Skeudenn.Controller
 
       public Image OpenFile(Stream imageStream)
       {
-         return new Image(Skeudenn.Image.OpenFile(imageStream));
+         Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
+
+         if(image != null)
+         {
+            return new Image(image);
+         }
+
+         return null;
       }
    }
 }
