@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Skeudenn.Controller;
 
 namespace Skeudenn.UI
@@ -31,6 +33,31 @@ namespace Skeudenn.UI
       public Image OpenFile(Stream imageStream)
       {
          return OpenImage(fileOpen.OpenFile(imageStream));
+      }
+
+      public List<Image> OpenFiles(string[] paths, out bool error)
+      {
+         List<Image> images = new List<Image>();
+
+         error = false;
+
+         // UNDONE Move the error/exception validation logic to Skeudenn.UI.MainView so that it can be tested and reused
+         foreach (string path in paths)
+         {
+            Skeudenn.UI.Image skeudennImage = OpenFile(path);
+
+            if (skeudennImage == null)
+            {
+               error = true;
+            }
+            else
+            {
+               skeudennImage.Name = System.IO.Path.GetFileName(path);
+               images.Add(skeudennImage);
+            }
+         }
+
+         return images;
       }
 
       public string AboutText()

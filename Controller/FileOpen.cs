@@ -10,9 +10,16 @@ namespace Skeudenn.Controller
    {
       public Image OpenFile(string path)
       {
-         using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+         try
          {
-            return OpenFile(fileStream);
+            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+               return OpenFile(fileStream);
+            }
+         }
+         catch
+         {
+            return null;
          }
       }
 
@@ -20,7 +27,7 @@ namespace Skeudenn.Controller
       {
          Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
 
-         if(image != null)
+         if (image != null)
          {
             return new Image(image);
          }

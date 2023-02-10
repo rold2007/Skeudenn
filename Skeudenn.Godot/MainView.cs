@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 public class MainView : PanelContainer
 {
@@ -36,26 +36,16 @@ public class MainView : PanelContainer
 
    private void FileMenu_OpenFiles(object sender, FileMenu.OpenFilesEventArgs e)
    {
-      bool error = false;
+      bool error;
 
-      // UNDONE Move the error/exception validation logic to Skeudenn.UI.MainView so that it can be tested and reused
-      foreach (string path in e.Paths)
+      // HACK I don't like out parameters. Replace this with a more standard way of dealing with errors in the UI
+      List<Skeudenn.UI.Image> images = mainView.OpenFiles(e.Paths, out error);
+
+      foreach (Skeudenn.UI.Image image in images)
       {
-         Skeudenn.UI.Image skeudennImage = mainView.OpenFile(path);
-
-         if (skeudennImage == null)
-         {
-            error = true;
-         }
-         else
-         {
-            // HACK The UI shouldn't be responsible to decide the tabs name
-            string filename = System.IO.Path.GetFileName(path);
-
-            allImages.Add(skeudennImage);
-            tabs.AddTab(filename);
-            tabs.CurrentTab = tabs.GetTabCount() - 1;
-         }
+         allImages.Add(image);
+         tabs.AddTab(image.Name);
+         tabs.CurrentTab = tabs.GetTabCount() - 1;
       }
 
       if (error)

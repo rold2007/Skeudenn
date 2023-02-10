@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Shouldly;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -102,6 +103,89 @@ namespace Skeudenn.Tests
             Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
             fileMenu.OpenFile(memoryStream).ShouldBeNull();
+         }
+      }
+
+      [Fact]
+      public void OpenFilesPath()
+      {
+         List<Skeudenn.UI.Image> images;
+
+         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         {
+            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+
+            List<string> tempFilenames = new List<string>();
+
+            try
+            {
+               for (int i = 0; i < 10; i++)
+               {
+                  string tempFilename = Path.GetTempFileName() + ".bmp";
+
+                  tempFilenames.Add(tempFilename);
+                  tempImage.SaveAsBmp(tempFilename);
+               }
+
+               bool error = false;
+
+               images = fileMenu.OpenFiles(tempFilenames.ToArray(), out error);
+            }
+            finally
+            {
+               foreach (string tempFilename in tempFilenames)
+               {
+                  File.Delete(tempFilename);
+               }
+            }
+         }
+      }
+
+      [Fact]
+      public void OpenFilesPathFail()
+      {
+         List<Skeudenn.UI.Image> images;
+
+         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         {
+            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+
+            List<string> tempFilenames = new List<string>();
+
+            try
+            {
+               for (int i = 0; i < 10; i++)
+               {
+                  string tempFilename;
+
+                  if (i == 3)
+                  {
+                     tempFilename = Path.GetTempFileName();
+                  }
+                  else
+                  {
+                     tempFilename = Path.GetTempFileName() + ".bmp";
+                  }
+
+                  tempFilenames.Add(tempFilename);
+
+                  if ((i != 3) && (i != 5))
+                  {
+                     tempImage.SaveAsBmp(tempFilename);
+                  }
+               }
+
+               bool error = false;
+
+               images = fileMenu.OpenFiles(tempFilenames.ToArray(), out error);
+            }
+            finally
+            {
+               foreach (string tempFilename in tempFilenames)
+               {
+                  File.Delete(tempFilename);
+               }
+            }
          }
       }
 

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 
+// TODO Evaluate if it would be better to remove the Controller level and use only the UI level
 namespace Skeudenn.Controller
 {
 #if NET5_0_OR_GREATER
@@ -27,6 +28,7 @@ namespace Skeudenn.Controller
          }
       }
 
+      // HACK Apply an immutable logic at the Controller and UI levels ?
       public Image(Skeudenn.Image image)
       {
          this.image = image;

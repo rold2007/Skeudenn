@@ -35,6 +35,12 @@ namespace Skeudenn.UI
          }
       }
 
+      // HACK This will need to be managed at a lower level (not UI) once it is possible to save/rename tabs/files.
+      public string Name
+      {
+         get; set;
+      } = string.Empty;
+
       public Image(Controller.Image image)
       {
          this.image = image;

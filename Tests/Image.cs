@@ -267,5 +267,24 @@ namespace Skeudenn.Tests
             image.ZoomLevel.ShouldBe(100);
          }
       }
+
+      [Fact]
+      public void Name()
+      {
+         Size imageSize = new Size(1, 1);
+         byte[] imagePixels = GenerateImageData(imageSize);
+
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
+         {
+            UI.MainView mainView = new UI.MainView();
+            UI.Image image = mainView.OpenFile(memoryStream);
+
+            image.Name.ShouldBeEmpty();
+            image.Name = "Dummy1";
+            image.Name.ShouldBe("Dummy1");
+            image.Name = "Dummy2";
+            image.Name.ShouldBe("Dummy2");
+         }
+      }
    }
 }

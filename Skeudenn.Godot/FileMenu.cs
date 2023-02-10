@@ -12,12 +12,12 @@ public class FileMenu : MenuButton
 
    public class OpenFilesEventArgs : EventArgs
    {
-      public OpenFilesEventArgs(String[] paths)
+      public OpenFilesEventArgs(string[] paths)
       {
          Paths = paths;
       }
 
-      public String[] Paths { get; private set; }
+      public string[] Paths { get; private set; }
    }
 
    public event EventHandler<OpenFilesEventArgs> OpenFiles;
@@ -32,12 +32,12 @@ public class FileMenu : MenuButton
       openImageFileDialog.Filters = new string[] { "*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images" };
    }
 
-   private void _on_OpenImageFileDialog_file_selected(String path)
+   private void _on_OpenImageFileDialog_file_selected(string path)
    {
-      _on_OpenImageFileDialog_files_selected(new String[] { path });
+      _on_OpenImageFileDialog_files_selected(new string[] { path });
    }
 
-   private void _on_OpenImageFileDialog_files_selected(String[] paths)
+   private void _on_OpenImageFileDialog_files_selected(string[] paths)
    {
       if (paths.Length > 0)
       {
