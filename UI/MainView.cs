@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Skeudenn.Controller;
 
@@ -11,8 +10,6 @@ namespace Skeudenn.UI
    public sealed class MainView
 #endif
    {
-      private FileOpen fileOpen = new FileOpen();
-      private FileExit fileExit = new FileExit();
       private HelpAbout helpAbout = new HelpAbout();
 
       public bool CanExit()
@@ -22,17 +19,16 @@ namespace Skeudenn.UI
 
       public void Exit()
       {
-         fileExit.Exit();
       }
 
       public Image OpenFile(string path)
       {
-         return OpenImage(fileOpen.OpenFile(path));
+         return OpenImage(ControllerOpenFile(path));
       }
 
       public Image OpenFile(Stream imageStream)
       {
-         return OpenImage(fileOpen.OpenFile(imageStream));
+         return OpenImage(ControllerOpenFile(imageStream));
       }
 
       public List<Image> OpenFiles(string[] paths, out bool error)
@@ -41,7 +37,6 @@ namespace Skeudenn.UI
 
          error = false;
 
-         // UNDONE Move the error/exception validation logic to Skeudenn.UI.MainView so that it can be tested and reused
          foreach (string path in paths)
          {
             Skeudenn.UI.Image skeudennImage = OpenFile(path);
@@ -70,6 +65,35 @@ namespace Skeudenn.UI
          if (image != null)
          {
             return new Image(image);
+         }
+
+         return null;
+      }
+
+      // UNDONE Rename/remove once the Controller layer is removed
+      private Skeudenn.Controller.Image ControllerOpenFile(string path)
+      {
+         try
+         {
+            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+               return ControllerOpenFile(fileStream);
+            }
+         }
+         catch
+         {
+            return null;
+         }
+      }
+
+      // UNDONE Rename/remove once the Controller layer is removed
+      private Skeudenn.Controller.Image ControllerOpenFile(Stream imageStream)
+      {
+         Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
+
+         if (image != null)
+         {
+            return new Skeudenn.Controller.Image(image);
          }
 
          return null;

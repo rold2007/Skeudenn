@@ -72,7 +72,7 @@ public class Image : VBoxContainer
 
    private void _on_ZoomIn_pressed()
    {
-      // TODO Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
+      // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
       skeudennImage.ZoomIn();
       textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
