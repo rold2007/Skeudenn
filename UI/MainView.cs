@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Skeudenn.Controller;
 
 namespace Skeudenn.UI
 {
@@ -10,7 +9,7 @@ namespace Skeudenn.UI
    public sealed class MainView
 #endif
    {
-      private HelpAbout helpAbout = new HelpAbout();
+      private Version version = new Version();
 
       public bool CanExit()
       {
@@ -57,7 +56,7 @@ namespace Skeudenn.UI
 
       public string AboutText()
       {
-         return helpAbout.Text();
+         return version.Text;
       }
 
       private Image OpenImage(Controller.Image image)
