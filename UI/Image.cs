@@ -9,7 +9,8 @@ namespace Skeudenn.UI
    public sealed class Image
 #endif
    {
-      private Controller.Image image;
+      private readonly Skeudenn.Image image;
+      private readonly Zoom zoom = new Zoom();
 
       public Size Size
       {
@@ -23,7 +24,7 @@ namespace Skeudenn.UI
       {
          get
          {
-            return new Size(Convert.ToInt32(Size.Width * image.ZoomLevel / 100.0), Convert.ToInt32(Size.Height * image.ZoomLevel / 100.0));
+            return new Size(Convert.ToInt32(Size.Width * zoom.ZoomLevel / 100.0), Convert.ToInt32(Size.Height * zoom.ZoomLevel / 100.0));
          }
       }
 
@@ -31,7 +32,7 @@ namespace Skeudenn.UI
       {
          get
          {
-            return image.ZoomLevel;
+            return zoom.ZoomLevel;
          }
       }
 
@@ -41,7 +42,7 @@ namespace Skeudenn.UI
          get; set;
       } = string.Empty;
 
-      public Image(Controller.Image image)
+      public Image(Skeudenn.Image image)
       {
          this.image = image;
       }
@@ -53,22 +54,22 @@ namespace Skeudenn.UI
 
       public PointF PixelPosition(PointF windowPosition)
       {
-         return new PointF((float)Math.Floor(windowPosition.X / (image.ZoomLevel / 100.0f)), (float)Math.Floor(windowPosition.Y / (image.ZoomLevel / 100.0f)));
+         return new PointF((float)Math.Floor(windowPosition.X / (zoom.ZoomLevel / 100.0f)), (float)Math.Floor(windowPosition.Y / (zoom.ZoomLevel / 100.0f)));
       }
 
       public void ZoomIn()
       {
-         image.ZoomIn();
+         zoom.ZoomIn();
       }
 
       public void ZoomOut()
       {
-         image.ZoomOut();
+         zoom.ZoomOut();
       }
 
       public void ZoomReset()
       {
-         image.ZoomReset();
+         zoom.ZoomReset();
       }
    }
 }

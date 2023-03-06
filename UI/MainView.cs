@@ -22,12 +22,24 @@ namespace Skeudenn.UI
 
       public Image OpenFile(string path)
       {
-         return OpenImage(ControllerOpenFile(path));
+         try
+         {
+            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+               return OpenFile(fileStream);
+            }
+         }
+         catch
+         {
+            return null;
+         }
       }
 
       public Image OpenFile(Stream imageStream)
       {
-         return OpenImage(ControllerOpenFile(imageStream));
+         Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
+
+         return (image != null ? new Image(image) : null);
       }
 
       public List<Image> OpenFiles(string[] paths, out bool error)
@@ -46,7 +58,7 @@ namespace Skeudenn.UI
             }
             else
             {
-               skeudennImage.Name = System.IO.Path.GetFileName(path);
+               skeudennImage.Name = Path.GetFileName(path);
                images.Add(skeudennImage);
             }
          }
@@ -57,45 +69,6 @@ namespace Skeudenn.UI
       public string AboutText()
       {
          return version.Text;
-      }
-
-      private Image OpenImage(Controller.Image image)
-      {
-         if (image != null)
-         {
-            return new Image(image);
-         }
-
-         return null;
-      }
-
-      // UNDONE Rename/remove once the Controller layer is removed
-      private Skeudenn.Controller.Image ControllerOpenFile(string path)
-      {
-         try
-         {
-            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-               return ControllerOpenFile(fileStream);
-            }
-         }
-         catch
-         {
-            return null;
-         }
-      }
-
-      // UNDONE Rename/remove once the Controller layer is removed
-      private Skeudenn.Controller.Image ControllerOpenFile(Stream imageStream)
-      {
-         Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
-
-         if (image != null)
-         {
-            return new Skeudenn.Controller.Image(image);
-         }
-
-         return null;
       }
    }
 }
