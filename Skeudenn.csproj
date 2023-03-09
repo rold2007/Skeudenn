@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>

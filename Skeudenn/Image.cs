@@ -3,8 +3,10 @@ using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
+// UNDONE Upgrade to ImageSharp 3.0
 namespace Skeudenn
 {
+   // UNDONE Remove all these #if now that only .net6 is supported
 #if NET5_0_OR_GREATER
    public sealed record Image
 #else

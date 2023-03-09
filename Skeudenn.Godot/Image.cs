@@ -2,14 +2,14 @@ using Godot;
 using System;
 using System.Drawing;
 
-public class Image : VBoxContainer
+public partial class Image : VBoxContainer
 {
    private TextureRect textureRect;
    private ImageTexture imageTexture;
    private Godot.Image image;
    private Skeudenn.UI.Image skeudennImage;
 
-   public class TextureMouseMoveEventArgs : EventArgs
+   public partial class TextureMouseMoveEventArgs : EventArgs
    {
       public TextureMouseMoveEventArgs(PointF pixelPosition)
       {
@@ -38,9 +38,9 @@ public class Image : VBoxContainer
          {
             byte[] imageData = skeudennImage.ImageData();
 
-            image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
-            imageTexture.CreateFromImage(image);
-            textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+            image = Godot.Image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
+            imageTexture = ImageTexture.CreateFromImage(image);
+            textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
             textureRect.Visible = true;
          }
       }
@@ -67,14 +67,16 @@ public class Image : VBoxContainer
       imageTexture = new ImageTexture();
       textureRect.Texture = imageTexture;
       image = new Godot.Image();
-      imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
+
+      // UNDONE Find a replacement in Godot4
+      //imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
    }
 
    private void _on_ZoomIn_pressed()
    {
       // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
       skeudennImage.ZoomIn();
-      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
@@ -82,7 +84,7 @@ public class Image : VBoxContainer
    private void _on_ZoomReset_pressed()
    {
       skeudennImage.ZoomReset();
-      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
@@ -90,7 +92,7 @@ public class Image : VBoxContainer
    private void _on_ZoomOut_pressed()
    {
       skeudennImage.ZoomOut();
-      textureRect.RectMinSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
@@ -113,7 +115,7 @@ public class Image : VBoxContainer
 
          if (handler != null)
          {
-            PointF pixelPosition = skeudennImage.PixelPosition(new PointF(eventMouseMotion.Position.x, eventMouseMotion.Position.y));
+            PointF pixelPosition = skeudennImage.PixelPosition(new PointF(eventMouseMotion.Position.X, eventMouseMotion.Position.Y));
 
             handler(this, new TextureMouseMoveEventArgs(pixelPosition));
          }

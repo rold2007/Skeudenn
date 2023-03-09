@@ -2,13 +2,13 @@ using Godot;
 using System.Diagnostics;
 using Skeudenn.UI;
 
-public class HelpMenu : MenuButton
+public partial class HelpMenu : MenuButton
 {
    private AcceptDialog aboutBoxDialog;
 
    public override void _Ready()
    {
-      GetPopup().Connect("id_pressed", this, "SubMenuClicked");
+      GetPopup().Connect("id_pressed",new Callable(this,"SubMenuClicked"));
       aboutBoxDialog = GetNode<AcceptDialog>("AboutBoxDialog");
    }
 
@@ -19,7 +19,7 @@ public class HelpMenu : MenuButton
          case 0:
             Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
 
-            aboutBoxDialog.WindowTitle = "About";
+            aboutBoxDialog.Title = "About";
             aboutBoxDialog.DialogText = mainView.AboutText();
             aboutBoxDialog.DialogText += System.Environment.NewLine;
             aboutBoxDialog.DialogText += System.Environment.NewLine;
@@ -28,9 +28,10 @@ public class HelpMenu : MenuButton
             aboutBoxDialog.DialogText += "https://godotengine.org/license";
 
             // HACK Apply a centered position to the about box
-            aboutBoxDialog.SetPosition(new Vector2(50, 200));
+            aboutBoxDialog.Position =new Vector2I(50, 200);
 
-            aboutBoxDialog.ShowModal(true);
+            // UNDONE Find a replacement in Godot4
+            //aboutBoxDialog.ShowModal(true);
             break;
 
          default:

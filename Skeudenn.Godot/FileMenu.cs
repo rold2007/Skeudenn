@@ -5,12 +5,12 @@ using System.Diagnostics;
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 // HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
-// HACK The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
-public class FileMenu : MenuButton
+// UNDONE The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
+public partial class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
 
-   public class OpenFilesEventArgs : EventArgs
+   public partial class OpenFilesEventArgs : EventArgs
    {
       public OpenFilesEventArgs(string[] paths)
       {
@@ -24,9 +24,10 @@ public class FileMenu : MenuButton
 
    public override void _Ready()
    {
-      OS.WindowMaximized = true;
+      // UNDONE Find a replacement in Godot4
+      //OS.WindowMaximized = true;
 
-      GetPopup().Connect("id_pressed", this, "SubMenuClicked");
+      GetPopup().Connect("id_pressed",new Callable(this,"SubMenuClicked"));
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
 
       openImageFileDialog.Filters = new string[] { "*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images" };
@@ -56,10 +57,12 @@ public class FileMenu : MenuButton
       {
          case 0:
             // HACK Set a proper position, size and starting directory when opening openImageFileDialog
-            openImageFileDialog.SetPosition(new Vector2(50, 100));
-            openImageFileDialog.RectMinSize = new Vector2(0, 0);
-            openImageFileDialog.SetSize(new Vector2(640, 480));
-            openImageFileDialog.ShowModal(true);
+            openImageFileDialog.Position = new Vector2I(50, 100);
+            openImageFileDialog.MinSize = new Vector2I(0, 0);
+            openImageFileDialog.Size = new Vector2I(640, 480);
+
+            // UNDONE Find a replacement in Godot4
+            //openImageFileDialog.ShowModal(true);
             openImageFileDialog.Invalidate();
             break;
 

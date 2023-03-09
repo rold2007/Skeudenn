@@ -6,13 +6,18 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="Skeudenn.Godot"
 run/main_scene="res://MainView.tscn"
+config/features=PackedStringArray("4.0", "C#")
 run/low_processor_mode=true
+
+[dotnet]
+
+project/assembly_name="Skeudenn.Godot"
 
 [global]
 
@@ -29,4 +34,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_environment="res://default_env.tres"

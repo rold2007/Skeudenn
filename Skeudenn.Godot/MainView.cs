@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-public class MainView : PanelContainer
+public partial class MainView : PanelContainer
 {
    private FileMenu fileMenu;
    private Image imageNode;
    private Label pixelPosition;
    private Label zoomLevel;
    private Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
-   private Tabs tabs;
+   private TabBar tabs;
    private List<Skeudenn.UI.Image> allImages;
    private AcceptDialog acceptDialog;
 
@@ -27,7 +27,7 @@ public class MainView : PanelContainer
       pixelPosition = GetNode("%PixelPosition") as Label;
       zoomLevel = GetNode("%ZoomLevel") as Label;
 
-      tabs = GetNode<Tabs>("%Tabs");
+      tabs = GetNode<TabBar>("%TabBar");
 
       acceptDialog = GetNode<AcceptDialog>("%AcceptDialog");
 
@@ -45,19 +45,21 @@ public class MainView : PanelContainer
       {
          allImages.Add(image);
          tabs.AddTab(image.Name);
-         tabs.CurrentTab = tabs.GetTabCount() - 1;
+         tabs.CurrentTab = tabs.TabCount - 1;
       }
 
       if (error)
       {
          // HACK Set a proper position, size and starting directory when opening acceptDialog
          // HACK Most properties could be initialized only once inside _Ready()
-         acceptDialog.SetPosition(new Vector2(50, 100));
-         acceptDialog.RectMinSize = new Vector2(0, 0);
-         acceptDialog.SetSize(new Vector2(640, 480));
-         acceptDialog.WindowTitle = "Image file load error";
+         acceptDialog.Position = new Vector2I(50, 100);
+         acceptDialog.MinSize = new Vector2I(0, 0);
+         acceptDialog.Size = new Vector2I(640, 480);
+         acceptDialog.Title = "Image file load error";
          acceptDialog.DialogText = "One or more file could not be loaded.";
-         acceptDialog.ShowModal(true);
+
+         // UNDONE Find a replacement in Godot4
+         //acceptDialog.ShowModal(true);
       }
 
       if (allImages.Count() > 0)
@@ -88,8 +90,8 @@ public class MainView : PanelContainer
       // Replace with function body.
       if (tabs != null && imageNode != null)
       {
-         // HACK Need to deal better with RectMinSize. It is forced at 300,300 but it doesn't look nice when the UI is small.
-         imageNode.RectSize = tabs.RectSize;
+         // HACK Need to deal better with CustomMinimumSize. It is forced at 300,300 but it doesn't look nice when the UI is small.
+         imageNode.Size = tabs.Size;
       }
    }
 
