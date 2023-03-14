@@ -38,11 +38,7 @@ namespace Skeudenn.Tests
             {
                IImageFormat[] lossLessImageFormat = { BmpFormat.Instance, PbmFormat.Instance, PngFormat.Instance, TgaFormat.Instance, TiffFormat.Instance };
 
-#if NET5_0_OR_GREATER
                tempImage.Save(memoryStream, tempImage.GetConfiguration().ImageFormatsManager.FindEncoder(lossLessImageFormat[Random.Shared.Next(lossLessImageFormat.Length)]));
-#else
-               tempImage.Save(memoryStream, tempImage.GetConfiguration().ImageFormatsManager.FindEncoder(lossLessImageFormat[new Random().Next(lossLessImageFormat.Length)]));
-#endif
             }
 
             memoryStream.Seek(0, SeekOrigin.Begin);

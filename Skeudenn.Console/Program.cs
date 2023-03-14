@@ -4,12 +4,9 @@ using SixLabors.ImageSharp.Processing;
 using Skeudenn.UI;
 using Spectre.Console;
 using System;
-#if NET5_0_OR_GREATER
 using System.Collections.Immutable;
-#endif
 using System.IO;
 
-#if NET5_0_OR_GREATER
 namespace Skeudenn.Console
 {
    class Program
@@ -162,4 +159,3 @@ namespace Skeudenn.Console
       }
    }
 }
-#endif

@@ -3,11 +3,7 @@ using System.Drawing;
 
 namespace Skeudenn.UI
 {
-#if NET5_0_OR_GREATER
    public sealed record Image
-#else
-   public sealed class Image
-#endif
    {
       private readonly Skeudenn.Image image;
       private readonly Zoom zoom = new Zoom();

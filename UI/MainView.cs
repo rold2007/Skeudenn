@@ -3,11 +3,7 @@ using System.IO;
 
 namespace Skeudenn.UI
 {
-#if NET5_0_OR_GREATER
    public sealed record MainView
-#else
-   public sealed class MainView
-#endif
    {
       private Version version = new Version();
 
