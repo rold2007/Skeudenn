@@ -31,6 +31,7 @@ namespace Skeudenn.UI
          }
       }
 
+      // UNDONE The image is not displayed after opening a file.
       public Image OpenFile(Stream imageStream)
       {
          Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);

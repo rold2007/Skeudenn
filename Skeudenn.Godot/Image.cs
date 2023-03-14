@@ -72,6 +72,7 @@ public partial class Image : VBoxContainer
       //imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
    }
 
+   // UNDONE skeudennImage can be null here. Need to disable/hide the buttons or the image view when no image is opened
    private void _on_ZoomIn_pressed()
    {
       // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image

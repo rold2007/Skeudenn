@@ -15,6 +15,10 @@ run/main_scene="res://MainView.tscn"
 config/features=PackedStringArray("4.0", "C#")
 run/low_processor_mode=true
 
+[display]
+
+window/size/mode=2
+
 [dotnet]
 
 project/assembly_name="Skeudenn.Godot"

@@ -30,8 +30,7 @@ public partial class HelpMenu : MenuButton
             // HACK Apply a centered position to the about box
             aboutBoxDialog.Position =new Vector2I(50, 200);
 
-            // UNDONE Find a replacement in Godot4
-            //aboutBoxDialog.ShowModal(true);
+            aboutBoxDialog.Show();
             break;
 
          default:
