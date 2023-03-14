@@ -51,6 +51,7 @@ public partial class FileMenu : MenuButton
       }
    }
 
+   // UNDONE Use the new MenuBar instead of the custom MenuButton to implement the menu
    private void SubMenuClicked(int id)
    {
       switch (id)
@@ -61,8 +62,7 @@ public partial class FileMenu : MenuButton
             openImageFileDialog.MinSize = new Vector2I(0, 0);
             openImageFileDialog.Size = new Vector2I(640, 480);
 
-            // UNDONE Find a replacement in Godot4
-            //openImageFileDialog.ShowModal(true);
+            openImageFileDialog.Show();
             openImageFileDialog.Invalidate();
             break;
 

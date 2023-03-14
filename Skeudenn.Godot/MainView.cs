@@ -1,8 +1,9 @@
 using Godot;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
+// UNDONE Dependencies, like SixLabors.ImageSharp.dll, are not copied to .godot\mono\temp\bin\Debug anymore. Why ?
+// UNDONE The X close button at the top-right of the main window doesn't work anymore...
 public partial class MainView : PanelContainer
 {
    private FileMenu fileMenu;
@@ -58,8 +59,7 @@ public partial class MainView : PanelContainer
          acceptDialog.Title = "Image file load error";
          acceptDialog.DialogText = "One or more file could not be loaded.";
 
-         // UNDONE Find a replacement in Godot4
-         //acceptDialog.ShowModal(true);
+         acceptDialog.Show();
       }
 
       if (allImages.Count() > 0)

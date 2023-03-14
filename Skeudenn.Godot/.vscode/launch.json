@@ -3,45 +3,29 @@
     "configurations": [
         {
             "name": "Play in Editor",
-            "type": "godot-mono",
-            "mode": "playInEditor",
+            "type": "coreclr",
+            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
             "request": "launch"
         },
         {
             "name": "Launch",
-            "type": "godot-mono",
+            "type": "coreclr",
             "request": "launch",
-            "mode": "executable",
+            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
             "preLaunchTask": "build",
-            "executable": "C:/Program Files/Godot/Godot_v3.5.1-stable_mono_win64/Godot_v3.5.1-stable_mono_win64.exe",
-            // See which arguments are available here:
-            // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}"
-            ]
         },
         {
             "name": "Launch (Select Scene)",
-            "type": "godot-mono",
+            "type": "coreclr",
             "request": "launch",
-            "mode": "executable",
+            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
             "preLaunchTask": "build",
-            "executable": "C:/Program Files/Godot/Godot_v3.5.1-stable_mono_win64/Godot_v3.5.1-stable_mono_win64.exe",
-            // See which arguments are available here:
-            // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
-            "executableArguments": [
-                "--path",
-                "${workspaceRoot}",
-                "${command:SelectLaunchScene}"
             ]
         },
         {
             "name": "Attach",
-            "type": "godot-mono",
+            "type": "coreclr",
             "request": "attach",
-            "address": "localhost",
-            "port": 23685
         }
     ]
 }
