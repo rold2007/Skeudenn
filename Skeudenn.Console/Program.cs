@@ -55,36 +55,28 @@ namespace Skeudenn.Console
 
                try
                {
-                  // TODO OpenFile() can return a null image in case the image file is invalid. Add logic for it.
                   UI.Image imageUI = mainView.OpenFile(filePath);
 
-                  Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
-                  CanvasImage canvasImage;
-
-                  using (MemoryStream memoryStream = new MemoryStream())
+                  if (imageUI != null)
                   {
-                     image.SaveAsBmp(memoryStream);
-                     memoryStream.Seek(0, SeekOrigin.Begin);
+                     Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
+                     CanvasImage canvasImage;
 
-                     canvasImage = new CanvasImage(memoryStream);
-                  }
-
-                  canvasImage.MaxWidth = 25;
-
-                  AnsiConsole.Live(canvasImage).Start(ctx =>
+                     // HACK I think this can now be simplified without passing by a BMP
+                     using (MemoryStream memoryStream = new MemoryStream())
                      {
-                        float angle = 0.0f;
+                        image.SaveAsBmp(memoryStream);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
 
-                        while (true)
-                        {
-                           canvasImage.Mutate(image => image.Rotate(angle));
+                        canvasImage = new CanvasImage(memoryStream);
+                     }
 
-                           ctx.Refresh();
-                           angle += 1.0f;
-                        }
-                     });
-
-                  AnsiConsole.Write(canvasImage);
+                     AnsiConsole.Write(canvasImage);
+                  }
+                  else
+                  {
+                     AnsiConsole.WriteLine("Unable to load file.");
+                  }
                }
                catch (FileNotFoundException)
                {
@@ -109,8 +101,7 @@ namespace Skeudenn.Console
             menu = main;
          });
 
-         ConsoleKeyInfo? consoleKeyInfo = AnsiConsole.Console.Input.ReadKey(true);
-
+         // TODO Add support for zoom tool with AnsiConsole.Console.Input.ReadKey(), AnsiConsole.Live() and canvasImage.MaxWidth
          // HACK Add all the same UI functionalities as with the Godot UI
          while (!exitMenu)
          {
