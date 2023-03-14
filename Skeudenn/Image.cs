@@ -3,7 +3,6 @@ using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-// UNDONE Upgrade to ImageSharp 3.0
 namespace Skeudenn
 {
    public sealed record Image
