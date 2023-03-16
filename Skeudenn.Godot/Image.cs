@@ -48,7 +48,6 @@ public partial class Image : VBoxContainer
       }
    }
 
-   // UNDONE Fix the zoom...
    public float ZoomLevel
    {
       get
@@ -59,7 +58,7 @@ public partial class Image : VBoxContainer
 
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
-    {
+   {
       textureRect = GetNode<TextureRect>("%TextureRect");
 
       Initialize();
@@ -106,7 +105,7 @@ public partial class Image : VBoxContainer
       }
    }
 
-   private void _on_TextureRect_gui_input(object inputEvent)
+   private void _on_TextureRect_gui_input(InputEvent inputEvent)
    {
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
       {
