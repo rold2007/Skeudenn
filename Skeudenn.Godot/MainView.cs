@@ -24,8 +24,8 @@ public partial class MainView : PanelContainer
 
       imageNode.MouseMove += ImageNode_MouseMove;
       imageNode.ZoomLevelChanged += ImageNode_ZoomLevelChanged;
-      pixelPosition = GetNode("%PixelPosition") as Label;
-      zoomLevel = GetNode("%ZoomLevel") as Label;
+      pixelPosition = GetNode<Label>("%PixelPosition");
+      zoomLevel = GetNode<Label>("%ZoomLevel");
 
       tabs = GetNode<TabBar>("%TabBar");
 
@@ -63,8 +63,6 @@ public partial class MainView : PanelContainer
 
       if (allImages.Count() > 0)
       {
-         imageNode.ImageUI = allImages.Last();
-
          PrintZoomLevel();
       }
    }

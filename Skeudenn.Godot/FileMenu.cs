@@ -24,9 +24,6 @@ public partial class FileMenu : MenuButton
 
    public override void _Ready()
    {
-      // UNDONE Find a replacement in Godot4
-      //OS.WindowMaximized = true;
-
       GetPopup().Connect("id_pressed",new Callable(this,"SubMenuClicked"));
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
 

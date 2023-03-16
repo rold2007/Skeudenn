@@ -5,7 +5,6 @@ using System.Drawing;
 public partial class Image : VBoxContainer
 {
    private TextureRect textureRect;
-   private ImageTexture imageTexture;
    private Godot.Image image;
    private Skeudenn.UI.Image skeudennImage;
 
@@ -38,14 +37,18 @@ public partial class Image : VBoxContainer
          {
             byte[] imageData = skeudennImage.ImageData();
 
-            image = Godot.Image.CreateFromData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
-            imageTexture = ImageTexture.CreateFromImage(image);
+            image.SetData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
+
+            // HACK Optimization: Keep an instance of TextureRect and call SetImage
+            // HACK Optimization: Keep a cache of ImageTexture
             textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
             textureRect.Visible = true;
+            textureRect.Texture = ImageTexture.CreateFromImage(image);
          }
       }
    }
 
+   // UNDONE Fix the zoom...
    public float ZoomLevel
    {
       get
@@ -57,19 +60,14 @@ public partial class Image : VBoxContainer
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
     {
-      textureRect = GetNode("%TextureRect") as TextureRect;
+      textureRect = GetNode<TextureRect>("%TextureRect");
 
       Initialize();
    }
 
    private void Initialize()
    {
-      imageTexture = new ImageTexture();
-      textureRect.Texture = imageTexture;
       image = new Godot.Image();
-
-      // UNDONE Find a replacement in Godot4
-      //imageTexture.Storage = ImageTexture.StorageEnum.CompressLossless;
    }
 
    // UNDONE skeudennImage can be null here. Need to disable/hide the buttons or the image view when no image is opened
