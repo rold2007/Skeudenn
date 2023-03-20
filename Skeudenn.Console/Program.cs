@@ -105,13 +105,13 @@ namespace Skeudenn.Console
          // HACK Add all the same UI functionalities as with the Godot UI
          while (!exitMenu)
          {
-            string menuTitle;
-            Action action;
+            string? menuTitle;
+            Action? action;
 
             // HACK Fix all warning CS8600
             if (menuPrompts.TryGetValue(menu, out menuTitle))
             {
-               ImmutableList<string> choices;
+               ImmutableList<string>? choices;
 
                if (menuChoices.TryGetValue(menu, out choices))
                {
@@ -121,7 +121,7 @@ namespace Skeudenn.Console
                                  .AddChoices(choices)
                                  .UseConverter(menuItem =>
                                  {
-                                    string convertedMenu;
+                                    string? convertedMenu;
 
                                     if (menuConversion.TryGetValue(menuItem, out convertedMenu))
                                     {

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
+// UNDONE Increase the Warning Level of all projects
+// UNDONE Enable Nullables in all projects
+// UNDONE Enable Treat warnings as errors in all projects
 namespace Skeudenn.UI
 {
    public sealed record MainView
@@ -16,7 +19,7 @@ namespace Skeudenn.UI
       {
       }
 
-      public Image OpenFile(string path)
+      public Image? OpenFile(string path)
       {
          try
          {
@@ -31,7 +34,6 @@ namespace Skeudenn.UI
          }
       }
 
-      // UNDONE The image is not displayed after opening a file.
       public Image OpenFile(Stream imageStream)
       {
          Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);

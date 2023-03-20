@@ -4,8 +4,6 @@ using System.Diagnostics;
 
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
-// HACK Fix ExportDebug and ExportRelease configurations because they rely on $(Configuration) which is wrong in these cases
-// UNDONE The current setup creates two ".mono" folders. Need to find a way to have only one. It might be fixed with Godot 4 when it supports .Net 6...
 public partial class FileMenu : MenuButton
 {
    private FileDialog openImageFileDialog;
