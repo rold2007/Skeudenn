@@ -4,7 +4,7 @@ using Skeudenn.UI;
 
 public partial class HelpMenu : MenuButton
 {
-   private AcceptDialog aboutBoxDialog;
+   private AcceptDialog? aboutBoxDialog;
 
    public override void _Ready()
    {
@@ -19,18 +19,18 @@ public partial class HelpMenu : MenuButton
          case 0:
             Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
 
-            aboutBoxDialog.Title = "About";
-            aboutBoxDialog.DialogText = mainView.AboutText();
-            aboutBoxDialog.DialogText += System.Environment.NewLine;
-            aboutBoxDialog.DialogText += System.Environment.NewLine;
-            aboutBoxDialog.DialogText += "Made with Godot";
-            aboutBoxDialog.DialogText += System.Environment.NewLine;
-            aboutBoxDialog.DialogText += "https://godotengine.org/license";
+            aboutBoxDialog!.Title = "About";
+            aboutBoxDialog!.DialogText = mainView.AboutText();
+            aboutBoxDialog!.DialogText += System.Environment.NewLine;
+            aboutBoxDialog!.DialogText += System.Environment.NewLine;
+            aboutBoxDialog!.DialogText += "Made with Godot";
+            aboutBoxDialog!.DialogText += System.Environment.NewLine;
+            aboutBoxDialog!.DialogText += "https://godotengine.org/license";
 
             // HACK Apply a centered position to the about box
-            aboutBoxDialog.Position =new Vector2I(50, 200);
+            aboutBoxDialog!.Position =new Vector2I(50, 200);
 
-            aboutBoxDialog.Show();
+            aboutBoxDialog!.Show();
             break;
 
          default:

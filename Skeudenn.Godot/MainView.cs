@@ -1,18 +1,19 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 // UNDONE Dependencies, like SixLabors.ImageSharp.dll, are not copied to .godot\mono\temp\bin\Debug anymore. Why ?
 public partial class MainView : PanelContainer
 {
-   private FileMenu fileMenu;
-   private Image imageNode;
-   private Label pixelPosition;
-   private Label zoomLevel;
+   private FileMenu? fileMenu;
+   private Image? imageNode;
+   private Label? pixelPosition;
+   private Label? zoomLevel;
    private Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
-   private TabBar tabs;
-   private List<Skeudenn.UI.Image> allImages;
-   private AcceptDialog acceptDialog;
+   private TabBar? tabs;
+   private List<Skeudenn.UI.Image> allImages = new List<Skeudenn.UI.Image>();
+   private AcceptDialog? acceptDialog;
 
    public override void _Ready()
    {
@@ -30,35 +31,33 @@ public partial class MainView : PanelContainer
       tabs = GetNode<TabBar>("%TabBar");
 
       acceptDialog = GetNode<AcceptDialog>("%AcceptDialog");
-
-      allImages = new List<Skeudenn.UI.Image>();
    }
 
-   private void FileMenu_OpenFiles(object sender, FileMenu.OpenFilesEventArgs e)
+   private void FileMenu_OpenFiles(object? sender, FileMenu.OpenFilesEventArgs? e)
    {
       bool error;
 
       // HACK I don't like out parameters. Replace this with a more standard way of dealing with errors in the UI
-      List<Skeudenn.UI.Image> images = mainView.OpenFiles(e.Paths, out error);
+      List<Skeudenn.UI.Image> images = mainView.OpenFiles(e!.Paths, out error);
 
       foreach (Skeudenn.UI.Image image in images)
       {
          allImages.Add(image);
-         tabs.AddTab(image.Name);
-         tabs.CurrentTab = tabs.TabCount - 1;
+         tabs!.AddTab(image.Name);
+         tabs!.CurrentTab = tabs.TabCount - 1;
       }
 
       if (error)
       {
          // HACK Set a proper position, size and starting directory when opening acceptDialog
          // HACK Most properties could be initialized only once inside _Ready()
-         acceptDialog.Position = new Vector2I(50, 100);
-         acceptDialog.MinSize = new Vector2I(0, 0);
-         acceptDialog.Size = new Vector2I(640, 480);
-         acceptDialog.Title = "Image file load error";
-         acceptDialog.DialogText = "One or more file could not be loaded.";
+         acceptDialog!.Position = new Vector2I(50, 100);
+         acceptDialog!.MinSize = new Vector2I(0, 0);
+         acceptDialog!.Size = new Vector2I(640, 480);
+         acceptDialog!.Title = "Image file load error";
+         acceptDialog!.DialogText = "One or more file could not be loaded.";
 
-         acceptDialog.Show();
+         acceptDialog!.Show();
       }
 
       if (allImages.Count() > 0)
@@ -67,19 +66,19 @@ public partial class MainView : PanelContainer
       }
    }
 
-   private void ImageNode_MouseMove(object sender, Image.TextureMouseMoveEventArgs e)
+   private void ImageNode_MouseMove(object? sender, Image.TextureMouseMoveEventArgs? e)
    {
-      pixelPosition.Text = e.PixelPosition.ToString();
+      pixelPosition!.Text = e!.PixelPosition.ToString();
    }
 
-   private void ImageNode_ZoomLevelChanged(object sender, System.EventArgs e)
+   private void ImageNode_ZoomLevelChanged(object? sender, EventArgs? e)
    {
       PrintZoomLevel();
    }
 
    private void PrintZoomLevel()
    {
-      zoomLevel.Text = "Zoom Level: " + imageNode.ZoomLevel.ToString() + "%";
+      zoomLevel!.Text = "Zoom Level: " + imageNode!.ZoomLevel.ToString() + "%";
    }
 
    private void _on_Tabs_resized()
@@ -99,28 +98,30 @@ public partial class MainView : PanelContainer
 
    private void _on_Tabs_tab_close(int tab)
    {
-      tabs.RemoveTab(tab);
+      tabs!.RemoveTab(tab);
       allImages.RemoveAt(tab);
 
-      ChangeTab(tabs.CurrentTab);
+      ChangeTab(tabs!.CurrentTab);
    }
 
    private void ChangeTab(int tab)
    {
       if (tab >= 0)
       {
-         imageNode.ImageUI = allImages[tab];
+         imageNode!.ImageUI = allImages[tab];
+         imageNode!.Visible = true;
       }
       else
       {
-         imageNode.ImageUI = null;
+         // UNDONE Need to test this new logic
+         imageNode!.Visible = false;
       }
    }
 
    private void _on_MainMenu_tree_exiting()
    {
-      fileMenu.OpenFiles -= FileMenu_OpenFiles;
-      imageNode.MouseMove -= ImageNode_MouseMove;
+      fileMenu!.OpenFiles -= FileMenu_OpenFiles;
+      imageNode!.MouseMove -= ImageNode_MouseMove;
    }
 }
 

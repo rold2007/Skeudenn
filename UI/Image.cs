@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
+// TODO Remove all nullable (ex: string?) types, at last they shouldn't be seen from theSkeudenn.UI layer. Also remove associated objectInstance!.Method().
 namespace Skeudenn.UI
 {
    public sealed record Image

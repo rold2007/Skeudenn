@@ -34,9 +34,9 @@ namespace Skeudenn.UI
          }
       }
 
-      public Image OpenFile(Stream imageStream)
+      public Image? OpenFile(Stream imageStream)
       {
-         Skeudenn.Image image = Skeudenn.Image.OpenFile(imageStream);
+         Skeudenn.Image? image = Skeudenn.Image.OpenFile(imageStream);
 
          return (image != null ? new Image(image) : null);
       }
@@ -49,7 +49,7 @@ namespace Skeudenn.UI
 
          foreach (string path in paths)
          {
-            Skeudenn.UI.Image skeudennImage = OpenFile(path);
+            Skeudenn.UI.Image? skeudennImage = OpenFile(path);
 
             if (skeudennImage == null)
             {

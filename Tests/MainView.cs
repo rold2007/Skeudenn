@@ -34,13 +34,13 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilePath()
       {
-         Skeudenn.UI.Image image;
+         Skeudenn.UI.Image? image;
 
          using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
          {
             Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
-            string tempFilename = null;
+            string? tempFilename = null;
 
             try
             {
@@ -52,7 +52,10 @@ namespace Skeudenn.Tests
             }
             finally
             {
-               File.Delete(tempFilename);
+               if (tempFilename != null)
+               {
+                  File.Delete(tempFilename);
+               }
             }
          }
       }
@@ -60,7 +63,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFile()
       {
-         Skeudenn.UI.Image image;
+         Skeudenn.UI.Image? image;
 
          using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
          {
@@ -81,7 +84,7 @@ namespace Skeudenn.Tests
       {
          Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
-         string tempFilename = null;
+         string? tempFilename = null;
 
          try
          {
@@ -91,7 +94,10 @@ namespace Skeudenn.Tests
          }
          finally
          {
-            File.Delete(tempFilename);
+            if (tempFilename != null)
+            {
+               File.Delete(tempFilename);
+            }
          }
       }
 

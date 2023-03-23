@@ -22,9 +22,9 @@ namespace Skeudenn
          this.image = image;
       }
 
-      static public Image OpenFile(Stream imageStream)
+      static public Image? OpenFile(Stream imageStream)
       {
-         Image image = null;
+         Image? image = null;
 
          try
          {

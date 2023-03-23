@@ -4,9 +4,9 @@ using System.Drawing;
 
 public partial class Image : VBoxContainer
 {
-   private TextureRect textureRect;
-   private Godot.Image image;
-   private Skeudenn.UI.Image skeudennImage;
+   private TextureRect? textureRect;
+   private Godot.Image? image;
+   private Skeudenn.UI.Image? skeudennImage;
 
    public partial class TextureMouseMoveEventArgs : EventArgs
    {
@@ -18,8 +18,8 @@ public partial class Image : VBoxContainer
       public PointF PixelPosition { get; private set; }
    }
 
-   public event EventHandler<TextureMouseMoveEventArgs> MouseMove;
-   public event EventHandler ZoomLevelChanged;
+   public event EventHandler<TextureMouseMoveEventArgs>? MouseMove;
+   public event EventHandler? ZoomLevelChanged;
 
    public Skeudenn.UI.Image ImageUI
    {
@@ -27,24 +27,15 @@ public partial class Image : VBoxContainer
       {
          skeudennImage = value;
 
-         if (skeudennImage == null)
-         {
-            textureRect.Visible = false;
+         byte[] imageData = skeudennImage.ImageData();
 
-            Initialize();
-         }
-         else
-         {
-            byte[] imageData = skeudennImage.ImageData();
+         image!.SetData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
 
-            image.SetData(skeudennImage.Size.Width, skeudennImage.Size.Height, false, Godot.Image.Format.L8, imageData);
-
-            // HACK Optimization: Keep an instance of TextureRect and call SetImage
-            // HACK Optimization: Keep a cache of ImageTexture
-            textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
-            textureRect.Visible = true;
-            textureRect.Texture = ImageTexture.CreateFromImage(image);
-         }
+         // HACK Optimization: Keep an instance of TextureRect and call SetImage
+         // HACK Optimization: Keep a cache of ImageTexture
+         textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+         textureRect!.Visible = true;
+         textureRect!.Texture = ImageTexture.CreateFromImage(image);
       }
    }
 
@@ -52,7 +43,7 @@ public partial class Image : VBoxContainer
    {
       get
       {
-         return skeudennImage.ZoomLevel;
+         return skeudennImage!.ZoomLevel;
       }
    }
 
@@ -73,31 +64,31 @@ public partial class Image : VBoxContainer
    private void _on_ZoomIn_pressed()
    {
       // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
-      skeudennImage.ZoomIn();
-      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      skeudennImage!.ZoomIn();
+      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomReset_pressed()
    {
-      skeudennImage.ZoomReset();
-      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      skeudennImage!.ZoomReset();
+      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomOut_pressed()
    {
-      skeudennImage.ZoomOut();
-      textureRect.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      skeudennImage!.ZoomOut();
+      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
 
       TriggerZoomChangedEvent();
    }
 
    private void TriggerZoomChangedEvent()
    {
-      EventHandler handler = ZoomLevelChanged;
+      EventHandler? handler = ZoomLevelChanged;
 
       if (handler != null)
       {
@@ -109,11 +100,11 @@ public partial class Image : VBoxContainer
    {
       if (inputEvent is InputEventMouseMotion eventMouseMotion)
       {
-         EventHandler<TextureMouseMoveEventArgs> handler = MouseMove;
+         EventHandler<TextureMouseMoveEventArgs>? handler = MouseMove;
 
          if (handler != null)
          {
-            PointF pixelPosition = skeudennImage.PixelPosition(new PointF(eventMouseMotion.Position.X, eventMouseMotion.Position.Y));
+            PointF pixelPosition = skeudennImage!.PixelPosition(new PointF(eventMouseMotion.Position.X, eventMouseMotion.Position.Y));
 
             handler(this, new TextureMouseMoveEventArgs(pixelPosition));
          }

@@ -55,7 +55,7 @@ namespace Skeudenn.Console
 
                try
                {
-                  UI.Image imageUI = mainView.OpenFile(filePath);
+                  UI.Image? imageUI = mainView.OpenFile(filePath);
 
                   if (imageUI != null)
                   {

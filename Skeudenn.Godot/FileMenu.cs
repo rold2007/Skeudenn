@@ -6,7 +6,7 @@ using System.Diagnostics;
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
 public partial class FileMenu : MenuButton
 {
-   private FileDialog openImageFileDialog;
+   private FileDialog? openImageFileDialog;
 
    public partial class OpenFilesEventArgs : EventArgs
    {
@@ -18,7 +18,7 @@ public partial class FileMenu : MenuButton
       public string[] Paths { get; private set; }
    }
 
-   public event EventHandler<OpenFilesEventArgs> OpenFiles;
+   public event EventHandler<OpenFilesEventArgs>? OpenFiles;
 
    public override void _Ready()
    {
@@ -37,7 +37,7 @@ public partial class FileMenu : MenuButton
    {
       if (paths.Length > 0)
       {
-         EventHandler<OpenFilesEventArgs> handler = OpenFiles;
+         EventHandler<OpenFilesEventArgs>? handler = OpenFiles;
 
          if (handler != null)
          {
@@ -53,12 +53,12 @@ public partial class FileMenu : MenuButton
       {
          case 0:
             // HACK Set a proper position, size and starting directory when opening openImageFileDialog
-            openImageFileDialog.Position = new Vector2I(50, 100);
-            openImageFileDialog.MinSize = new Vector2I(0, 0);
-            openImageFileDialog.Size = new Vector2I(640, 480);
+            openImageFileDialog!.Position = new Vector2I(50, 100);
+            openImageFileDialog!.MinSize = new Vector2I(0, 0);
+            openImageFileDialog!.Size = new Vector2I(640, 480);
 
-            openImageFileDialog.Show();
-            openImageFileDialog.Invalidate();
+            openImageFileDialog!.Show();
+            openImageFileDialog!.Invalidate();
             break;
 
          case 1:
