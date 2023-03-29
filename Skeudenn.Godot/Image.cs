@@ -47,6 +47,12 @@ public partial class Image : VBoxContainer
       }
    }
 
+   public void Reset()
+   {
+      textureRect!.Visible = false;
+      textureRect!.Texture = null;
+   }
+
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
    {

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-// UNDONE Increase the Warning Level of all projects
-// UNDONE Enable Nullables in all projects
-// UNDONE Enable Treat warnings as errors in all projects
 namespace Skeudenn.UI
 {
    public sealed record MainView

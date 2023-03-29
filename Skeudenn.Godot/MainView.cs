@@ -101,21 +101,20 @@ public partial class MainView : PanelContainer
       tabs!.RemoveTab(tab);
       allImages.RemoveAt(tab);
 
-      ChangeTab(tabs!.CurrentTab);
+      if (tabs!.TabCount > 0)
+      {
+         ChangeTab(tabs!.CurrentTab);
+      }
+      else
+      {
+         imageNode!.Reset();
+      }
    }
 
    private void ChangeTab(int tab)
    {
-      if (tab >= 0)
-      {
-         imageNode!.ImageUI = allImages[tab];
-         imageNode!.Visible = true;
-      }
-      else
-      {
-         // UNDONE Need to test this new logic
-         imageNode!.Visible = false;
-      }
+      imageNode!.ImageUI = allImages[tab];
+      imageNode!.Visible = true;
    }
 
    private void _on_MainMenu_tree_exiting()
@@ -124,4 +123,3 @@ public partial class MainView : PanelContainer
       imageNode!.MouseMove -= ImageNode_MouseMove;
    }
 }
-

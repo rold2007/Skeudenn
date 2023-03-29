@@ -82,3 +82,4 @@ layout_mode = 2
 [connection signal="files_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_files_selected"]
 [connection signal="resized" from="VBoxContainer/TabBar" to="." method="_on_Tabs_resized"]
 [connection signal="tab_changed" from="VBoxContainer/TabBar" to="." method="_on_Tabs_tab_changed"]
+[connection signal="tab_close_pressed" from="VBoxContainer/TabBar" to="." method="_on_Tabs_tab_close"]

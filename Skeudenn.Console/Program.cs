@@ -108,7 +108,6 @@ namespace Skeudenn.Console
             string? menuTitle;
             Action? action;
 
-            // HACK Fix all warning CS8600
             if (menuPrompts.TryGetValue(menu, out menuTitle))
             {
                ImmutableList<string>? choices;
