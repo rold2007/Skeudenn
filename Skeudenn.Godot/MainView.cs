@@ -78,7 +78,14 @@ public partial class MainView : PanelContainer
 
    private void PrintZoomLevel()
    {
-      zoomLevel!.Text = "Zoom Level: " + imageNode!.ZoomLevel.ToString() + "%";
+      if (imageNode!.Valid)
+      {
+         zoomLevel!.Text = "Zoom Level: " + imageNode!.ZoomLevel.ToString() + "%";
+      }
+      else
+      {
+         zoomLevel!.Text = string.Empty;
+      }
    }
 
    private void _on_Tabs_resized()
@@ -108,6 +115,8 @@ public partial class MainView : PanelContainer
       else
       {
          imageNode!.Reset();
+         pixelPosition!.Text = "(0,0)";
+         PrintZoomLevel();
       }
    }
 

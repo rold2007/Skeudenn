@@ -23,22 +23,22 @@ custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ZoomControls" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="ZoomOut" type="Button" parent="VBoxContainer"]
+[node name="ZoomOut" type="Button" parent="ZoomControls"]
 layout_mode = 2
 text = "Zoom-"
 
-[node name="ZoomReset" type="Button" parent="VBoxContainer"]
+[node name="ZoomReset" type="Button" parent="ZoomControls"]
 layout_mode = 2
 text = "Reset Zoom"
 
-[node name="ZoomIn" type="Button" parent="VBoxContainer"]
+[node name="ZoomIn" type="Button" parent="ZoomControls"]
 layout_mode = 2
 text = "Zoom+"
 
 [connection signal="gui_input" from="ScrollContainer/TextureRect" to="." method="_on_TextureRect_gui_input"]
-[connection signal="pressed" from="VBoxContainer/ZoomOut" to="." method="_on_ZoomOut_pressed"]
-[connection signal="pressed" from="VBoxContainer/ZoomReset" to="." method="_on_ZoomReset_pressed"]
-[connection signal="pressed" from="VBoxContainer/ZoomIn" to="." method="_on_ZoomIn_pressed"]
+[connection signal="pressed" from="ZoomControls/ZoomOut" to="." method="_on_ZoomOut_pressed"]
+[connection signal="pressed" from="ZoomControls/ZoomReset" to="." method="_on_ZoomReset_pressed"]
+[connection signal="pressed" from="ZoomControls/ZoomIn" to="." method="_on_ZoomIn_pressed"]

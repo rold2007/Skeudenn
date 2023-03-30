@@ -47,10 +47,19 @@ public partial class Image : VBoxContainer
       }
    }
 
+   public bool Valid
+   {
+      get
+      {
+         return textureRect!.Visible;
+      }
+   }
+
    public void Reset()
    {
       textureRect!.Visible = false;
       textureRect!.Texture = null;
+      skeudennImage = null;
    }
 
    // Called when the node enters the scene tree for the first time.
@@ -66,28 +75,36 @@ public partial class Image : VBoxContainer
       image = new Godot.Image();
    }
 
-   // UNDONE skeudennImage can be null here. Need to disable/hide the buttons or the image view when no image is opened
    private void _on_ZoomIn_pressed()
    {
-      // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
-      skeudennImage!.ZoomIn();
-      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      if (skeudennImage != null)
+      {
+         // HACK Remove the texture blurring when zooming in. The easiest/fastest way might be to create a child image
+         skeudennImage.ZoomIn();
+         textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      }
 
       TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomReset_pressed()
    {
-      skeudennImage!.ZoomReset();
-      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      if (skeudennImage != null)
+      {
+         skeudennImage.ZoomReset();
+         textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      }
 
       TriggerZoomChangedEvent();
    }
 
    private void _on_ZoomOut_pressed()
    {
-      skeudennImage!.ZoomOut();
-      textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      if (skeudennImage != null)
+      {
+         skeudennImage.ZoomOut();
+         textureRect!.CustomMinimumSize = new Vector2(skeudennImage.ZoomedSize.Width, skeudennImage.ZoomedSize.Height);
+      }
 
       TriggerZoomChangedEvent();
    }
