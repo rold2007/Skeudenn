@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// UNDONE Dependencies, like SixLabors.ImageSharp.dll, are not copied to .godot\mono\temp\bin\Debug anymore. Why ?
 public partial class MainView : PanelContainer
 {
    private FileMenu? fileMenu;
