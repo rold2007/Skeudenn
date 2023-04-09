@@ -46,7 +46,7 @@ public partial class FileMenu : MenuButton
       }
    }
 
-   // UNDONE Use the new MenuBar instead of the custom MenuButton to implement the menu
+   // HACK Use the new MenuBar instead of the custom MenuButton to implement the menu. Not sure how it works. Wait for a tutorial...
    private void SubMenuClicked(int id)
    {
       switch (id)

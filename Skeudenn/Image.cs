@@ -3,6 +3,7 @@ using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
+// UNDONE Move Skeudenn.csproj to the Skeudenn folder
 namespace Skeudenn
 {
    public sealed record Image

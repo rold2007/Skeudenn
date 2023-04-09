@@ -22,14 +22,17 @@
     <Compile Remove="Godot\**" />
     <Compile Remove="Skeudenn.Console\**" />
     <Compile Remove="Skeudenn.Godot\**" />
+    <Compile Remove="Skeudenn.Tests\**" />
     <Compile Remove="_NCrunch_Skeudenn\**" />
     <EmbeddedResource Remove="Godot\**" />
     <EmbeddedResource Remove="Skeudenn.Console\**" />
     <EmbeddedResource Remove="Skeudenn.Godot\**" />
+    <EmbeddedResource Remove="Skeudenn.Tests\**" />
     <EmbeddedResource Remove="_NCrunch_Skeudenn\**" />
     <None Remove="Godot\**" />
     <None Remove="Skeudenn.Console\**" />
     <None Remove="Skeudenn.Godot\**" />
+    <None Remove="Skeudenn.Tests\**" />
     <None Remove="_NCrunch_Skeudenn\**" />
   </ItemGroup>
 
@@ -52,9 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shouldly" Version="4.1.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.0" />
-    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
   </ItemGroup>
 
 </Project>

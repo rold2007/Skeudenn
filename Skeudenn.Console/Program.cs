@@ -101,7 +101,7 @@ namespace Skeudenn.Console
             menu = main;
          });
 
-         // TODO Add support for zoom tool with AnsiConsole.Console.Input.ReadKey(), AnsiConsole.Live() and canvasImage.MaxWidth
+         // HACK Add support for zoom tool with AnsiConsole.Console.Input.ReadKey(), AnsiConsole.Live() and canvasImage.MaxWidth
          // HACK Add all the same UI functionalities as with the Godot UI
          while (!exitMenu)
          {

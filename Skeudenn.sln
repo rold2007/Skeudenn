@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Godot", "Skeudenn.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Console", "Skeudenn.Console\Skeudenn.Console.csproj", "{9031F585-441C-497F-A594-E4D333682A7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeudenn.Tests", "Skeudenn.Tests\Skeudenn.Tests.csproj", "{09D5CF19-69A2-4C63-B65D-37D78401D78A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,14 @@ Global
 		{9031F585-441C-497F-A594-E4D333682A7D}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{9031F585-441C-497F-A594-E4D333682A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9031F585-441C-497F-A594-E4D333682A7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

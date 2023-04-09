@@ -12,7 +12,6 @@ using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.PixelFormats;
 using Xunit;
 
-// TODO Move the tests to a different project so that Skeudenn does not depend on test-specific libraries like XUnit or Shouldly.
 namespace Skeudenn.Tests
 {
    public sealed class Image
