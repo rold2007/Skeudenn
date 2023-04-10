@@ -21,7 +21,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Skeudenn.csproj" />
+    <ProjectReference Include="..\Skeudenn\Skeudenn.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">

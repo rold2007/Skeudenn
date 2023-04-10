@@ -3,16 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn", "Skeudenn.csproj", "{3D209436-6854-4975-B0F2-406ADCB42D1A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Godot", "Skeudenn.Godot\Skeudenn.Godot.csproj", "{44279427-ABCC-4B67-9194-5B23724B9540}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3D209436-6854-4975-B0F2-406ADCB42D1A} = {3D209436-6854-4975-B0F2-406ADCB42D1A}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Console", "Skeudenn.Console\Skeudenn.Console.csproj", "{9031F585-441C-497F-A594-E4D333682A7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeudenn.Tests", "Skeudenn.Tests\Skeudenn.Tests.csproj", "{09D5CF19-69A2-4C63-B65D-37D78401D78A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn.Tests", "Skeudenn.Tests\Skeudenn.Tests.csproj", "{09D5CF19-69A2-4C63-B65D-37D78401D78A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skeudenn", "Skeudenn\Skeudenn.csproj", "{822B7A64-4F31-41B2-A93C-4966D5738B76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D209436-6854-4975-B0F2-406ADCB42D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44279427-ABCC-4B67-9194-5B23724B9540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44279427-ABCC-4B67-9194-5B23724B9540}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44279427-ABCC-4B67-9194-5B23724B9540}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
@@ -54,6 +43,14 @@ Global
 		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D5CF19-69A2-4C63-B65D-37D78401D78A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822B7A64-4F31-41B2-A93C-4966D5738B76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

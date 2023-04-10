@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Skeudenn.csproj" />
+    <ProjectReference Include="..\Skeudenn\Skeudenn.csproj" />
   </ItemGroup>
 
 </Project>
