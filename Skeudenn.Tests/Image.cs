@@ -26,14 +26,12 @@ namespace Skeudenn.Tests
          return imagePixels;
       }
 
-      static MemoryStream? GenerateImage(byte[] imagePixels, Size imageSize)
+      static MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
       {
-         MemoryStream? memoryStream = null;
+         MemoryStream memoryStream = new MemoryStream();
 
          try
          {
-            memoryStream = new MemoryStream();
-
             using (SixLabors.ImageSharp.Image<L8> tempImage = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
             {
                IImageFormat[] lossLessImageFormat = { BmpFormat.Instance, PbmFormat.Instance, PngFormat.Instance, TgaFormat.Instance, TiffFormat.Instance };
@@ -46,11 +44,8 @@ namespace Skeudenn.Tests
          //ncrunch: no coverage start
          catch
          {
-            if (memoryStream != null)
-            {
-               memoryStream.Dispose();
-               memoryStream = null;
-            }
+            memoryStream.Dispose();
+            memoryStream = new MemoryStream();
          }
          //ncrunch: no coverage end
 
@@ -63,15 +58,15 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.Size.ShouldBe(imageSize);
-               image!.ImageData().ShouldBe(imagePixels);
+               image.Size.ShouldBe(imageSize);
+               image.ImageData().ShouldBe(imagePixels);
             }
          }
       }
@@ -82,15 +77,15 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
                PointF windowPosition = new PointF(42, 54);
-               PointF pixelPosition = image!.PixelPosition(windowPosition);
+               PointF pixelPosition = image.PixelPosition(windowPosition);
 
                pixelPosition.X.ShouldBe(42);
                pixelPosition.Y.ShouldBe(54);
@@ -104,18 +99,18 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(3, 5);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomIn();
-               image!.ZoomIn();
+               image.ZoomIn();
+               image.ZoomIn();
 
                PointF windowPosition = new PointF(42, 54);
-               PointF pixelPosition = image!.PixelPosition(windowPosition);
+               PointF pixelPosition = image.PixelPosition(windowPosition);
 
                pixelPosition.X.ShouldBe(21);
                pixelPosition.Y.ShouldBe(27);
@@ -129,26 +124,26 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomIn();
+               image.ZoomIn();
 
-               image!.ZoomedSize.ShouldBe(new Size(8, 10));
+               image.ZoomedSize.ShouldBe(new Size(8, 10));
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomedSize.ShouldBe(new Size(3, 5));
+               image.ZoomedSize.ShouldBe(new Size(3, 5));
             }
          }
       }
@@ -159,29 +154,29 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomIn();
+               image.ZoomIn();
 
-               image!.ZoomedSize.ShouldBe(new Size(8, 10));
+               image.ZoomedSize.ShouldBe(new Size(8, 10));
 
                for (int i = 0; i < 20; i++)
                {
-                  image!.ZoomIn();
+                  image.ZoomIn();
                }
 
-               image!.ZoomedSize.ShouldBe(new Size(320, 448));
+               image.ZoomedSize.ShouldBe(new Size(320, 448));
 
-               image!.ZoomIn();
+               image.ZoomIn();
 
-               image!.ZoomedSize.ShouldBe(new Size(320, 448));
+               image.ZoomedSize.ShouldBe(new Size(320, 448));
             }
          }
       }
@@ -192,29 +187,29 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(500, 700);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomedSize.ShouldBe(new Size(335, 469));
+               image.ZoomedSize.ShouldBe(new Size(335, 469));
 
                for (int i = 0; i < 20; i++)
                {
-                  image!.ZoomOut();
+                  image.ZoomOut();
                }
 
-               image!.ZoomedSize.ShouldBe(new Size(10, 14));
+               image.ZoomedSize.ShouldBe(new Size(10, 14));
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomedSize.ShouldBe(new Size(10, 14));
+               image.ZoomedSize.ShouldBe(new Size(10, 14));
             }
          }
       }
@@ -225,30 +220,30 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomIn();
+               image.ZoomIn();
 
-               image!.ZoomedSize.ShouldBe(new Size(8, 10));
+               image.ZoomedSize.ShouldBe(new Size(8, 10));
 
-               image!.ZoomReset();
+               image.ZoomReset();
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomedSize.ShouldBe(new Size(3, 5));
+               image.ZoomedSize.ShouldBe(new Size(3, 5));
 
-               image!.ZoomReset();
+               image.ZoomReset();
 
-               image!.ZoomedSize.ShouldBe(imageSize);
+               image.ZoomedSize.ShouldBe(imageSize);
             }
          }
       }
@@ -259,30 +254,30 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(5, 7);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.ZoomLevel.ShouldBe(100);
+               image.ZoomLevel.ShouldBe(100);
 
-               image!.ZoomIn();
+               image.ZoomIn();
 
-               image!.ZoomLevel.ShouldBe(150);
+               image.ZoomLevel.ShouldBe(150);
 
-               image!.ZoomReset();
+               image.ZoomReset();
 
-               image!.ZoomLevel.ShouldBe(100);
+               image.ZoomLevel.ShouldBe(100);
 
-               image!.ZoomOut();
+               image.ZoomOut();
 
-               image!.ZoomLevel.ShouldBe(67);
+               image.ZoomLevel.ShouldBe(67);
 
-               image!.ZoomReset();
+               image.ZoomReset();
 
-               image!.ZoomLevel.ShouldBe(100);
+               image.ZoomLevel.ShouldBe(100);
             }
          }
       }
@@ -293,18 +288,21 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(1, 1);
          byte[] imagePixels = GenerateImageData(imageSize);
 
-         using (MemoryStream? memoryStream = GenerateImage(imagePixels, imageSize))
+         using (MemoryStream memoryStream = GenerateImage(imagePixels, imageSize))
          {
-            if (memoryStream != null)
+            if (memoryStream.Length > 0)
             {
                UI.MainView mainView = new UI.MainView();
-               UI.Image? image = mainView.OpenFile(memoryStream);
+               UI.Image image = mainView.OpenFile(memoryStream);
 
-               image!.Name.ShouldBeEmpty();
-               image!.Name = "Dummy1";
-               image!.Name.ShouldBe("Dummy1");
-               image!.Name = "Dummy2";
-               image!.Name.ShouldBe("Dummy2");
+               image.Name.ShouldBeEmpty();
+               image.ToString().ShouldBeEmpty();
+               image.Name = "Dummy1";
+               image.Name.ShouldBe("Dummy1");
+               image.ToString().ShouldBe("Dummy1");
+               image.Name = "Dummy2";
+               image.Name.ShouldBe("Dummy2");
+               image.ToString().ShouldBe("Dummy2");
             }
          }
       }

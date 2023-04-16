@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 
-// UNDONE Remove all nullable (ex: string?) types, at last they shouldn't be seen from theSkeudenn.UI layer. Also remove associated objectInstance!.Method().
 namespace Skeudenn.UI
 {
    public sealed record Image
@@ -39,6 +38,14 @@ namespace Skeudenn.UI
          get; set;
       } = string.Empty;
 
+      public bool Valid
+      {
+         get
+         {
+            return image.Valid;
+         }
+      }
+
       public Image(Skeudenn.Image image)
       {
          this.image = image;
@@ -47,6 +54,12 @@ namespace Skeudenn.UI
       public byte[] ImageData()
       {
          return image.ImageData();
+      }
+
+      // To prevent crash when calling the default version on an invalid image
+      public override string ToString()
+      {
+         return Name;
       }
 
       public PointF PixelPosition(PointF windowPosition)

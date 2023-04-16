@@ -17,7 +17,7 @@ namespace Skeudenn.UI
       {
       }
 
-      public Image? OpenFile(string path)
+      public Image OpenFile(string path)
       {
          try
          {
@@ -28,15 +28,13 @@ namespace Skeudenn.UI
          }
          catch
          {
-            return null;
+            return new Image(Skeudenn.Image.OpenFile(null));
          }
       }
 
-      public Image? OpenFile(Stream imageStream)
+      public Image OpenFile(Stream imageStream)
       {
-         Skeudenn.Image? image = Skeudenn.Image.OpenFile(imageStream);
-
-         return (image != null ? new Image(image) : null);
+         return new Image(Skeudenn.Image.OpenFile(imageStream));
       }
 
       public List<Image> OpenFiles(string[] paths, out bool error)
@@ -47,16 +45,16 @@ namespace Skeudenn.UI
 
          foreach (string path in paths)
          {
-            Skeudenn.UI.Image? skeudennImage = OpenFile(path);
+            Skeudenn.UI.Image skeudennImage = OpenFile(path);
 
-            if (skeudennImage == null)
-            {
-               error = true;
-            }
-            else
+            if (skeudennImage.Valid)
             {
                skeudennImage.Name = Path.GetFileName(path);
                images.Add(skeudennImage);
+            }
+            else
+            {
+               error = true;
             }
          }
 

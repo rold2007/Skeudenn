@@ -55,9 +55,9 @@ namespace Skeudenn.Console
 
                try
                {
-                  UI.Image? imageUI = mainView.OpenFile(filePath);
+                  UI.Image imageUI = mainView.OpenFile(filePath);
 
-                  if (imageUI != null)
+                  if (imageUI.Valid)
                   {
                      Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
                      CanvasImage canvasImage;

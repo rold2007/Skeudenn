@@ -34,13 +34,11 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilePath()
       {
-         Skeudenn.UI.Image? image;
-
          using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
          {
             Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
-            string? tempFilename = null;
+            string tempFilename = string.Empty;
 
             try
             {
@@ -48,11 +46,13 @@ namespace Skeudenn.Tests
 
                tempImage.SaveAsBmp(tempFilename);
 
-               image = fileMenu.OpenFile(tempFilename);
+               Skeudenn.UI.Image image = fileMenu.OpenFile(tempFilename);
+
+               image.Valid.ShouldBeTrue();
             }
             finally
             {
-               if (tempFilename != null)
+               if (tempFilename != string.Empty)
                {
                   File.Delete(tempFilename);
                }
@@ -63,8 +63,6 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFile()
       {
-         Skeudenn.UI.Image? image;
-
          using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
          {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -74,7 +72,9 @@ namespace Skeudenn.Tests
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
 
-               image = fileMenu.OpenFile(memoryStream);
+               Skeudenn.UI.Image image = fileMenu.OpenFile(memoryStream);
+
+               image.Valid.ShouldBeTrue();
             }
          }
       }
@@ -84,17 +84,17 @@ namespace Skeudenn.Tests
       {
          Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
-         string? tempFilename = null;
+         string tempFilename = string.Empty;
 
          try
          {
             tempFilename = Path.GetTempFileName();
 
-            fileMenu.OpenFile(tempFilename).ShouldBeNull();
+            fileMenu.OpenFile(tempFilename).Valid.ShouldBeFalse();
          }
          finally
          {
-            if (tempFilename != null)
+            if (tempFilename != string.Empty)
             {
                File.Delete(tempFilename);
             }
@@ -108,7 +108,7 @@ namespace Skeudenn.Tests
          {
             Skeudenn.UI.MainView fileMenu = new UI.MainView();
 
-            fileMenu.OpenFile(memoryStream).ShouldBeNull();
+            fileMenu.OpenFile(memoryStream).Valid.ShouldBeFalse();
          }
       }
 
