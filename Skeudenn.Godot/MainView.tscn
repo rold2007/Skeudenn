@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bo0petgrli3rp"]
+[gd_scene load_steps=7 format=3 uid="uid://bo0petgrli3rp"]
 
 [ext_resource type="PackedScene" uid="uid://c0xak2yue6wyy" path="res://Image.tscn" id="1"]
 [ext_resource type="Script" path="res://FileMenu.cs" id="2"]
 [ext_resource type="Script" path="res://HelpMenu.cs" id="3"]
+[ext_resource type="Script" path="res://Imaging.cs" id="3_du04m"]
 [ext_resource type="Script" path="res://MainView.cs" id="4"]
+[ext_resource type="PackedScene" uid="uid://mkqpw5gtwpx2" path="res://Binarize.tscn" id="8_7whlv"]
 
 [node name="MainView" type="PanelContainer"]
 anchors_preset = 15
@@ -35,6 +37,14 @@ title = "Open File(s)"
 ok_button_text = "Open"
 file_mode = 1
 access = 2
+
+[node name="Imaging" type="MenuButton" parent="VBoxContainer/MainMenu"]
+layout_mode = 2
+text = "Imaging"
+item_count = 1
+popup/item_0/text = "Binarize"
+popup/item_0/id = 0
+script = ExtResource("3_du04m")
 
 [node name="HelpMenu" type="MenuButton" parent="VBoxContainer/MainMenu"]
 layout_mode = 2
@@ -75,6 +85,8 @@ text = "(0,0)"
 [node name="ZoomLevel" type="Label" parent="VBoxContainer/StatusBar"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Window" parent="." instance=ExtResource("8_7whlv")]
 
 [connection signal="tree_exiting" from="VBoxContainer/MainMenu" to="." method="_on_MainMenu_tree_exiting"]
 [connection signal="file_selected" from="VBoxContainer/MainMenu/FileMenu/OpenImageFileDialog" to="VBoxContainer/MainMenu/FileMenu" method="_on_OpenImageFileDialog_file_selected"]

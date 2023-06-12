@@ -1,6 +1,5 @@
 using Godot;
 using System.Diagnostics;
-using Skeudenn.UI;
 
 public partial class HelpMenu : MenuButton
 {
