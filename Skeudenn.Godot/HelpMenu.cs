@@ -16,6 +16,7 @@ public partial class HelpMenu : MenuButton
       switch (id)
       {
          case 0:
+            // TODO There shouldn't be more than one Skeudenn.UI.MainView instance...
             Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
 
             aboutBoxDialog!.Title = "About";

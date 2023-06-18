@@ -8,12 +8,18 @@ public partial class Imaging : MenuButton
    public override void _Ready()
    {
       GetPopup().Connect("id_pressed", new Callable(this, "SubMenuClicked"));
-      binarize = new Binarize();
+
+      // TODO Move this to a method which will be called only the first time we try to show Binarize
+      PackedScene scene = GD.Load<PackedScene>("res://Binarize.tscn");
+
+      binarize = scene.Instantiate<Binarize>();
+
+      binarize.Visible = false;
+
+      AddChild(binarize);
    }
 
-   // UNDONE Make the close button work on the Binarize scene
    // UNDONE Split the Window from VBoxContainer to create a plugin Window which can display any sub-UI
-   // UNDONE Make the Binarize window appear only when we click the menus
    public void SubMenuClicked(int id)
    {
       switch (id)
