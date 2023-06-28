@@ -1,36 +1,51 @@
 using Godot;
+using System;
 using System.Diagnostics;
 
 public partial class Imaging : MenuButton
 {
-   private Binarize? binarize;
+   private Plugin? binarizePluginWindow;
 
    public override void _Ready()
    {
       GetPopup().Connect("id_pressed", new Callable(this, "SubMenuClicked"));
-
-      // TODO Move this to a method which will be called only the first time we try to show Binarize
-      PackedScene scene = GD.Load<PackedScene>("res://Binarize.tscn");
-
-      binarize = scene.Instantiate<Binarize>();
-
-      binarize.Visible = false;
-
-      AddChild(binarize);
    }
 
-   // UNDONE Split the Window from VBoxContainer to create a plugin Window which can display any sub-UI
    public void SubMenuClicked(int id)
    {
       switch (id)
       {
          case 0:
-            binarize!.Show();
+            InitializeBinarizePluginWindow();
+            binarizePluginWindow!.Show();
             break;
 
          default:
             Debug.Fail("Unknown menu id.");
             break;
+      }
+   }
+
+   private void InitializeBinarizePluginWindow()
+   {
+      if (binarizePluginWindow == null)
+      {
+         PackedScene pluginScene = GD.Load<PackedScene>("res://Plugin.tscn");
+         PackedScene binarizeScene = GD.Load<PackedScene>("res://Binarize.tscn");
+
+         binarizePluginWindow = pluginScene.Instantiate<Plugin>();
+
+         binarizePluginWindow.Visible = false;
+
+         Binarize? binarize = binarizeScene.Instantiate<Binarize>();
+
+         binarizePluginWindow.Size = new Vector2I(Convert.ToInt32(binarize.GetMinimumSize().X), Convert.ToInt32(binarize.GetMinimumSize().Y));
+         binarizePluginWindow.MaxSize = binarizePluginWindow.Size;
+
+         // HACK Maybe this AddChild should be done on the MainView instead of this MenuButton...
+         AddChild(binarizePluginWindow);
+
+         binarizePluginWindow!.AddPluginWindow(binarize!);
       }
    }
 }

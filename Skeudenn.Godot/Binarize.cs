@@ -1,6 +1,8 @@
 using Godot;
 
-public partial class Binarize : Window
+// UNDONE Apply the slider change to the current image
+// UNDONE Add a label to see the threshold value
+public partial class Binarize : VBoxContainer
 {
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
@@ -10,10 +12,5 @@ public partial class Binarize : Window
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
-   }
-
-   private void _on_close_requested()
-   {
-	  Hide();
    }
 }

@@ -2,22 +2,14 @@
 
 [ext_resource type="Script" path="res://Binarize.cs" id="1_68y5v"]
 
-[node name="Window" type="Window"]
-title = "Binarize"
-position = Vector2i(200, 200)
-transient = true
-popup_window = true
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 100.0
 script = ExtResource("1_68y5v")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSlider" type="HSlider" parent="VBoxContainer"]
-custom_minimum_size = Vector2(200, 100)
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 max_value = 255.0
-
-[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+tick_count = 5
+ticks_on_borders = true

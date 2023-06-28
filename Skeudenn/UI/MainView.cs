@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-// UNDONE Add a first image processing tool: binarize
 namespace Skeudenn.UI
 {
    public sealed record MainView
