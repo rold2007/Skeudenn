@@ -18,12 +18,12 @@
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
-    <PackageReference Include="Spectre.Console" Version="0.46.0" />
-    <PackageReference Include="Spectre.Console.Analyzer" Version="0.46.0">
+    <PackageReference Include="Spectre.Console" Version="0.47.0" />
+    <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.46.0" />
+    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.47.0" />
   </ItemGroup>
 
   <ItemGroup>

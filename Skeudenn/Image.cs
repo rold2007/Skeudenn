@@ -53,7 +53,9 @@ namespace Skeudenn
          byte[] imageData = new byte[image!.Width * image!.Height];
          Span<byte> theSpan = new Span<byte>(imageData);
 
-         image.CopyPixelDataTo(theSpan);
+         Image<L8> destinationImage = ImageProcessors.Instance.ProcessImage(image);
+
+         destinationImage.CopyPixelDataTo(theSpan);
 
          return imageData;
       }
