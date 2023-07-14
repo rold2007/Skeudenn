@@ -24,6 +24,7 @@ namespace Skeudenn
          }
       }
 
+      // UNDONE Add tests and bring back code coverage to 100%
       public void Add(object uniqueSource, IImageProcessor imageProcessor)
       {
          int index = uniqueProcessors.FindIndex((item) => object.ReferenceEquals(item, uniqueSource));
