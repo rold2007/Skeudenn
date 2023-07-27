@@ -1,16 +1,19 @@
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing.Processors;
+using System.Collections.Generic;
+using System;
+
 namespace Skeudenn
 {
-   using SixLabors.ImageSharp.PixelFormats;
-   using SixLabors.ImageSharp;
-   using SixLabors.ImageSharp.Processing.Processors;
-   using System.Collections.Generic;
-
    public sealed record ImageProcessors
    {
-      private static ImageProcessors instance = new ImageProcessors();
+      private static ImageProcessors? instance;
 
       private List<object> uniqueProcessors = new List<object>();
       private List<IImageProcessor> imageProcessors = new List<IImageProcessor>();
+
+      public event EventHandler? ImageProcessorChanged;
 
       private ImageProcessors()
       {
@@ -20,6 +23,8 @@ namespace Skeudenn
       {
          get
          {
+            instance ??= new ImageProcessors();
+
             return instance;
          }
       }
@@ -37,6 +42,13 @@ namespace Skeudenn
 
          uniqueProcessors.Add(uniqueSource);
          imageProcessors.Add(imageProcessor);
+
+         EventHandler? imageProcessorChanged = ImageProcessorChanged;
+
+         if(imageProcessorChanged != null)
+         {
+            imageProcessorChanged(this, EventArgs.Empty);
+         }
       }
 
       public Image<L8> ProcessImage(Image<L8> sourceImage)
