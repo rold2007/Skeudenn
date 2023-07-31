@@ -14,5 +14,10 @@ namespace Skeudenn
 
          ImageProcessors.Instance.Add(this, binaryThresholdProcessor);
       }
+
+      public void Remove()
+      {
+         ImageProcessors.Instance.Remove(this);
+      }
    }
 }

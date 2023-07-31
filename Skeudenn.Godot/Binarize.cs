@@ -1,6 +1,7 @@
 using Godot;
 
 // UNDONE Add a label to see the threshold value
+// UNDONE Change the default value of the initial threshold
 public partial class Binarize : VBoxContainer
 {
    private HSlider? slider;
@@ -10,7 +11,6 @@ public partial class Binarize : VBoxContainer
    public override void _Ready()
    {
       slider = GetNode<HSlider>("%HSlider");
-      binarize.Apply(slider.Value);
    }
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,5 +21,17 @@ public partial class Binarize : VBoxContainer
    private void _on_h_slider_value_changed(double value)
    {
       binarize.Apply(value);
+   }
+
+   private void _on_visibility_changed()
+   {
+      if (this.Visible)
+      {
+         binarize.Apply(slider!.Value);
+      }
+      else
+      {
+         binarize.Remove();
+      }
    }
 }

@@ -80,9 +80,12 @@ public partial class Image : VBoxContainer
 
    private void UpdateData()
    {
-      byte[] imageData = skeudennImage!.ImageData();
+      if (skeudennImage != null)
+      {
+         byte[] imageData = skeudennImage!.ImageData();
 
-      image!.SetData(skeudennImage!.Size.Width, skeudennImage!.Size.Height, false, Godot.Image.Format.L8, imageData);
+         image!.SetData(skeudennImage!.Size.Width, skeudennImage!.Size.Height, false, Godot.Image.Format.L8, imageData);
+      }
    }
 
    private void Initialize()

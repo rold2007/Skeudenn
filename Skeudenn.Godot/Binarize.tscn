@@ -15,4 +15,5 @@ max_value = 255.0
 tick_count = 5
 ticks_on_borders = true
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

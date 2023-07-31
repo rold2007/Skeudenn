@@ -32,24 +32,44 @@ namespace Skeudenn
       // UNDONE Add tests and bring back code coverage to 100%
       public void Add(object uniqueSource, IImageProcessor imageProcessor)
       {
+         Update(uniqueSource, imageProcessor);
+      }
+
+      public void Remove(object uniqueSource)
+      {
+         Update(uniqueSource, null);
+      }
+
+      private void Update(object uniqueSource, IImageProcessor? imageProcessor)
+      {
+         bool update = false;
          int index = uniqueProcessors.FindIndex((item) => object.ReferenceEquals(item, uniqueSource));
 
          if (index != -1)
          {
             uniqueProcessors.RemoveAt(index);
             imageProcessors.RemoveAt(index);
+            update = true;
          }
 
-         uniqueProcessors.Add(uniqueSource);
-         imageProcessors.Add(imageProcessor);
-
-         EventHandler? imageProcessorChanged = ImageProcessorChanged;
-
-         if(imageProcessorChanged != null)
+         if (imageProcessor != null)
          {
-            imageProcessorChanged(this, EventArgs.Empty);
+            uniqueProcessors.Add(uniqueSource);
+            imageProcessors.Add(imageProcessor);
+            update = true;
+         }
+
+         if (update)
+         { 
+            EventHandler? imageProcessorChanged = ImageProcessorChanged;
+
+            if (imageProcessorChanged != null)
+            {
+               imageProcessorChanged(this, EventArgs.Empty);
+            }
          }
       }
+
 
       public Image<L8> ProcessImage(Image<L8> sourceImage)
       {

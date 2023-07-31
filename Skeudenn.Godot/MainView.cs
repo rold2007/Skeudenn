@@ -70,6 +70,7 @@ public partial class MainView : PanelContainer
       pixelPosition!.Text = e!.PixelPosition.ToString();
    }
 
+   // TODO Improve the zoom UI to look more like Paint.Net
    private void ImageNode_ZoomLevelChanged(object? sender, EventArgs? e)
    {
       PrintZoomLevel();

@@ -8,5 +8,10 @@
       {
          binarize.Apply(threshold);
       }
+
+      public void Remove()
+      {
+         binarize.Remove();
+      }
    }
 }
