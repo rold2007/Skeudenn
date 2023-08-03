@@ -17,7 +17,7 @@ public partial class Imaging : MenuButton
       {
          case 0:
             InitializeBinarizePluginWindow();
-            binarizePluginWindow!.Show();
+            binarizePluginWindow!.Popup();
             break;
 
          default:
@@ -41,6 +41,9 @@ public partial class Imaging : MenuButton
 
          binarizePluginWindow.Size = new Vector2I(Convert.ToInt32(binarize.GetMinimumSize().X), Convert.ToInt32(binarize.GetMinimumSize().Y));
          binarizePluginWindow.MaxSize = binarizePluginWindow.Size;
+
+         binarizePluginWindow.AboutToPopup += binarize.Apply;
+         binarizePluginWindow.CloseRequested += binarize.Remove;
 
          // HACK Maybe this AddChild should be done on the MainView instead of this MenuButton...
          AddChild(binarizePluginWindow);

@@ -16,7 +16,8 @@ namespace Skeudenn.Tests
 {
    public sealed class Image
    {
-      static byte[] GenerateImageData(Size imageSize)
+      // HACK Move this to a tests utility class
+      static public byte[] GenerateImageData(Size imageSize)
       {
          byte[] imagePixels = new byte[imageSize.Width * imageSize.Height];
          Random random = new Random();
@@ -26,7 +27,8 @@ namespace Skeudenn.Tests
          return imagePixels;
       }
 
-      static MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
+      // HACK Move this to a tests utility class
+      static public MemoryStream GenerateImage(byte[] imagePixels, Size imageSize)
       {
          MemoryStream memoryStream = new MemoryStream();
 

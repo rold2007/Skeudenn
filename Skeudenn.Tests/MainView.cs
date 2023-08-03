@@ -12,13 +12,13 @@ namespace Skeudenn.Tests
       [Fact]
       public void Constructor()
       {
-         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new UI.MainView();
       }
 
       [Fact]
       public void CanExit()
       {
-         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new UI.MainView();
 
          fileMenu.CanExit().ShouldBeTrue();
       }
@@ -26,7 +26,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void Exit()
       {
-         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new UI.MainView();
 
          fileMenu.Exit();
       }
@@ -34,9 +34,9 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilePath()
       {
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         using (Image<L8> tempImage = new Image<L8>(3, 3))
          {
-            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+            UI.MainView fileMenu = new UI.MainView();
 
             string tempFilename = string.Empty;
 
@@ -46,7 +46,7 @@ namespace Skeudenn.Tests
 
                tempImage.SaveAsBmp(tempFilename);
 
-               Skeudenn.UI.Image image = fileMenu.OpenFile(tempFilename);
+               UI.Image image = fileMenu.OpenFile(tempFilename);
 
                image.Valid.ShouldBeTrue();
             }
@@ -63,16 +63,16 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFile()
       {
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         using (Image<L8> tempImage = new Image<L8>(3, 3))
          {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-               Skeudenn.UI.MainView fileMenu = new UI.MainView();
+               UI.MainView fileMenu = new UI.MainView();
 
                tempImage.SaveAsBmp(memoryStream);
                memoryStream.Seek(0, SeekOrigin.Begin);
 
-               Skeudenn.UI.Image image = fileMenu.OpenFile(memoryStream);
+               UI.Image image = fileMenu.OpenFile(memoryStream);
 
                image.Valid.ShouldBeTrue();
             }
@@ -82,7 +82,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilePathFail()
       {
-         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new UI.MainView();
 
          string tempFilename = string.Empty;
 
@@ -106,7 +106,7 @@ namespace Skeudenn.Tests
       {
          using (MemoryStream memoryStream = new MemoryStream())
          {
-            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+            UI.MainView fileMenu = new UI.MainView();
 
             fileMenu.OpenFile(memoryStream).Valid.ShouldBeFalse();
          }
@@ -115,11 +115,11 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilesPath()
       {
-         List<Skeudenn.UI.Image> images;
+         List<UI.Image> images;
 
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         using (Image<L8> tempImage = new Image<L8>(3, 3))
          {
-            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+            UI.MainView fileMenu = new UI.MainView();
 
             List<string> tempFilenames = new List<string>();
 
@@ -150,11 +150,11 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilesPathFail()
       {
-         List<Skeudenn.UI.Image> images;
+         List<UI.Image> images;
 
-         using (SixLabors.ImageSharp.Image<L8> tempImage = new SixLabors.ImageSharp.Image<L8>(3, 3))
+         using (Image<L8> tempImage = new Image<L8>(3, 3))
          {
-            Skeudenn.UI.MainView fileMenu = new UI.MainView();
+            UI.MainView fileMenu = new UI.MainView();
 
             List<string> tempFilenames = new List<string>();
 
@@ -198,7 +198,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void AboutText()
       {
-         Skeudenn.UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new UI.MainView();
 
          string aboutText = fileMenu.AboutText();
 

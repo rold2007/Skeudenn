@@ -75,7 +75,8 @@ namespace Skeudenn
       {
          if (imageProcessors.Count == 0)
          {
-            return sourceImage;
+            // Always return a new image to be able to wrap ProcessImage() with using
+            return sourceImage.Clone();
          }
          else
          {
