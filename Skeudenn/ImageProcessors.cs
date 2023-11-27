@@ -29,7 +29,7 @@ namespace Skeudenn
          }
       }
 
-      // UNDONE Add tests and bring back code coverage to 100%
+      // UNDONE Churn tests as I think one of them fails one in a while
       public void Add(object uniqueSource, IImageProcessor imageProcessor)
       {
          Update(uniqueSource, imageProcessor);

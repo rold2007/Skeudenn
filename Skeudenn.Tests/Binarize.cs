@@ -24,7 +24,7 @@ namespace Skeudenn.Tests
          Size imageSize = new Size(1, 1);
          byte[] imagePixels = new byte[1];
 
-         imagePixels[0] = 127;
+         imagePixels[0] = 128;
 
          using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
          {
@@ -40,8 +40,24 @@ namespace Skeudenn.Tests
       {
          UI.Binarize binarize = new UI.Binarize();
 
+         // Empty call to make sure it doesn't crash
          binarize.Remove();
-         Debug.Fail("Not implemented yet.");
+
+         binarize.Apply(128);
+         binarize.Remove();
+
+         Size imageSize = new Size(1, 1);
+         byte[] imagePixels = new byte[1];
+
+         imagePixels[0] = 42;
+
+         using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
+         {
+            using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
+            {
+               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
+            }
+         }
       }
    }
 }

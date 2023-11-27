@@ -2,7 +2,7 @@
 
 namespace Skeudenn.UI
 {
-   // HACK Find a better class name
+   // HACK Find a better class name. Rename tests too...
    public sealed record ActiveImage
    {
       public event EventHandler? UpdateData;

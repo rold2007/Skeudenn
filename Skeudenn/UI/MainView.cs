@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
+// TODO Add possibility to save as TIFF with NO compression. This is not supported by Paint.Net and I need it. This will also require to allow basic image editing.
 namespace Skeudenn.UI
 {
    public sealed record MainView
