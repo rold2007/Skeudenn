@@ -8,6 +8,7 @@
       <Value>Skeudenn.Godot\Skeudenn.Godot.csproj</Value>
       <Value>Skeudenn.Console\Skeudenn.Console.csproj</Value>
     </MetricsExclusionList>
+    <RdiConfigured>True</RdiConfigured>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
 </SolutionConfiguration>
