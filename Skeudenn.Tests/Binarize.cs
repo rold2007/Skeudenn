@@ -1,13 +1,5 @@
-﻿using Shouldly;
-using SixLabors.ImageSharp.PixelFormats;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using SixLabors.ImageSharp.PixelFormats;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Skeudenn.Tests
@@ -28,10 +20,12 @@ namespace Skeudenn.Tests
 
          using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
          {
-            using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
-            {
-               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
-            }
+            // UNDONE Need to restore image processors without using a static class
+            Assert.Fail();
+            //using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
+            //{
+            //   Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
+            //}
          }
       }
 
@@ -53,10 +47,12 @@ namespace Skeudenn.Tests
 
          using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
          {
-            using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
-            {
-               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
-            }
+            // UNDONE Need to restore image processors without using a static class
+            Assert.Fail();
+            //using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
+            //{
+            //   Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
+            //}
          }
       }
    }

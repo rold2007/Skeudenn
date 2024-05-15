@@ -53,10 +53,12 @@ namespace Skeudenn
          byte[] imageData = new byte[image!.Width * image!.Height];
          Span<byte> theSpan = new Span<byte>(imageData);
 
-         using (Image<L8> destinationImage = ImageProcessors.Instance.ProcessImage(image))
-         {
-            destinationImage.CopyPixelDataTo(theSpan);
-         }
+         // UNDONE Need to restore image processors without using a static class
+         //using (Image<L8> destinationImage = ImageProcessors.Instance.ProcessImage(image))
+         //{
+         //   destinationImage.CopyPixelDataTo(theSpan);
+         //}
+         image.CopyPixelDataTo(theSpan);
 
          return imageData;
       }

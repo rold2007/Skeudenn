@@ -65,7 +65,7 @@ public partial class Image : VBoxContainer
    public override void _Ready()
    {
 	  textureRect = GetNode<TextureRect>("%TextureRect");
-	  ActiveImage.Instance.UpdateData += UpdateData;
+	  //ActiveImage.Instance.UpdateData += UpdateData;
 
 	  Initialize();
    }

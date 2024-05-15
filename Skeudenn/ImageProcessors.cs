@@ -8,25 +8,13 @@ namespace Skeudenn
 {
    public sealed record ImageProcessors
    {
-      private static ImageProcessors? instance;
-
       private List<object> uniqueProcessors = new List<object>();
       private List<IImageProcessor> imageProcessors = new List<IImageProcessor>();
 
       public event EventHandler? ImageProcessorChanged;
 
-      private ImageProcessors()
+      public ImageProcessors()
       {
-      }
-
-      public static ImageProcessors Instance
-      {
-         get
-         {
-            instance ??= new ImageProcessors();
-
-            return instance;
-         }
       }
 
       // UNDONE Churn tests as I think one of them fails one in a while
@@ -69,7 +57,6 @@ namespace Skeudenn
             }
          }
       }
-
 
       public Image<L8> ProcessImage(Image<L8> sourceImage)
       {

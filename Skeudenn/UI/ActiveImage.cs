@@ -7,6 +7,7 @@ namespace Skeudenn.UI
    {
       public event EventHandler? UpdateData;
 
+      // UNDONE Remove this static instance. It makes the unit test more complicated.
       private static ActiveImage? instance;
 
       private ActiveImage()
@@ -21,7 +22,8 @@ namespace Skeudenn.UI
             {
                instance = new ActiveImage();
 
-               ImageProcessors.Instance.ImageProcessorChanged += instance.Instance_ImageProcessorChanged;
+               // UNDONE Need to restore image processors without using a static class
+               //ImageProcessors.Instance.ImageProcessorChanged += instance.Instance_ImageProcessorChanged;
             }
 
             return instance;
