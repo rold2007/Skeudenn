@@ -4,11 +4,16 @@ namespace Skeudenn
    using SixLabors.ImageSharp;
    using SixLabors.ImageSharp.Processing;
    using SixLabors.ImageSharp.Processing.Processors.Binarization;
+   using Skeudenn.UI;
    using System;
 
    public sealed record Binarize
    {
-      private ImageProcessors? imageProcessors;
+      public ImageProcessors? ImageProcessors
+      {
+         get;
+         private set;
+      }
 
       public Binarize()
       {
@@ -16,32 +21,33 @@ namespace Skeudenn
 
       private Binarize(ImageProcessors imageProcessors)
       {
-         this.imageProcessors = imageProcessors;
+         imageProcessors.ShouldNotBeNull();
+         ImageProcessors = imageProcessors;
       }
 
-      public Binarize ImageProcessors(ImageProcessors imageProcessors)
+      public Binarize Update(ImageProcessors imageProcessors)
       {
-         this.imageProcessors.ShouldBeNull();
+         ImageProcessors.ShouldBeNull();
 
          return new Binarize(imageProcessors);
       }
 
       public void Apply(double threshold)
       {
-         imageProcessors.ShouldNotBeNull();
+         ImageProcessors.ShouldNotBeNull();
 
          float binaryThreshold = Convert.ToSingle(threshold / 255.0);
 
          BinaryThresholdProcessor binaryThresholdProcessor = new BinaryThresholdProcessor(binaryThreshold, Color.White, Color.Black, BinaryThresholdMode.Luminance);
 
-         imageProcessors.Add(this, binaryThresholdProcessor);
+         ImageProcessors.Add(this, binaryThresholdProcessor);
       }
 
       public void Remove()
       {
-         imageProcessors.ShouldNotBeNull();
+         ImageProcessors.ShouldNotBeNull();
 
-         imageProcessors.Remove(this);
+         ImageProcessors.Remove(this);
       }
    }
 }

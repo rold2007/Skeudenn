@@ -1,4 +1,6 @@
-﻿using SixLabors.ImageSharp.PixelFormats;
+﻿using Shouldly;
+using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.Drawing;
 using Xunit;
 
@@ -9,7 +11,8 @@ namespace Skeudenn.Tests
       [Fact]
       public void Apply()
       {
-         UI.Binarize binarize = new UI.Binarize();
+         ImageProcessors imageProcessors = new();
+         UI.Binarize binarize = new UI.Binarize().Update(imageProcessors);
 
          binarize.Apply(128);
 
@@ -20,19 +23,18 @@ namespace Skeudenn.Tests
 
          using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
          {
-            // UNDONE Need to restore image processors without using a static class
-            Assert.Fail();
-            //using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
-            //{
-            //   Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
-            //}
+            using (SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image))
+            {
+               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
+            }
          }
       }
 
       [Fact]
       public void Remove()
       {
-         UI.Binarize binarize = new UI.Binarize();
+         ImageProcessors imageProcessors = new();
+         UI.Binarize binarize = new UI.Binarize().Update(imageProcessors);
 
          // Empty call to make sure it doesn't crash
          binarize.Remove();
@@ -47,12 +49,10 @@ namespace Skeudenn.Tests
 
          using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
          {
-            // UNDONE Need to restore image processors without using a static class
-            Assert.Fail();
-            //using (SixLabors.ImageSharp.Image<L8> resultImage = ImageProcessors.Instance.ProcessImage(image))
-            //{
-            //   Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
-            //}
+            using (SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image))
+            {
+               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
+            }
          }
       }
    }

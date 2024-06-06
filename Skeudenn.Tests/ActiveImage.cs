@@ -10,17 +10,19 @@ namespace Skeudenn.Tests
       public void UpdateData()
       {
          bool updateData = false;
+         ImageProcessors imageProcessors = new();
+         UI.ActiveImage? activeImage = new UI.ActiveImage().Update(imageProcessors);
          EventHandler? handler = null;
 
-         handler  = (s, e) =>
+         handler = (s, e) =>
          {
             updateData = true;
-            UI.ActiveImage.Instance.UpdateData -= handler;
+            activeImage!.UpdateData -= handler;
          };
 
-         UI.ActiveImage.Instance.UpdateData += handler;
+         activeImage!.UpdateData += handler;
 
-         UI.Binarize binarize = new UI.Binarize();
+         UI.Binarize binarize = new UI.Binarize().Update(imageProcessors);
 
          binarize.Apply(128);
 
@@ -28,7 +30,7 @@ namespace Skeudenn.Tests
 
          updateData = false;
 
-         UI.ActiveImage.Instance.UpdateData -= handler;
+         activeImage.UpdateData -= handler;
 
          binarize.Apply(128);
 
