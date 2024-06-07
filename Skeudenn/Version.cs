@@ -1,7 +1,7 @@
 ﻿namespace Skeudenn
 {
-   public sealed record Version
-    {
+   public sealed record Version // ncrunch: no coverage
+   {
         public string Text
       {
          get

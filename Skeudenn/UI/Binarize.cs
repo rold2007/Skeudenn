@@ -2,7 +2,7 @@
 
 namespace Skeudenn.UI
 {
-   public sealed record Binarize
+   public sealed record Binarize // ncrunch: no coverage
    {
       private Skeudenn.Binarize binarize;
 

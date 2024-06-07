@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Skeudenn
 {
-   public sealed record Image
+   public sealed record Image // ncrunch: no coverage
    {
       private Image<L8>? image;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Skeudenn
 {
-   public sealed record Zoom
+   public sealed record Zoom // ncrunch: no coverage
    {
       private int zoomIndex;
       private List<int> zoomLevels = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 10, 13, 17, 20, 25, 33, 50, 67, 100, 150, 200, 300, 400, 500, 600, 1000, 1200, 1400, 1600, 2000, 2400, 2800, 3200, 4000, 4800, 5600, 6400 };

@@ -3,7 +3,7 @@
 namespace Skeudenn.UI
 {
    // HACK Find a better class name. Rename tests too...
-   public sealed record ActiveImage
+   public sealed record ActiveImage // ncrunch: no coverage
    {
       public event EventHandler? UpdateData;
 

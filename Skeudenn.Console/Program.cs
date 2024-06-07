@@ -1,12 +1,12 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 using Skeudenn.UI;
 using Spectre.Console;
 using System;
 using System.Collections.Immutable;
 using System.IO;
 
+// UNDONE Fix all the Intellisense messages to improve the code
 namespace Skeudenn.Console
 {
    class Program

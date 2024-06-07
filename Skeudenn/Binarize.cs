@@ -4,10 +4,9 @@ namespace Skeudenn
    using SixLabors.ImageSharp;
    using SixLabors.ImageSharp.Processing;
    using SixLabors.ImageSharp.Processing.Processors.Binarization;
-   using Skeudenn.UI;
    using System;
 
-   public sealed record Binarize
+   public sealed record Binarize // ncrunch: no coverage
    {
       public ImageProcessors? ImageProcessors
       {

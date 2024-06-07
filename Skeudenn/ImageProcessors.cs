@@ -6,7 +6,7 @@ using System;
 
 namespace Skeudenn
 {
-   public sealed record ImageProcessors
+   public sealed record ImageProcessors // ncrunch: no coverage
    {
       private List<object> uniqueProcessors = new List<object>();
       private List<IImageProcessor> imageProcessors = new List<IImageProcessor>();
