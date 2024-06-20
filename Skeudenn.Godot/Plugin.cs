@@ -3,6 +3,7 @@ using Godot;
 // TODO Allow to change the window title depending on the plugin shown
 public partial class Plugin : Window
 {
+   // TODO Restore [rendering] to default value in project.godot
    private VBoxContainer? vBoxContainer;
 
    // Called when the node enters the scene tree for the first time.
