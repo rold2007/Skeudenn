@@ -11,7 +11,7 @@ namespace Skeudenn.UI
       {
       }
 
-      public ActiveImage? Update(ImageProcessors imageProcessors)
+      public ActiveImage Update(ImageProcessors imageProcessors)
       {
          imageProcessors.ImageProcessorChanged -= Instance_ImageProcessorChanged;
          imageProcessors.ImageProcessorChanged += Instance_ImageProcessorChanged;

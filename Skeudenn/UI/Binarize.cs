@@ -1,6 +1,4 @@
-﻿using Shouldly;
-
-namespace Skeudenn.UI
+﻿namespace Skeudenn.UI
 {
    public sealed record Binarize // ncrunch: no coverage
    {

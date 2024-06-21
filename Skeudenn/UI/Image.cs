@@ -51,9 +51,9 @@ namespace Skeudenn.UI
          this.image = image;
       }
 
-      public byte[] ImageData()
+      public byte[] ImageData(Skeudenn.ImageProcessors imageProcessors)
       {
-         return image.ImageData();
+         return image.ImageData(imageProcessors);
       }
 
       // To prevent crash when calling the default version on an invalid image

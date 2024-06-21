@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Skeudenn
 {
+   // UNDONE use this video, https://www.youtube.com/watch?v=OtfxxY4AeVQ&t=921s, to configure VS Code again
    public sealed record Image // ncrunch: no coverage
    {
       private Image<L8>? image;
@@ -48,17 +49,17 @@ namespace Skeudenn
          return new Image(image);
       }
 
-      public byte[] ImageData()
+      public byte[] ImageData(Skeudenn.ImageProcessors imageProcessors)
       {
          byte[] imageData = new byte[image!.Width * image!.Height];
          Span<byte> theSpan = new Span<byte>(imageData);
 
-         // UNDONE Need to restore image processors without using a static class
-         //using (Image<L8> destinationImage = ImageProcessors.Instance.ProcessImage(image))
-         //{
-         //   destinationImage.CopyPixelDataTo(theSpan);
-         //}
-         image.CopyPixelDataTo(theSpan);
+         // TODO It might be better to deal with the ImageProcessors in some App Context class so that the
+         // class using the UI layer doesn't have to send it each time it calls ImageData()
+         using (Image<L8> destinationImage = imageProcessors.ProcessImage(image))
+         {
+            destinationImage.CopyPixelDataTo(theSpan);
+         }
 
          return imageData;
       }
