@@ -2,6 +2,7 @@ using Godot;
 using Skeudenn;
 
 // UNDONE Add a label to see the threshold value
+// TODO The Godot UI should not depend on Skeudenn, only on Skeudenn.UI.
 public partial class Binarize : VBoxContainer
 {
    private HSlider? slider;

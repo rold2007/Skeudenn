@@ -66,9 +66,10 @@ namespace Skeudenn.Tests
             {
                UI.MainView mainView = new UI.MainView();
                UI.Image image = mainView.OpenFile(memoryStream);
+               ImageProcessors imageProcessors = new();
 
                image.Size.ShouldBe(imageSize);
-               image.ImageData().ShouldBe(imagePixels);
+               image.ImageData(imageProcessors).ShouldBe(imagePixels);
             }
          }
       }

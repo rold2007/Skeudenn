@@ -32,6 +32,8 @@ namespace Skeudenn.Console
          ImmutableDictionary<string, string> menuConversion = ImmutableDictionary<string, string>.Empty;
          ImmutableDictionary<string, Action> menuAction = ImmutableDictionary<string, Action>.Empty;
          MainView mainView = new MainView();
+         // TODO The Console UI should not depend on Skeudenn, only on Skeudenn.UI.
+         ImageProcessors imageProcessors = new();
 
          menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(help, "HelpMenu");
 
@@ -59,7 +61,7 @@ namespace Skeudenn.Console
 
                   if (imageUI.Valid)
                   {
-                     Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(), imageUI.Size.Width, imageUI.Size.Height);
+                     Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(imageProcessors), imageUI.Size.Width, imageUI.Size.Height);
                      CanvasImage canvasImage;
 
                      // HACK I think this can now be simplified without passing by a BMP

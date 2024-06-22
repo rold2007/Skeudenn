@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// TODO The Godot UI should not depend on Skeudenn, only on Skeudenn.UI.
 public static class Globals
 {
    static public ImageProcessors imageProcessors = new();
