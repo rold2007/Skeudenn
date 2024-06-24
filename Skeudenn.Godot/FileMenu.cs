@@ -25,24 +25,19 @@ public partial class FileMenu : MenuButton
       GetPopup().Connect("id_pressed",new Callable(this,"SubMenuClicked"));
       openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
 
-      openImageFileDialog.Filters = new string[] { "*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images" };
+      openImageFileDialog.Filters = ["*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images"];
    }
 
    private void _on_OpenImageFileDialog_file_selected(string path)
    {
-      _on_OpenImageFileDialog_files_selected(new string[] { path });
+      _on_OpenImageFileDialog_files_selected([path]);
    }
 
    private void _on_OpenImageFileDialog_files_selected(string[] paths)
    {
       if (paths.Length > 0)
       {
-         EventHandler<OpenFilesEventArgs>? handler = OpenFiles;
-
-         if (handler != null)
-         {
-            handler(this, new OpenFilesEventArgs(paths));
-         }
+         OpenFiles?.Invoke(this, new OpenFilesEventArgs(paths));
       }
    }
 

@@ -8,14 +8,9 @@ public partial class Image : VBoxContainer
    private Godot.Image? image;
    private Skeudenn.UI.Image? skeudennImage;
 
-   public partial class TextureMouseMoveEventArgs : EventArgs
+   public partial class TextureMouseMoveEventArgs(PointF pixelPosition) : EventArgs
    {
-      public TextureMouseMoveEventArgs(PointF pixelPosition)
-      {
-         PixelPosition = pixelPosition;
-      }
-
-      public PointF PixelPosition { get; private set; }
+      public PointF PixelPosition { get; private set; } = pixelPosition;
    }
 
    public event EventHandler<TextureMouseMoveEventArgs>? MouseMove;
@@ -65,8 +60,8 @@ public partial class Image : VBoxContainer
    {
       textureRect = GetNode<TextureRect>("%TextureRect");
 
-      Globals.activeImage.UpdateData += UpdateData;
-      Globals.activeImage = Globals.activeImage.Update(Globals.imageProcessors);
+      Globals.ActiveImage.UpdateData += UpdateData;
+      Globals.ActiveImage = Globals.ActiveImage.Update(Globals.ImageProcessors);
 
       Initialize();
    }
@@ -83,7 +78,7 @@ public partial class Image : VBoxContainer
    {
       if (skeudennImage != null)
       {
-         byte[] imageData = skeudennImage!.ImageData(Globals.imageProcessors);
+         byte[] imageData = skeudennImage!.ImageData(Globals.ImageProcessors);
 
          image!.SetData(skeudennImage!.Size.Width, skeudennImage!.Size.Height, false, Godot.Image.Format.L8, imageData);
       }
@@ -130,12 +125,7 @@ public partial class Image : VBoxContainer
 
    private void TriggerZoomChangedEvent()
    {
-      EventHandler? handler = ZoomLevelChanged;
-
-      if (handler != null)
-      {
-         handler(this, EventArgs.Empty);
-      }
+      ZoomLevelChanged?.Invoke(this, EventArgs.Empty);
    }
 
    private void _on_TextureRect_gui_input(InputEvent inputEvent)

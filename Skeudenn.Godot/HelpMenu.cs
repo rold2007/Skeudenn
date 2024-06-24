@@ -17,7 +17,7 @@ public partial class HelpMenu : MenuButton
       {
          case 0:
             // TODO There shouldn't be more than one Skeudenn.UI.MainView instance...
-            Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
+            Skeudenn.UI.MainView mainView = new();
 
             aboutBoxDialog!.Title = "About";
             aboutBoxDialog!.DialogText = mainView.AboutText();

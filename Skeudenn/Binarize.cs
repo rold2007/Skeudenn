@@ -37,7 +37,7 @@ namespace Skeudenn
 
          float binaryThreshold = Convert.ToSingle(threshold / 255.0);
 
-         BinaryThresholdProcessor binaryThresholdProcessor = new BinaryThresholdProcessor(binaryThreshold, Color.White, Color.Black, BinaryThresholdMode.Luminance);
+         BinaryThresholdProcessor binaryThresholdProcessor = new(binaryThreshold, Color.White, Color.Black, BinaryThresholdMode.Luminance);
 
          ImageProcessors.Add(this, binaryThresholdProcessor);
       }

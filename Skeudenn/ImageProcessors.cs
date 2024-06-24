@@ -8,8 +8,8 @@ namespace Skeudenn
 {
    public sealed record ImageProcessors // ncrunch: no coverage
    {
-      private List<object> uniqueProcessors = new List<object>();
-      private List<IImageProcessor> imageProcessors = new List<IImageProcessor>();
+      private List<object> uniqueProcessors = [];
+      private List<IImageProcessor> imageProcessors = [];
 
       public event EventHandler? ImageProcessorChanged;
 
@@ -47,13 +47,8 @@ namespace Skeudenn
          }
 
          if (update)
-         { 
-            EventHandler? imageProcessorChanged = ImageProcessorChanged;
-
-            if (imageProcessorChanged != null)
-            {
-               imageProcessorChanged(this, EventArgs.Empty);
-            }
+         {
+            ImageProcessorChanged?.Invoke(this, EventArgs.Empty);
          }
       }
 

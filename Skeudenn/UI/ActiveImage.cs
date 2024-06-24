@@ -21,12 +21,7 @@ namespace Skeudenn.UI
 
       private void Instance_ImageProcessorChanged(object? sender, EventArgs e)
       {
-         EventHandler? updateData = UpdateData;
-
-         if (updateData != null)
-         {
-            updateData.Invoke(sender, e);
-         }
+         UpdateData?.Invoke(sender, e);
       }
    }
 }

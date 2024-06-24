@@ -12,13 +12,13 @@ namespace Skeudenn.Tests
       [Fact]
       public void Constructor()
       {
-         UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new();
       }
 
       [Fact]
       public void CanExit()
       {
-         UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new();
 
          fileMenu.CanExit().ShouldBeTrue();
       }
@@ -26,7 +26,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void Exit()
       {
-         UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new();
 
          fileMenu.Exit();
       }
@@ -34,28 +34,26 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFilePath()
       {
-         using (Image<L8> tempImage = new Image<L8>(3, 3))
+         using Image<L8> tempImage = new(3, 3);
+         UI.MainView fileMenu = new();
+
+         string tempFilename = string.Empty;
+
+         try
          {
-            UI.MainView fileMenu = new UI.MainView();
+            tempFilename = Path.GetTempFileName() + ".bmp";
 
-            string tempFilename = string.Empty;
+            tempImage.SaveAsBmp(tempFilename);
 
-            try
+            UI.Image image = fileMenu.OpenFile(tempFilename);
+
+            image.Valid.ShouldBeTrue();
+         }
+         finally
+         {
+            if (tempFilename != string.Empty)
             {
-               tempFilename = Path.GetTempFileName() + ".bmp";
-
-               tempImage.SaveAsBmp(tempFilename);
-
-               UI.Image image = fileMenu.OpenFile(tempFilename);
-
-               image.Valid.ShouldBeTrue();
-            }
-            finally
-            {
-               if (tempFilename != string.Empty)
-               {
-                  File.Delete(tempFilename);
-               }
+               File.Delete(tempFilename);
             }
          }
       }
@@ -63,26 +61,22 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFile()
       {
-         using (Image<L8> tempImage = new Image<L8>(3, 3))
-         {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-               UI.MainView fileMenu = new UI.MainView();
+         using Image<L8> tempImage = new(3, 3);
+         using MemoryStream memoryStream = new();
+         UI.MainView fileMenu = new();
 
-               tempImage.SaveAsBmp(memoryStream);
-               memoryStream.Seek(0, SeekOrigin.Begin);
+         tempImage.SaveAsBmp(memoryStream);
+         memoryStream.Seek(0, SeekOrigin.Begin);
 
-               UI.Image image = fileMenu.OpenFile(memoryStream);
+         UI.Image image = fileMenu.OpenFile(memoryStream);
 
-               image.Valid.ShouldBeTrue();
-            }
-         }
+         image.Valid.ShouldBeTrue();
       }
 
       [Fact]
       public void OpenFilePathFail()
       {
-         UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new();
 
          string tempFilename = string.Empty;
 
@@ -104,12 +98,10 @@ namespace Skeudenn.Tests
       [Fact]
       public void OpenFileFail()
       {
-         using (MemoryStream memoryStream = new MemoryStream())
-         {
-            UI.MainView fileMenu = new UI.MainView();
+         using MemoryStream memoryStream = new();
+         UI.MainView fileMenu = new();
 
-            fileMenu.OpenFile(memoryStream).Valid.ShouldBeFalse();
-         }
+         fileMenu.OpenFile(memoryStream).Valid.ShouldBeFalse();
       }
 
       [Fact]
@@ -117,32 +109,29 @@ namespace Skeudenn.Tests
       {
          List<UI.Image> images;
 
-         using (Image<L8> tempImage = new Image<L8>(3, 3))
+         using Image<L8> tempImage = new(3, 3);
+         UI.MainView fileMenu = new();
+
+         List<string> tempFilenames = [];
+
+         try
          {
-            UI.MainView fileMenu = new UI.MainView();
-
-            List<string> tempFilenames = new List<string>();
-
-            try
+            for (int i = 0; i < 10; i++)
             {
-               for (int i = 0; i < 10; i++)
-               {
-                  string tempFilename = Path.GetTempFileName() + ".bmp";
+               string tempFilename = Path.GetTempFileName() + ".bmp";
 
-                  tempFilenames.Add(tempFilename);
-                  tempImage.SaveAsBmp(tempFilename);
-               }
-
-               bool error = false;
-
-               images = fileMenu.OpenFiles(tempFilenames.ToArray(), out error);
+               tempFilenames.Add(tempFilename);
+               tempImage.SaveAsBmp(tempFilename);
             }
-            finally
+
+
+            images = fileMenu.OpenFiles([.. tempFilenames], out bool error);
+         }
+         finally
+         {
+            foreach (string tempFilename in tempFilenames)
             {
-               foreach (string tempFilename in tempFilenames)
-               {
-                  File.Delete(tempFilename);
-               }
+               File.Delete(tempFilename);
             }
          }
       }
@@ -152,45 +141,42 @@ namespace Skeudenn.Tests
       {
          List<UI.Image> images;
 
-         using (Image<L8> tempImage = new Image<L8>(3, 3))
+         using Image<L8> tempImage = new(3, 3);
+         UI.MainView fileMenu = new();
+
+         List<string> tempFilenames = [];
+
+         try
          {
-            UI.MainView fileMenu = new UI.MainView();
-
-            List<string> tempFilenames = new List<string>();
-
-            try
+            for (int i = 0; i < 10; i++)
             {
-               for (int i = 0; i < 10; i++)
+               string tempFilename;
+
+               if (i == 3)
                {
-                  string tempFilename;
-
-                  if (i == 3)
-                  {
-                     tempFilename = Path.GetTempFileName();
-                  }
-                  else
-                  {
-                     tempFilename = Path.GetTempFileName() + ".bmp";
-                  }
-
-                  tempFilenames.Add(tempFilename);
-
-                  if ((i != 3) && (i != 5))
-                  {
-                     tempImage.SaveAsBmp(tempFilename);
-                  }
+                  tempFilename = Path.GetTempFileName();
+               }
+               else
+               {
+                  tempFilename = Path.GetTempFileName() + ".bmp";
                }
 
-               bool error = false;
+               tempFilenames.Add(tempFilename);
 
-               images = fileMenu.OpenFiles(tempFilenames.ToArray(), out error);
+               if ((i != 3) && (i != 5))
+               {
+                  tempImage.SaveAsBmp(tempFilename);
+               }
             }
-            finally
+
+
+            images = fileMenu.OpenFiles([.. tempFilenames], out bool error);
+         }
+         finally
+         {
+            foreach (string tempFilename in tempFilenames)
             {
-               foreach (string tempFilename in tempFilenames)
-               {
-                  File.Delete(tempFilename);
-               }
+               File.Delete(tempFilename);
             }
          }
       }
@@ -198,7 +184,7 @@ namespace Skeudenn.Tests
       [Fact]
       public void AboutText()
       {
-         UI.MainView fileMenu = new UI.MainView();
+         UI.MainView fileMenu = new();
 
          string aboutText = fileMenu.AboutText();
 

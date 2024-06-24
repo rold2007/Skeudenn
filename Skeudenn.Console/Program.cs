@@ -31,15 +31,15 @@ namespace Skeudenn.Console
          ImmutableDictionary<string, ImmutableList<string>> menuChoices = ImmutableDictionary<string, ImmutableList<string>>.Empty;
          ImmutableDictionary<string, string> menuConversion = ImmutableDictionary<string, string>.Empty;
          ImmutableDictionary<string, Action> menuAction = ImmutableDictionary<string, Action>.Empty;
-         MainView mainView = new MainView();
+         MainView mainView = new();
          // TODO The Console UI should not depend on Skeudenn, only on Skeudenn.UI.
          ImageProcessors imageProcessors = new();
 
          menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(help, "HelpMenu");
 
-         menuChoices = menuChoices.Add(menu, ImmutableList<string>.Empty.Add(file).Add(help));
-         menuChoices = menuChoices.Add(file, ImmutableList<string>.Empty.Add(fileUp).Add(fileOpen).Add(fileExit));
-         menuChoices = menuChoices.Add(help, ImmutableList<string>.Empty.Add(helpUp).Add(helpAbout));
+         menuChoices = menuChoices.Add(menu, [file, help]);
+         menuChoices = menuChoices.Add(file, [fileUp, fileOpen, fileExit]);
+         menuChoices = menuChoices.Add(help, [helpUp, helpAbout]);
 
          menuConversion = menuConversion.Add(fileUp, twoDots).Add(fileOpen, open).Add(fileExit, exit);
          menuConversion = menuConversion.Add(helpUp, twoDots).Add(helpAbout, about);
@@ -65,7 +65,7 @@ namespace Skeudenn.Console
                      CanvasImage canvasImage;
 
                      // HACK I think this can now be simplified without passing by a BMP
-                     using (MemoryStream memoryStream = new MemoryStream())
+                     using (MemoryStream memoryStream = new())
                      {
                         image.SaveAsBmp(memoryStream);
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -107,14 +107,11 @@ namespace Skeudenn.Console
          // HACK Add all the same UI functionalities as with the Godot UI
          while (!exitMenu)
          {
-            string? menuTitle;
-            Action? action;
 
-            if (menuPrompts.TryGetValue(menu, out menuTitle))
+            if (menuPrompts.TryGetValue(menu, out string? menuTitle))
             {
-               ImmutableList<string>? choices;
 
-               if (menuChoices.TryGetValue(menu, out choices))
+               if (menuChoices.TryGetValue(menu, out ImmutableList<string>? choices))
                {
                   menu = AnsiConsole.Prompt(
                              new SelectionPrompt<string>()
@@ -122,9 +119,8 @@ namespace Skeudenn.Console
                                  .AddChoices(choices)
                                  .UseConverter(menuItem =>
                                  {
-                                    string? convertedMenu;
 
-                                    if (menuConversion.TryGetValue(menuItem, out convertedMenu))
+                                    if (menuConversion.TryGetValue(menuItem, out string? convertedMenu))
                                     {
                                        return convertedMenu;
                                     }
@@ -138,7 +134,7 @@ namespace Skeudenn.Console
                   exitMenu = true;
                }
             }
-            else if (menuAction.TryGetValue(menu, out action))
+            else if (menuAction.TryGetValue(menu, out Action? action))
             {
                action.Invoke();
             }

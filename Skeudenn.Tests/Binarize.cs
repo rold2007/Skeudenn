@@ -16,18 +16,11 @@ namespace Skeudenn.Tests
 
          binarize.Apply(128);
 
-         Size imageSize = new Size(1, 1);
-         byte[] imagePixels = new byte[1];
-
-         imagePixels[0] = 128;
-
-         using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
-         {
-            using (SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image))
-            {
-               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
-            }
-         }
+         Size imageSize = new(1, 1);
+         byte[] imagePixels = [128];
+         using SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height);
+         using SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image);
+         Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(255);
       }
 
       [Fact]
@@ -42,18 +35,11 @@ namespace Skeudenn.Tests
          binarize.Apply(128);
          binarize.Remove();
 
-         Size imageSize = new Size(1, 1);
-         byte[] imagePixels = new byte[1];
-
-         imagePixels[0] = 42;
-
-         using (SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height))
-         {
-            using (SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image))
-            {
-               Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
-            }
-         }
+         Size imageSize = new(1, 1);
+         byte[] imagePixels = [42];
+         using SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imagePixels, imageSize.Width, imageSize.Height);
+         using SixLabors.ImageSharp.Image<L8> resultImage = imageProcessors.ProcessImage(image);
+         Convert.ToInt32(resultImage[0, 0].PackedValue).ShouldBe(42);
       }
    }
 }

@@ -6,7 +6,7 @@ namespace Skeudenn.UI
 {
    public sealed record MainView // ncrunch: no coverage
    {
-      private Version version = new Version();
+      private Version version = new();
 
       public bool CanExit()
       {
@@ -21,10 +21,8 @@ namespace Skeudenn.UI
       {
          try
          {
-            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-               return OpenFile(fileStream);
-            }
+            using FileStream fileStream = new(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return OpenFile(fileStream);
          }
          catch
          {
@@ -39,7 +37,7 @@ namespace Skeudenn.UI
 
       public List<Image> OpenFiles(string[] paths, out bool error)
       {
-         List<Image> images = new List<Image>();
+         List<Image> images = [];
 
          error = false;
 

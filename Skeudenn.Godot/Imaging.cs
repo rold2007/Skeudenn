@@ -39,7 +39,7 @@ public partial class Imaging : MenuButton
 
          Binarize? binarize = binarizeScene.Instantiate<Binarize>();
 
-         binarize.Update(Globals.imageProcessors);
+         binarize.Update(Globals.ImageProcessors);
          binarizePluginWindow.Size = new Vector2I(Convert.ToInt32(binarize.GetMinimumSize().X), Convert.ToInt32(binarize.GetMinimumSize().Y));
          binarizePluginWindow.MaxSize = binarizePluginWindow.Size;
 

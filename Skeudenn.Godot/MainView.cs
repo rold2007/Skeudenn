@@ -1,16 +1,6 @@
 using Godot;
-using Skeudenn;
-using Skeudenn.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-
-// TODO The Godot UI should not depend on Skeudenn, only on Skeudenn.UI.
-public static class Globals
-{
-   static public ImageProcessors imageProcessors = new();
-   static public ActiveImage activeImage = new();
-}
 
 public partial class MainView : PanelContainer
 {
@@ -18,9 +8,9 @@ public partial class MainView : PanelContainer
    private Image? imageNode;
    private Label? pixelPosition;
    private Label? zoomLevel;
-   private Skeudenn.UI.MainView mainView = new Skeudenn.UI.MainView();
+   private readonly Skeudenn.UI.MainView mainView = new();
    private TabBar? tabs;
-   private List<Skeudenn.UI.Image> allImages = new List<Skeudenn.UI.Image>();
+   private readonly List<Skeudenn.UI.Image> allImages = [];
    private AcceptDialog? acceptDialog;
 
    public override void _Ready()
@@ -43,10 +33,9 @@ public partial class MainView : PanelContainer
 
    private void FileMenu_OpenFiles(object? sender, FileMenu.OpenFilesEventArgs? e)
    {
-      bool error;
 
       // HACK I don't like out parameters. Replace this with a more standard way of dealing with errors in the UI
-      List<Skeudenn.UI.Image> images = mainView.OpenFiles(e!.Paths, out error);
+      List<Skeudenn.UI.Image> images = mainView.OpenFiles(e!.Paths, out bool error);
 
       foreach (Skeudenn.UI.Image image in images)
       {
@@ -68,7 +57,7 @@ public partial class MainView : PanelContainer
          acceptDialog!.Show();
       }
 
-      if (allImages.Count() > 0)
+      if (allImages.Count > 0)
       {
          PrintZoomLevel();
       }
@@ -97,7 +86,7 @@ public partial class MainView : PanelContainer
       }
    }
 
-   private void _on_Tabs_resized()
+   private void OnTabsResized()
    {
       // Replace with function body.
       if (tabs != null && imageNode != null)
@@ -107,12 +96,12 @@ public partial class MainView : PanelContainer
       }
    }
 
-   private void _on_Tabs_tab_changed(int tab)
+   private void OnTabsTabChanged(int tab)
    {
       ChangeTab(tab);
    }
 
-   private void _on_Tabs_tab_close(int tab)
+   private void OnTabsTabClose(int tab)
    {
       tabs!.RemoveTab(tab);
       allImages.RemoveAt(tab);
@@ -135,7 +124,7 @@ public partial class MainView : PanelContainer
       imageNode!.Visible = true;
    }
 
-   private void _on_MainMenu_tree_exiting()
+   private void OnMainMenuTreeExiting()
    {
       fileMenu!.OpenFiles -= FileMenu_OpenFiles;
       imageNode!.MouseMove -= ImageNode_MouseMove;

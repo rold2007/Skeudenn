@@ -6,7 +6,7 @@ namespace Skeudenn.UI
    public sealed record Image // ncrunch: no coverage
    {
       private readonly Skeudenn.Image image;
-      private readonly Zoom zoom = new Zoom();
+      private readonly Zoom zoom = new();
 
       public Size Size
       {

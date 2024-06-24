@@ -34,7 +34,7 @@ public partial class Binarize : VBoxContainer
       binarize = binarize.Update(imageProcessors);
    }
 
-   private void _on_h_slider_value_changed(double value)
+   private void OnHSliderValueChanged(double value)
    {
       binarize.Apply(value);
    }
