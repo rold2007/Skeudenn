@@ -20,7 +20,7 @@ namespace Skeudenn.Tests
       {
          UI.MainView fileMenu = new();
 
-         fileMenu.CanExit().ShouldBeTrue();
+         UI.MainView.CanExit().ShouldBeTrue();
       }
 
       [Fact]
@@ -28,7 +28,7 @@ namespace Skeudenn.Tests
       {
          UI.MainView fileMenu = new();
 
-         fileMenu.Exit();
+         UI.MainView.Exit();
       }
 
       [Fact]
@@ -45,7 +45,7 @@ namespace Skeudenn.Tests
 
             tempImage.SaveAsBmp(tempFilename);
 
-            UI.Image image = fileMenu.OpenFile(tempFilename);
+            UI.Image image = UI.MainView.OpenFile(tempFilename);
 
             image.Valid.ShouldBeTrue();
          }
@@ -68,7 +68,7 @@ namespace Skeudenn.Tests
          tempImage.SaveAsBmp(memoryStream);
          memoryStream.Seek(0, SeekOrigin.Begin);
 
-         UI.Image image = fileMenu.OpenFile(memoryStream);
+         UI.Image image = UI.MainView.OpenFile(memoryStream);
 
          image.Valid.ShouldBeTrue();
       }
@@ -84,7 +84,7 @@ namespace Skeudenn.Tests
          {
             tempFilename = Path.GetTempFileName();
 
-            fileMenu.OpenFile(tempFilename).Valid.ShouldBeFalse();
+            UI.MainView.OpenFile(tempFilename).Valid.ShouldBeFalse();
          }
          finally
          {
@@ -101,7 +101,7 @@ namespace Skeudenn.Tests
          using MemoryStream memoryStream = new();
          UI.MainView fileMenu = new();
 
-         fileMenu.OpenFile(memoryStream).Valid.ShouldBeFalse();
+         UI.MainView.OpenFile(memoryStream).Valid.ShouldBeFalse();
       }
 
       [Fact]
@@ -125,7 +125,7 @@ namespace Skeudenn.Tests
             }
 
 
-            images = fileMenu.OpenFiles([.. tempFilenames], out bool error);
+            images = UI.MainView.OpenFiles([.. tempFilenames], out bool error);
          }
          finally
          {
@@ -170,7 +170,7 @@ namespace Skeudenn.Tests
             }
 
 
-            images = fileMenu.OpenFiles([.. tempFilenames], out bool error);
+            images = UI.MainView.OpenFiles([.. tempFilenames], out bool error);
          }
          finally
          {
@@ -186,7 +186,7 @@ namespace Skeudenn.Tests
       {
          UI.MainView fileMenu = new();
 
-         string aboutText = fileMenu.AboutText();
+         string aboutText = UI.MainView.AboutText();
 
          aboutText.ShouldBe("v1.0");
       }

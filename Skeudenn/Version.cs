@@ -2,7 +2,7 @@
 {
    public sealed record Version // ncrunch: no coverage
    {
-        public string Text
+      public static string Text
       {
          get
          {

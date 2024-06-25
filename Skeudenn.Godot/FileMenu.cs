@@ -4,65 +4,63 @@ using System.Diagnostics;
 
 // HACK Configure a Continuous Integration (AppVeyor?) for the solution
 // HACK Fix warning MSB3243. It doesn't happen when compiling with Skeudenn.Godot.sln
-public partial class FileMenu : MenuButton
+namespace Skeudenn.Godot
 {
-   private FileDialog? openImageFileDialog;
-
-   public partial class OpenFilesEventArgs : EventArgs
+   public partial class FileMenu : MenuButton
    {
-      public OpenFilesEventArgs(string[] paths)
+      private FileDialog? openImageFileDialog;
+
+      public partial class OpenFilesEventArgs(string[] paths) : EventArgs
       {
-         Paths = paths;
+         public string[] Paths { get; private set; } = paths;
       }
 
-      public string[] Paths { get; private set; }
-   }
+      public event EventHandler<OpenFilesEventArgs>? OpenFiles;
 
-   public event EventHandler<OpenFilesEventArgs>? OpenFiles;
-
-   public override void _Ready()
-   {
-      GetPopup().Connect("id_pressed",new Callable(this,"SubMenuClicked"));
-      openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
-
-      openImageFileDialog.Filters = ["*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images"];
-   }
-
-   private void _on_OpenImageFileDialog_file_selected(string path)
-   {
-      _on_OpenImageFileDialog_files_selected([path]);
-   }
-
-   private void _on_OpenImageFileDialog_files_selected(string[] paths)
-   {
-      if (paths.Length > 0)
+      public override void _Ready()
       {
-         OpenFiles?.Invoke(this, new OpenFilesEventArgs(paths));
+         GetPopup().Connect("id_pressed", new Callable(this, "SubMenuClicked"));
+         openImageFileDialog = GetNode<FileDialog>("OpenImageFileDialog");
+
+         openImageFileDialog.Filters = ["*.bmp, *.gif, *.jpg, *.jpeg, *.pbm, *.png, *.tif, *.tiff, *.tga, *.webp;Supported Images"];
       }
-   }
 
-   // HACK Use the new MenuBar instead of the custom MenuButton to implement the menu. Not sure how it works. Wait for a tutorial...
-   private void SubMenuClicked(int id)
-   {
-      switch (id)
+      private void OnOpenImageFileDialogFileSelected(string path)
       {
-         case 0:
-            // HACK Set a proper position, size and starting directory when opening openImageFileDialog
-            openImageFileDialog!.Position = new Vector2I(50, 100);
-            openImageFileDialog!.MinSize = new Vector2I(0, 0);
-            openImageFileDialog!.Size = new Vector2I(640, 480);
+         OnOpenImageFileDialogFilesSelected([path]);
+      }
 
-            openImageFileDialog!.Show();
-            openImageFileDialog!.Invalidate();
-            break;
+      private void OnOpenImageFileDialogFilesSelected(string[] paths)
+      {
+         if (paths.Length > 0)
+         {
+            OpenFiles?.Invoke(this, new OpenFilesEventArgs(paths));
+         }
+      }
 
-         case 1:
-            GetTree().Quit();
-            break;
+      // HACK Use the new MenuBar instead of the custom MenuButton to implement the menu. Not sure how it works. Wait for a tutorial...
+      private void SubMenuClicked(int id)
+      {
+         switch (id)
+         {
+            case 0:
+               // HACK Set a proper position, size and starting directory when opening openImageFileDialog
+               openImageFileDialog!.Position = new Vector2I(50, 100);
+               openImageFileDialog!.MinSize = new Vector2I(0, 0);
+               openImageFileDialog!.Size = new Vector2I(640, 480);
 
-         default:
-            Debug.Fail("Unknown menu id.");
-            break;
+               openImageFileDialog!.Show();
+               openImageFileDialog!.Invalidate();
+               break;
+
+            case 1:
+               GetTree().Quit();
+               break;
+
+            default:
+               Debug.Fail("Unknown menu id.");
+               break;
+         }
       }
    }
 }

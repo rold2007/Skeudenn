@@ -38,7 +38,7 @@ text = "Reset Zoom"
 layout_mode = 2
 text = "Zoom+"
 
-[connection signal="gui_input" from="ScrollContainer/TextureRect" to="." method="_on_TextureRect_gui_input"]
-[connection signal="pressed" from="ZoomControls/ZoomOut" to="." method="_on_ZoomOut_pressed"]
-[connection signal="pressed" from="ZoomControls/ZoomReset" to="." method="_on_ZoomReset_pressed"]
-[connection signal="pressed" from="ZoomControls/ZoomIn" to="." method="_on_ZoomIn_pressed"]
+[connection signal="gui_input" from="ScrollContainer/TextureRect" to="." method="OnTextureRectGUIInput"]
+[connection signal="pressed" from="ZoomControls/ZoomOut" to="." method="OnZoomOutPressed"]
+[connection signal="pressed" from="ZoomControls/ZoomReset" to="." method="OnZoomResetPressed"]
+[connection signal="pressed" from="ZoomControls/ZoomIn" to="." method="OnZoomInPressed"]

@@ -12,13 +12,12 @@ namespace Skeudenn.Tests
          bool updateData = false;
          ImageProcessors imageProcessors = new();
          UI.ActiveImage? activeImage = new UI.ActiveImage().Update(imageProcessors);
-         EventHandler? handler = null;
 
-         handler = (s, e) =>
+         void handler(object? s, EventArgs e)
          {
             updateData = true;
             activeImage!.UpdateData -= handler;
-         };
+         }
 
          activeImage!.UpdateData += handler;
 

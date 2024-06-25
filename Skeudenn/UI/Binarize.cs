@@ -2,21 +2,21 @@
 {
    public sealed record Binarize // ncrunch: no coverage
    {
-      private Skeudenn.Binarize binarize;
+      private readonly Skeudenn.Binarize binarize;
 
       public Binarize()
       {
          binarize = new();
       }
 
-      private Binarize(ImageProcessors imageProcessors)
+      private Binarize(Skeudenn.Binarize binarize)
       {
-         binarize = new Skeudenn.Binarize().Update(imageProcessors);
+         this.binarize = binarize;
       }
 
       public Binarize Update(ImageProcessors imageProcessors)
       {
-         return new Binarize(imageProcessors);
+         return new Binarize(binarize.Update(imageProcessors));
       }
 
       public void Apply(double threshold)

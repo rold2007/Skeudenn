@@ -4,20 +4,19 @@ using System.IO;
 // TODO Add possibility to save as TIFF with NO compression. This is not supported by Paint.Net and I need it. This will also require to allow basic image editing.
 namespace Skeudenn.UI
 {
+   // HACK There should never be more than one Skeudenn.UI.MainView instance...Be careful if any method needs to become non-static.
    public sealed record MainView // ncrunch: no coverage
    {
-      private Version version = new();
-
-      public bool CanExit()
+      public static bool CanExit()
       {
          return true;
       }
 
-      public void Exit()
+      public static void Exit()
       {
       }
 
-      public Image OpenFile(string path)
+      public static Image OpenFile(string path)
       {
          try
          {
@@ -30,12 +29,12 @@ namespace Skeudenn.UI
          }
       }
 
-      public Image OpenFile(Stream imageStream)
+      public static Image OpenFile(Stream imageStream)
       {
          return new Image(Skeudenn.Image.OpenFile(imageStream));
       }
 
-      public List<Image> OpenFiles(string[] paths, out bool error)
+      public static List<Image> OpenFiles(string[] paths, out bool error)
       {
          List<Image> images = [];
 
@@ -59,9 +58,9 @@ namespace Skeudenn.UI
          return images;
       }
 
-      public string AboutText()
+      public static string AboutText()
       {
-         return version.Text;
+         return Version.Text;
       }
    }
 }

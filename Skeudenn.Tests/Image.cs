@@ -2,7 +2,6 @@
 using System.IO;
 using System.Drawing;
 using Shouldly;
-using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Pbm;
@@ -64,7 +63,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
             ImageProcessors imageProcessors = new();
 
             image.Size.ShouldBe(imageSize);
@@ -82,7 +81,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             PointF windowPosition = new(42, 54);
             PointF pixelPosition = image.PixelPosition(windowPosition);
@@ -102,7 +101,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomIn();
             image.ZoomIn();
@@ -125,7 +124,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomedSize.ShouldBe(imageSize);
 
@@ -153,7 +152,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomedSize.ShouldBe(imageSize);
 
@@ -184,7 +183,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomedSize.ShouldBe(imageSize);
 
@@ -215,7 +214,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomedSize.ShouldBe(imageSize);
 
@@ -247,7 +246,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.ZoomLevel.ShouldBe(100);
 
@@ -279,7 +278,7 @@ namespace Skeudenn.Tests
          if (memoryStream.Length > 0)
          {
             UI.MainView mainView = new();
-            UI.Image image = mainView.OpenFile(memoryStream);
+            UI.Image image = UI.MainView.OpenFile(memoryStream);
 
             image.Name.ShouldBeEmpty();
             image.ToString().ShouldBeEmpty();

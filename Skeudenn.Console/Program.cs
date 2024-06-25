@@ -6,11 +6,11 @@ using System;
 using System.Collections.Immutable;
 using System.IO;
 
-// UNDONE Fix all the Intellisense messages to improve the code
 namespace Skeudenn.Console
 {
    class Program
    {
+      // TODO Allow to open an image file using the args parameter
       static void Main(string[] args)
       {
          bool exitMenu = false;
@@ -57,7 +57,7 @@ namespace Skeudenn.Console
 
                try
                {
-                  UI.Image imageUI = mainView.OpenFile(filePath);
+                  UI.Image imageUI = MainView.OpenFile(filePath);
 
                   if (imageUI.Valid)
                   {
@@ -98,7 +98,7 @@ namespace Skeudenn.Console
          menuAction = menuAction.Add(helpUp, () => menu = main);
          menuAction = menuAction.Add(helpAbout, () =>
          {
-            AnsiConsole.WriteLine(mainView.AboutText());
+            AnsiConsole.WriteLine(MainView.AboutText());
 
             menu = main;
          });

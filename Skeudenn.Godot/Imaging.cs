@@ -2,54 +2,57 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-public partial class Imaging : MenuButton
+namespace Skeudenn.Godot
 {
-   private Plugin? binarizePluginWindow;
-
-   public override void _Ready()
+   public partial class Imaging : MenuButton
    {
-      GetPopup().Connect("id_pressed", new Callable(this, "SubMenuClicked"));
-   }
+      private Plugin? binarizePluginWindow;
 
-   public void SubMenuClicked(int id)
-   {
-      switch (id)
+      public override void _Ready()
       {
-         case 0:
-            InitializeBinarizePluginWindow();
-            binarizePluginWindow!.Popup();
-            break;
-
-         default:
-            Debug.Fail("Unknown menu id.");
-            break;
+         GetPopup().Connect("id_pressed", new Callable(this, "SubMenuClicked"));
       }
-   }
 
-   private void InitializeBinarizePluginWindow()
-   {
-      if (binarizePluginWindow == null)
+      public void SubMenuClicked(int id)
       {
-         PackedScene pluginScene = GD.Load<PackedScene>("res://Plugin.tscn");
-         PackedScene binarizeScene = GD.Load<PackedScene>("res://Binarize.tscn");
+         switch (id)
+         {
+            case 0:
+               InitializeBinarizePluginWindow();
+               binarizePluginWindow!.Popup();
+               break;
 
-         binarizePluginWindow = pluginScene.Instantiate<Plugin>();
+            default:
+               Debug.Fail("Unknown menu id.");
+               break;
+         }
+      }
 
-         binarizePluginWindow.Visible = false;
+      private void InitializeBinarizePluginWindow()
+      {
+         if (binarizePluginWindow == null)
+         {
+            PackedScene pluginScene = GD.Load<PackedScene>("res://Plugin.tscn");
+            PackedScene binarizeScene = GD.Load<PackedScene>("res://Binarize.tscn");
 
-         Binarize? binarize = binarizeScene.Instantiate<Binarize>();
+            binarizePluginWindow = pluginScene.Instantiate<Plugin>();
 
-         binarize.Update(Globals.ImageProcessors);
-         binarizePluginWindow.Size = new Vector2I(Convert.ToInt32(binarize.GetMinimumSize().X), Convert.ToInt32(binarize.GetMinimumSize().Y));
-         binarizePluginWindow.MaxSize = binarizePluginWindow.Size;
+            binarizePluginWindow.Visible = false;
 
-         binarizePluginWindow.AboutToPopup += binarize.Apply;
-         binarizePluginWindow.CloseRequested += binarize.Remove;
+            Binarize? binarize = binarizeScene.Instantiate<Binarize>();
 
-         // HACK Maybe this AddChild should be done on the MainView instead of this MenuButton...
-         AddChild(binarizePluginWindow);
+            binarize.Update(Globals.ImageProcessors);
+            binarizePluginWindow.Size = new Vector2I(Convert.ToInt32(binarize.GetMinimumSize().X), Convert.ToInt32(binarize.GetMinimumSize().Y));
+            binarizePluginWindow.MaxSize = binarizePluginWindow.Size;
 
-         binarizePluginWindow!.AddPluginWindow(binarize!);
+            binarizePluginWindow.AboutToPopup += binarize.Apply;
+            binarizePluginWindow.CloseRequested += binarize.Remove;
+
+            // HACK Maybe this AddChild should be done on the MainView instead of this MenuButton...
+            AddChild(binarizePluginWindow);
+
+            binarizePluginWindow!.AddPluginWindow(binarize!);
+         }
       }
    }
 }
