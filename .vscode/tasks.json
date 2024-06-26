@@ -1,0 +1,58 @@
+{
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "build",
+         "command": "dotnet",
+         "type": "process",
+         "args": [
+            "build",
+            "${workspaceFolder}/Skeudenn.Console/Skeudenn.Console.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+         ],
+         "problemMatcher": "$msCompile"
+      },
+      {
+         "label": "publish",
+         "command": "dotnet",
+         "type": "process",
+         "args": [
+            "publish",
+            "${workspaceFolder}/Skeudenn.Console/Skeudenn.Console.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+         ],
+         "problemMatcher": "$msCompile"
+      },
+      {
+         "label": "watch",
+         "command": "dotnet",
+         "type": "process",
+         "args": [
+            "watch",
+            "run",
+            "--project",
+            "${workspaceFolder}/Skeudenn.Tests/Skeudenn.Tests.csproj"
+         ],
+         "problemMatcher": "$msCompile",
+         "group": {
+            "kind": "test",
+            "isDefault": true
+         }
+      },
+      {
+         "type": "dotnet",
+         "task": "watch Skeudenn.Tests",
+         "file": "Skeudenn.Tests",
+         "group": {
+            "kind": "test",
+            "isDefault": true
+         },
+         "problemMatcher": [
+            "$msCompile"
+         ],
+         "label": "dotnet: watch Skeudenn.Tests"
+      }
+   ]
+}

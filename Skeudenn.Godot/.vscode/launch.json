@@ -4,23 +4,22 @@
         {
             "name": "Play in Editor",
             "type": "coreclr",
-            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
-            "request": "launch"
+            "program": "C:/Program Files/Godot/Godot_v4.2.2-stable_mono_win64/Godot_v4.2.2-stable_mono_win64.exe",
+            "request": "launch",
         },
         {
             "name": "Launch",
             "type": "coreclr",
             "request": "launch",
-            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
-            "preLaunchTask": "build",
+            "program": "C:/Program Files/Godot/Godot_v4.2.2-stable_mono_win64/Godot_v4.2.2-stable_mono_win64.exe",
+            "preLaunchTask": "build"
         },
         {
             "name": "Launch (Select Scene)",
             "type": "coreclr",
             "request": "launch",
-            "program": "C:/Program Files/Godot/Godot_v4.0-stable_mono_win64/Godot_v4.0-stable_mono_win64.exe",
-            "preLaunchTask": "build",
-            ]
+            "program": "C:/Program Files/Godot/Godot_v4.2.2-stable_mono_win64/Godot_v4.2.2-stable_mono_win64.exe",
+            "preLaunchTask": "build"
         },
         {
             "name": "Attach",
