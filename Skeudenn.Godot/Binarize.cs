@@ -1,18 +1,21 @@
 using Godot;
 
-// UNDONE Add a label to see the threshold value
 // TODO The Godot UI should not depend on Skeudenn, only on Skeudenn.UI.
 namespace Skeudenn.Godot
 {
    public partial class Binarize : VBoxContainer
    {
+      private Label? label;
       private HSlider? slider;
       private Skeudenn.UI.Binarize binarize = new();
 
       // Called when the node enters the scene tree for the first time.
       public override void _Ready()
       {
+         label = GetNode<Label>("%Label");
          slider = GetNode<HSlider>("%HSlider");
+
+         UpdateLabelValue();
       }
 
       // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,7 +25,12 @@ namespace Skeudenn.Godot
 
       public void Apply()
       {
-         binarize.Apply(slider!.Value);
+         Apply(slider!.Value);
+      }
+
+      public void Apply(double value)
+      {
+         binarize.Apply(value);
       }
 
       public void Remove()
@@ -35,9 +43,15 @@ namespace Skeudenn.Godot
          binarize = binarize.Update(imageProcessors);
       }
 
+      private void UpdateLabelValue()
+      {
+         label!.Text = System.Convert.ToString(slider!.Value);
+      }
+
       private void OnHSliderValueChanged(double value)
       {
-         binarize.Apply(value);
+         UpdateLabelValue();
+         Apply(value);
       }
    }
 }

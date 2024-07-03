@@ -5,7 +5,6 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Skeudenn
 {
-   // UNDONE use this video, https://www.youtube.com/watch?v=OtfxxY4AeVQ&t=921s, to configure VS Code again
    public sealed record Image // ncrunch: no coverage
    {
       private readonly Image<L8>? image;

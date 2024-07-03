@@ -2,7 +2,8 @@
 bin
 obj
 *.user
-/_NCrunch_Skeudenn/*.cache
+/.NCrunch_Skeudenn
 .mono
 /Skeudenn.Godot/.import
 /Skeudenn.Godot/.godot
+/Skeudenn.Console/Properties/launchSettings.json
