@@ -8,6 +8,7 @@ namespace Skeudenn.Godot
 {
    public partial class FileMenu : MenuButton
    {
+      // TODO Change the file dialog for a native one. Maybe add a user option to choose which one to use. Based on this comment "Native file dialogs are now supported for all desktop platforms via FileDialog's use_native_dialog property." from https://github.com/godotengine/godot-proposals/issues/1123#issuecomment-2111027828
       private FileDialog? openImageFileDialog;
 
       public partial class OpenFilesEventArgs(string[] paths) : EventArgs
