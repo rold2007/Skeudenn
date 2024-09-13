@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using SixLabors.ImageSharp;
+using static SixLabors.ImageSharp.ImageExtensions;
 using SixLabors.ImageSharp.PixelFormats;
 using Skeudenn.UI;
 using Spectre.Console;
@@ -36,7 +36,7 @@ namespace Skeudenn.Console
                   // TODO The Console UI should not depend on Skeudenn, only on Skeudenn.UI.
                   ImageProcessors imageProcessors = new();
 
-                  Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(imageProcessors), imageUI.Size.Width, imageUI.Size.Height);
+                  SixLabors.ImageSharp.Image<L8> image = SixLabors.ImageSharp.Image.LoadPixelData<L8>(imageUI.ImageData(imageProcessors), imageUI.Size.Width, imageUI.Size.Height);
                   CanvasImage canvasImage;
 
                   // HACK I think this can now be simplified without passing by a BMP
@@ -74,15 +74,19 @@ namespace Skeudenn.Console
          bool exitMenu = false;
          const string main = "Main";
          const string file = "File";
+         const string plugins = "Plugins";
          const string help = "Help";
          const string fileUp = "FileUp";
          const string fileOpen = "FileOpen";
          const string fileExit = "FileExit";
+         const string pluginsUp = "PluginsUp";
+         const string pluginsBinarize = "PluginsBinarize";
          const string helpUp = "HelpUp";
          const string helpAbout = "HelpAbout";
          const string twoDots = "..";
          const string open = "Open...";
          const string exit = "Exit";
+         const string binarize = "Binarize";
          const string about = "About";
          string menu = main;
          ImmutableDictionary<string, string> menuPrompts = ImmutableDictionary<string, string>.Empty;
@@ -93,13 +97,16 @@ namespace Skeudenn.Console
          // TODO The Console UI should not depend on Skeudenn, only on Skeudenn.UI.
          ImageProcessors imageProcessors = new();
 
-         menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(help, "HelpMenu");
+         // TODO Add helper methods to simplify the menu creation
+         menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(plugins, "PluginsMenu").Add(help, "HelpMenu");
 
-         menuChoices = menuChoices.Add(menu, [file, help]);
+         menuChoices = menuChoices.Add(menu, [file, plugins, help]);
          menuChoices = menuChoices.Add(file, [fileUp, fileOpen, fileExit]);
+         menuChoices = menuChoices.Add(plugins, [pluginsUp, pluginsBinarize]);
          menuChoices = menuChoices.Add(help, [helpUp, helpAbout]);
 
          menuConversion = menuConversion.Add(fileUp, twoDots).Add(fileOpen, open).Add(fileExit, exit);
+         menuConversion = menuConversion.Add(pluginsUp, twoDots).Add(pluginsBinarize, binarize);
          menuConversion = menuConversion.Add(helpUp, twoDots).Add(helpAbout, about);
 
          menuAction = menuAction.Add(fileUp, () => menu = main);
@@ -114,6 +121,17 @@ namespace Skeudenn.Console
             menu = main;
          });
          menuAction = menuAction.Add(fileExit, () => exitMenu = true);
+         menuAction = menuAction.Add(pluginsUp, () => menu = main);
+         menuAction = menuAction.Add(pluginsBinarize, () =>
+         {
+            // UNDONE Add an updated version of the displayed image. This requires to use a Live Display and keep track of the image and image processor
+            // TODO Do nothing if no image is loaded. (display a warning message)
+            // TODO Maybe this can be replaced by a live BarChart to be more user friendly?
+            byte threshold = AnsiConsole.Prompt(new TextPrompt<byte>("Input binarization threshold to apply"));
+
+            menu = main;
+         });
+
          menuAction = menuAction.Add(helpUp, () => menu = main);
          menuAction = menuAction.Add(helpAbout, () =>
          {
@@ -173,7 +191,6 @@ namespace Skeudenn.Console
 
    class Program
    {
-      // UNDONE Add plugin menu to console
       static int Main(string[] args)
       {
          var app = new CommandApp<FileOpenCommand>();
