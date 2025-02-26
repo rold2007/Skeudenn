@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.2.2">
+<Project Sdk="Godot.NET.Sdk/4.3.0">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Skeudenn.Godot</RootNamespace>
@@ -20,6 +20,9 @@
     <WarningLevel>9999</WarningLevel>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DiffEngine" Version="15.9.1" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skeudenn\Skeudenn.csproj" />
   </ItemGroup>
