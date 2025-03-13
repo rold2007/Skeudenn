@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Skeudenn.Godot"
 run/main_scene="res://MainView.tscn"
-config/features=PackedStringArray("4.3", "C#")
+config/features=PackedStringArray("4.4", "C#")
 run/low_processor_mode=true
 
 [display]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bo0petgrli3rp"]
 
 [ext_resource type="PackedScene" uid="uid://c0xak2yue6wyy" path="res://Image.tscn" id="1"]
-[ext_resource type="Script" path="res://FileMenu.cs" id="2"]
-[ext_resource type="Script" path="res://HelpMenu.cs" id="3"]
-[ext_resource type="Script" path="res://Imaging.cs" id="3_du04m"]
-[ext_resource type="Script" path="res://MainView.cs" id="4"]
+[ext_resource type="Script" uid="uid://cls5imhl05a3s" path="res://FileMenu.cs" id="2"]
+[ext_resource type="Script" uid="uid://blxuiocy0r5g6" path="res://HelpMenu.cs" id="3"]
+[ext_resource type="Script" uid="uid://ckokofiuw5fvg" path="res://Imaging.cs" id="3_du04m"]
+[ext_resource type="Script" uid="uid://cchux868a61op" path="res://MainView.cs" id="4"]
 
 [node name="MainView" type="PanelContainer"]
 anchors_preset = 15
@@ -26,6 +26,7 @@ text = "File"
 switch_on_hover = true
 item_count = 2
 popup/item_0/text = "Open..."
+popup/item_0/id = 0
 popup/item_1/text = "Exit"
 popup/item_1/id = 1
 script = ExtResource("2")
@@ -41,6 +42,7 @@ layout_mode = 2
 text = "Imaging"
 item_count = 1
 popup/item_0/text = "Binarize"
+popup/item_0/id = 0
 script = ExtResource("3_du04m")
 
 [node name="HelpMenu" type="MenuButton" parent="VBoxContainer/MainMenu"]
@@ -50,6 +52,7 @@ text = "Help"
 switch_on_hover = true
 item_count = 1
 popup/item_0/text = "About..."
+popup/item_0/id = 0
 script = ExtResource("3")
 
 [node name="AboutBoxDialog" type="AcceptDialog" parent="VBoxContainer/MainMenu/HelpMenu"]

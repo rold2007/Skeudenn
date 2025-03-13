@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.3.0">
+<Project Sdk="Godot.NET.Sdk/4.4.0">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Skeudenn.Godot</RootNamespace>
@@ -21,7 +21,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="15.9.1" />
+    <PackageReference Include="DiffEngine" Version="15.11.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skeudenn\Skeudenn.csproj" />
@@ -35,12 +35,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="Godot.SourceGenerators" Version="4.3.0" />
+    <PackageReference Update="Godot.SourceGenerators" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="GodotSharp" Version="4.3.0" />
+    <PackageReference Update="GodotSharp" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="GodotSharpEditor" Version="4.3.0" />
+    <PackageReference Update="GodotSharpEditor" Version="4.4.0" />
   </ItemGroup>
 </Project>

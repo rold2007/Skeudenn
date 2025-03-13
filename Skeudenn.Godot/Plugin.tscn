@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jk1suabicn3h"]
 
-[ext_resource type="Script" path="res://Plugin.cs" id="1_l2n1f"]
+[ext_resource type="Script" uid="uid://chd4hxuvn7m6n" path="res://Plugin.cs" id="1_l2n1f"]
 
 [node name="Window" type="Window"]
 title = "Plugin"
