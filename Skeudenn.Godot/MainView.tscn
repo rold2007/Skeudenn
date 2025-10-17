@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bo0petgrli3rp"]
 
 [ext_resource type="PackedScene" uid="uid://c0xak2yue6wyy" path="res://Image.tscn" id="1"]
-[ext_resource type="Script" uid="uid://cls5imhl05a3s" path="res://FileMenu.cs" id="2"]
-[ext_resource type="Script" uid="uid://blxuiocy0r5g6" path="res://HelpMenu.cs" id="3"]
-[ext_resource type="Script" uid="uid://ckokofiuw5fvg" path="res://Imaging.cs" id="3_du04m"]
-[ext_resource type="Script" uid="uid://cchux868a61op" path="res://MainView.cs" id="4"]
+[ext_resource type="Script" uid="uid://gi12wlhehdeh" path="res://FileMenu.cs" id="2"]
+[ext_resource type="Script" uid="uid://ihem5kpw7mxm" path="res://HelpMenu.cs" id="3"]
+[ext_resource type="Script" uid="uid://bqcuac4bfk0c6" path="res://Imaging.cs" id="3_du04m"]
+[ext_resource type="Script" uid="uid://cfp1j384e4nh6" path="res://MainView.cs" id="4"]
 
 [node name="MainView" type="PanelContainer"]
 anchors_preset = 15
