@@ -1,5 +1,4 @@
 ﻿using Shouldly;
-using static SixLabors.ImageSharp.ImageExtensions;
 using SixLabors.ImageSharp.PixelFormats;
 using Skeudenn.UI;
 using Spectre.Console;
@@ -8,6 +7,9 @@ using System;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime;
+using System.Threading;
+using static SixLabors.ImageSharp.ImageExtensions;
 
 namespace Skeudenn.Console
 {
@@ -69,7 +71,7 @@ namespace Skeudenn.Console
       }
 
       // UNDONE Move this to the Skeudenn namespace in order to leave a simple Main() in this project and unit test the extracted code, using Spectre.Console.Testing
-      public override int Execute(CommandContext context, FileOpenCommandSettings settings)
+      public override int Execute(CommandContext context, FileOpenCommandSettings settings, CancellationToken cancellationToken)
       {
          bool exitMenu = false;
          const string main = "Main";
