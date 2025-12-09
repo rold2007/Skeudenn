@@ -21,7 +21,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="16.9.0" />
+    <PackageReference Include="DiffEngine" Version="17.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skeudenn\Skeudenn.csproj" />
