@@ -71,7 +71,7 @@ namespace Skeudenn.Console
       }
 
       // UNDONE Move this to the Skeudenn namespace in order to leave a simple Main() in this project and unit test the extracted code, using Spectre.Console.Testing
-      public override int Execute(CommandContext context, FileOpenCommandSettings settings, CancellationToken cancellationToken)
+      protected override int Execute(CommandContext context, FileOpenCommandSettings settings, CancellationToken cancellationToken)
       {
          bool exitMenu = false;
          const string main = "Main";
