@@ -1,13 +1,12 @@
 ﻿using Shouldly;
 using SixLabors.ImageSharp.PixelFormats;
+using Skeudenn;
 using Skeudenn.UI;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
-using System.Collections.Immutable;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime;
 using System.Threading;
 using static SixLabors.ImageSharp.ImageExtensions;
 
@@ -70,122 +69,29 @@ namespace Skeudenn.Console
          }
       }
 
-      // UNDONE Move this to the Skeudenn namespace in order to leave a simple Main() in this project and unit test the extracted code, using Spectre.Console.Testing
+      // TODO Unit test this code, using Spectre.Console.Testing
       protected override int Execute(CommandContext context, FileOpenCommandSettings settings, CancellationToken cancellationToken)
       {
-         bool exitMenu = false;
-         const string main = "Main";
-         const string file = "File";
-         const string plugins = "Plugins";
-         const string help = "Help";
-         const string fileUp = "FileUp";
-         const string fileOpen = "FileOpen";
-         const string fileExit = "FileExit";
-         const string pluginsUp = "PluginsUp";
-         const string pluginsBinarize = "PluginsBinarize";
-         const string helpUp = "HelpUp";
-         const string helpAbout = "HelpAbout";
-         const string twoDots = "..";
-         const string open = "Open...";
-         const string exit = "Exit";
-         const string binarize = "Binarize";
-         const string about = "About";
-         string menu = main;
-         ImmutableDictionary<string, string> menuPrompts = ImmutableDictionary<string, string>.Empty;
-         ImmutableDictionary<string, ImmutableList<string>> menuChoices = ImmutableDictionary<string, ImmutableList<string>>.Empty;
-         ImmutableDictionary<string, string> menuConversion = ImmutableDictionary<string, string>.Empty;
-         ImmutableDictionary<string, Action> menuAction = ImmutableDictionary<string, Action>.Empty;
-         MainView mainView = new();
-         // TODO The Console UI should not depend on Skeudenn, only on Skeudenn.UI.
-         ImageProcessors imageProcessors = new();
-
-         // TODO Add helper methods to simplify the menu creation
-         menuPrompts = menuPrompts.Add(main, "MainMenu").Add(file, "FileMenu").Add(plugins, "PluginsMenu").Add(help, "HelpMenu");
-
-         menuChoices = menuChoices.Add(menu, [file, plugins, help]);
-         menuChoices = menuChoices.Add(file, [fileUp, fileOpen, fileExit]);
-         menuChoices = menuChoices.Add(plugins, [pluginsUp, pluginsBinarize]);
-         menuChoices = menuChoices.Add(help, [helpUp, helpAbout]);
-
-         menuConversion = menuConversion.Add(fileUp, twoDots).Add(fileOpen, open).Add(fileExit, exit);
-         menuConversion = menuConversion.Add(pluginsUp, twoDots).Add(pluginsBinarize, binarize);
-         menuConversion = menuConversion.Add(helpUp, twoDots).Add(helpAbout, about);
-
-         menuAction = menuAction.Add(fileUp, () => menu = main);
-         menuAction = menuAction.Add(fileOpen, () =>
-         {
-            string filePath = AnsiConsole.Ask<string>("Enter file path", string.Empty);
-
-            AnsiConsole.Clear();
-
-            OpenFile(filePath);
-
-            menu = main;
-         });
-         menuAction = menuAction.Add(fileExit, () => exitMenu = true);
-         menuAction = menuAction.Add(pluginsUp, () => menu = main);
-         menuAction = menuAction.Add(pluginsBinarize, () =>
-         {
-            // UNDONE Add an updated version of the displayed image. This requires to use a Live Display and keep track of the image and image processor
-            // TODO Do nothing if no image is loaded. (display a warning message)
-            // TODO Maybe this can be replaced by a live BarChart to be more user friendly?
-            byte threshold = AnsiConsole.Prompt(new TextPrompt<byte>("Input binarization threshold to apply"));
-
-            menu = main;
-         });
-
-         menuAction = menuAction.Add(helpUp, () => menu = main);
-         menuAction = menuAction.Add(helpAbout, () =>
-         {
-            AnsiConsole.WriteLine(MainView.AboutText());
-
-            menu = main;
-         });
-
          if (settings.Validate().Successful)
          {
             settings.ImageFilePath.ShouldNotBeNull();
             OpenFile(settings.ImageFilePath);
          }
 
-         // HACK Add support for zoom tool with AnsiConsole.Console.Input.ReadKey(), AnsiConsole.Live() and canvasImage.MaxWidth
-         // HACK Add all the same UI functionalities as with the Godot UI
-         while (!exitMenu)
-         {
-            if (menuPrompts.TryGetValue(menu, out string? menuTitle))
-            {
-               if (menuChoices.TryGetValue(menu, out ImmutableList<string>? choices))
-               {
-                  menu = AnsiConsole.Prompt(
-                             new SelectionPrompt<string>()
-                                 .Title(menuTitle)
-                                 .AddChoices(choices)
-                                 .UseConverter(menuItem =>
-                                 {
-                                    if (menuConversion.TryGetValue(menuItem, out string? convertedMenu))
-                                    {
-                                       return convertedMenu;
-                                    }
+         MenuController controller = new(
+            (title, items) => AnsiConsole.Prompt(
+               new SelectionPrompt<MenuItem>()
+                  .Title(title)
+                  .AddChoices(items)
+                  .UseConverter(item => item.Text)),
+            (prompt, defaultValue) => AnsiConsole.Ask(prompt, defaultValue),
+            prompt => AnsiConsole.Prompt(new TextPrompt<byte>(prompt)),
+            () => AnsiConsole.Clear(),
+            text => AnsiConsole.WriteLine(text),
+            path => OpenFile(path),
+            () => MainView.AboutText());
 
-                                    return menuItem;
-                                 }));
-               }
-               else
-               {
-                  System.Diagnostics.Debug.Fail("Unknown menu choices");
-                  exitMenu = true;
-               }
-            }
-            else if (menuAction.TryGetValue(menu, out Action? action))
-            {
-               action.Invoke();
-            }
-            else
-            {
-               System.Diagnostics.Debug.Fail("Unknown menu");
-               exitMenu = true;
-            }
-         }
+         controller.Run();
 
          return 0;
       }
