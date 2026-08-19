@@ -22,6 +22,7 @@ run/low_processor_mode=true
 [display]
 
 window/size/mode=2
+window/subwindows/embed_subwindows=false
 
 [dotnet]
 

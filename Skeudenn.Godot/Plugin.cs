@@ -19,7 +19,6 @@ namespace Skeudenn.Godot
       {
       }
 
-      // TODO The plugin window cannot be moved outside of the UI. See how to make it possible to move it outside like a normal GUI
       public void AddPluginWindow(Node node)
       {
          vBoxContainer!.AddChild(node);

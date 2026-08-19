@@ -19,7 +19,7 @@ namespace Skeudenn.Godot
          {
             case 0:
                InitializeBinarizePluginWindow();
-               binarizePluginWindow!.Popup();
+               binarizePluginWindow!.Show();
                break;
 
             default:
