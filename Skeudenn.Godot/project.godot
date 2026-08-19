@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Skeudenn.Godot"
 run/main_scene="res://MainView.tscn"
-config/features=PackedStringArray("4.5", "C#")
+config/features=PackedStringArray("4.7", "C#")
 run/low_processor_mode=true
 
 [display]
