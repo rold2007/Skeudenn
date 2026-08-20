@@ -69,7 +69,7 @@ namespace Skeudenn.Godot
 		 pixelPosition!.Text = e!.PixelPosition.ToString();
 	  }
 
-	  // TODO Improve the zoom UI to look more like Paint.Net
+	  // TODO Improve the zoom UI to look more like Paint.Net. Remove the button and use keyboard shortcuts. Add zoom level indicator in status bar. Add status bar button or menu to reset zoom. Make sure zoom in zooms in the center of the display.
 	  private void ImageNode_ZoomLevelChanged(object? sender, EventArgs? e)
 	  {
 		 PrintZoomLevel();
